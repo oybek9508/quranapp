@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 
 const SurahDetail = (props) => {
   const state = useSelector((state) => state.theme);
-  console.log("state", state);
   console.log("props", props);
   const { chapterData, chapterId } = props;
   const { data, error, isLoading } = useSingleSurah(props.chapterId);
