@@ -1,0 +1,129 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: black;
+    background: white;
+  }
+}
+
+/* TODO: figure out a way to generate font faces on the fly. We're creating lot of font faces that browsers might not need. */
+
+/*Fonts for rendering different Mushaf scripts*/
+@font-face {
+  font-family: "IndoPak";
+  src: local("AlQuran IndoPak by QuranWBW"),
+    url("/fonts/quran/hafs/nastaleeq/indopak/indopak-nastaleeq-waqf-lazim-v4.2.1.woff2")
+      format("woff2"),
+    url("/fonts/quran/hafs/nastaleeq/indopak/indopak-nastaleeq-waqf-lazim-v4.2.1.woff")
+      format("woff"),
+    url("/fonts/quran/hafs/nastaleeq/indopak/indopak-nastaleeq-waqf-lazim-v4.2.1.ttf")
+      format("truetype");
+  font-display: swap;
+}
+
+/* TODO: we're not rendering text_uthmani anymore, do we need this font face? */
+@font-face {
+  font-family: "meQuran";
+  src: local("me_quran2"),
+    url("/fonts/quran/hafs/me_quran/me_quran-2.woff2") format("woff2"),
+    url("/fonts/quran/hafs/me_quran/me_quran-2.woff2") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "UthmanicHafs";
+  src: local("KFGQPC HAFS Uthmanic Script"),
+    url("/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.woff2")
+      format("woff2"),
+    url("/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.ttf")
+      format("truetype");
+  font-display: swap;
+}
+
+/* TODO: regenerate this font and add font-family name */
+@font-face {
+  font-family: "surahnames";
+  src: url("/fonts/quran/surah-names/v1/sura_names.woff2"),
+    url("/fonts/quran/quran/surah-names/v1/sura_names.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*Language specific fonts*/
+/* @font-face {
+  font-family: "divehi";
+  src: local("Dhivehi Akuru"),
+    url("/fonts/lang/dhivehi/dhivehi/DhivehiAkuru.woff2"),
+    url("/fonts/lang/dhivehi/dhivehi/DhivehiAkuru.woff") format("woff"),
+    url("/fonts/lang/dhivehi/dhivehi/DhivehiAkuru.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NotoNastaliq";
+  src: local("Noto Naskh Arabic"), local("Nafees Regular"),
+    url("/fonts/lang/arabic/NotoNaskhArabic-Regular.woff2"),
+    url("/fonts/lang/arabic/NotoNaskhArabic-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */
+
+/* @font-face {
+  font-family: "MehrNastaliq";
+  src: local("Mehr Nastaliq Web"), url("/fonts/lang/urdu/MehrNastaliqWeb.woff2"),
+    url("/fonts/lang/urdu/MehrNastaliqWeb.woff") format("woff"),
+    url("/fonts/lang/urdu/MehrNastaliqWeb.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  // only apply this font to Urdu characters https://jrgraphix.net/r/Unicode/0600-06FF
+  unicode-range: U+0600-06FF;
+} */
+
+/* @font-face {
+  font-family: "NotoSerifBengali";
+  src: local("Noto Serif Bengali"),
+    url("/fonts/lang/bengali/NotoSerifBengali-Regular.woff2");
+  font-display: swap;
+} */
+
+/* @font-face {
+  font-family: "DroidArabicNaskh";
+  src: local("Droid Arabic Naskh"),
+    url("/fonts/lang/kurdish/droid-naskh-regular.woff2"),
+    url("/fonts/lang/kurdish/droid-naskh-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */
+
+/* Fallback for browsers that don't support variable fonts */
+/* @font-face {
+  font-family: "ProximaVara";
+  src: local("Proxima Vara"), url("/fonts/lang/ProximaVara/ProximaVara.woff2");
+  font-weight: 100 900;
+  /* default 400 */
+/* font-stretch: 50% 100%; */
+/* default 100% */
+/* font-display: swap; */
