@@ -6,6 +6,8 @@ import TabPanelUnstyled from "@mui/base/TabPanelUnstyled";
 import { buttonUnstyledClasses } from "@mui/base/ButtonUnstyled";
 import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
 import ChapterList from "../chapters/ChapterList";
+import JuzList from "../juzs/JuzList";
+import Pages from "../page";
 
 const blue = {
   50: "#F0F7FF",
@@ -97,13 +99,17 @@ export default function QuranListTab() {
       <TabsList>
         <Tab>Surah</Tab>
         <Tab>Pora</Tab>
-        <Tab>Page</Tab>
+        <Tab>Sahifa</Tab>
       </TabsList>
       <TabPanel value={0}>
         <ChapterList />
       </TabPanel>
-      <TabPanel value={1}>Pora</TabPanel>
-      <TabPanel value={2}>Sahifa</TabPanel>
+      <TabPanel value={1}>
+        <JuzList />
+      </TabPanel>
+      <TabPanel value={2}>
+        <Pages />
+      </TabPanel>
     </TabsUnstyled>
   );
 }

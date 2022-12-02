@@ -19,7 +19,7 @@ export default function Home() {
           <Typography
             sx={{ fontFamily: "Poppins", fontSize: "18px", color: "#8789A3" }}
           >
-            Asslamualaikum
+            Assalomu Alaykum
           </Typography>
           <Typography
             sx={{
@@ -29,7 +29,7 @@ export default function Home() {
               color: "#240F4F",
             }}
           >
-            Tanvir Ahassan
+            Oybek Toshmatov
           </Typography>
           <MainBanner />
           <QuranListTab />
