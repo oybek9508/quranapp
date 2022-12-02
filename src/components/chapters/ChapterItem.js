@@ -8,11 +8,7 @@ const ChapterItem = ({ chapter }) => {
     <MenuItem
       onClick={() => router.push(`${chapter.id}`)}
       sx={{
-        cursor: "pointer",
         width: "100%",
-        borderRadius: 2,
-        border: "1px solid rgba(187, 196, 206, 0.35)",
-        mb: 1,
       }}
     >
       <Box

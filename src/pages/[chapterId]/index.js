@@ -12,12 +12,12 @@ import { useSelector } from "react-redux";
 
 const SurahDetail = (props) => {
   const state = useSelector((state) => state.theme);
-  console.log("props", props);
+  // console.log("props", props);
   const { chapterData, chapterId } = props;
   const { data, error, isLoading } = useSingleSurah(props.chapterId);
   return (
     <Grid>
-      <Header type="back" />
+      <Header type="back" singleChapter={data} />
       <Grid sx={{ px: 3, mt: 4 }}>
         <ReadingPreferenceTab
           initialData={chapterData}

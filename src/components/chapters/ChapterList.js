@@ -1,4 +1,4 @@
-import { Box, Input, Menu, MenuList, TextField } from "@mui/material";
+import { Box, Grid, Input, Menu, MenuList, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ChapterItem from "./ChapterItem";
 import { useQuranChapters } from "/src/api/quran-chapter-api";
@@ -16,16 +16,29 @@ const ChapterList = () => {
   console.log("chapters", chapters);
   return (
     <MenuList sx={{ pb: "56px", width: "100%" }}>
-      <TextField
-        id="filled-search"
-        label="Search field"
-        type="search"
-        variant="filled"
-        value=""
-      />
-      {data?.chapters.map((chapter) => {
-        return <ChapterItem key={chapter.id} chapter={chapter} />;
-      })}
+      <Grid container justifyContent="center">
+        {data?.chapters.map((chapter) => {
+          return (
+            <Grid
+              item
+              container
+              xs={6}
+              sm={4}
+              md={4}
+              lg={3}
+              key={chapter.id}
+              sx={{
+                cursor: "pointer",
+                borderRadius: 2,
+                border: "1px solid rgba(187, 196, 206, 0.35)",
+                m: 1,
+              }}
+            >
+              <ChapterItem chapter={chapter} />
+            </Grid>
+          );
+        })}
+      </Grid>
     </MenuList>
   );
 };

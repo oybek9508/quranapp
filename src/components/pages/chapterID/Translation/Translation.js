@@ -5,11 +5,11 @@ import TranslationHeader from "./Header";
 import { Grid } from "@mui/material";
 // import { useSingleChapterTranslation } from "src/api/quran-translation";
 
-const Translation = ({ initialData }) => {
+const Translation = ({ initialData, value }) => {
   return (
     <Grid sx={{ width: "100%" }}>
       <TranslationHeader initialData={initialData} />
-      <AyahList initialData={initialData} />
+      <AyahList initialData={initialData} value={value} />
     </Grid>
   );
 };

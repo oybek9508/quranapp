@@ -7,7 +7,7 @@ const DEFAULT_VERSES_PARAMS = {
   words: true,
   translationFields: "resource_name,language_id",
   perPage: ITEMS_PER_PAGE,
-  fields: `${QuranFont.Uthmani},chapter_id,hizb_number,text_imlaei_simple`,
+  fields: `${QuranFont.Uthmani},image_url,image_width,chapter_id,hizb_number,text_imlaei_simple`,
 };
 
 const getVersesParams = (
@@ -36,3 +36,14 @@ const getVersesParams = (
 
 export const makeVersesUrl = (id, currentLocale, params) =>
   makeUrl(`/verses/by_chapter/${id}`, getVersesParams(currentLocale, params));
+
+export const makeVersesByPageUrl = (
+  id,
+  currentLocale,
+  params,
+  includeTranslationFields = true
+) =>
+  makeUrl(
+    `/verses/by_page/${id}`,
+    getVersesParams(currentLocale, params, includeTranslationFields)
+  );
