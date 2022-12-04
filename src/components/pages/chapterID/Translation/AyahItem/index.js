@@ -5,7 +5,7 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 
 const AyahItem = ({ chapter, value }) => {
-  console.log("chapter", chapter);
+  // console.log("chapter", chapter);
   // console.log({ value });
   return (
     <Grid
@@ -35,22 +35,25 @@ const AyahItem = ({ chapter, value }) => {
         </Box>
       )}
       <Grid sx={{ width: "100%", ml: 4 }}>
-        <Typography
-          sx={{ textAlign: "start", fontSize: { xs: "16px", sm: "20px" } }}
-        >
-          {chapter.translations[0].text.split("<sup")[0]}
-        </Typography>
         {value !== "translation" && (
           <Typography
             sx={{
+              mt: 1,
               textAlign: "end",
-              fontSize: { xs: "28px", sm: "54px" },
+              fontSize: { xs: "28px", sm: "32px" },
+              fontWeight: "bold",
+              fontFamily: "UthmanicHafs",
               width: "100%",
             }}
           >
             {chapter?.textUthmani}
           </Typography>
         )}
+        <Typography
+          sx={{ textAlign: "start", fontSize: { xs: "16px", sm: "20px" } }}
+        >
+          {chapter.translations[0].text.split("<sup")[0]}
+        </Typography>
       </Grid>
     </Grid>
   );

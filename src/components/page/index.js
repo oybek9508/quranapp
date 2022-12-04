@@ -23,9 +23,9 @@ const Pages = () => {
             xl={12 / 5}
             key={idx}
             sx={{ border: "1px solid olive", borderRadius: "5px", m: 1 }}
+            onClick={() => router.push(`/page/${idx + 1}`)}
           >
             <MenuItem
-              onClick={() => router.push(`/page/${idx + 1}`)}
               sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             >
               <Typography>{idx + 1}-Sahifa</Typography>

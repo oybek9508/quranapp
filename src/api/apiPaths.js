@@ -7,7 +7,7 @@ const DEFAULT_VERSES_PARAMS = {
   words: true,
   translationFields: "resource_name,language_id",
   perPage: ITEMS_PER_PAGE,
-  fields: `${QuranFont.Uthmani},image_url,image_width,chapter_id,hizb_number,text_imlaei_simple`,
+  fields: `${QuranFont.Uthmani},chapter_id,hizb_number,text_imlaei_simple`,
 };
 
 const getVersesParams = (
@@ -18,8 +18,8 @@ const getVersesParams = (
   const defaultParams = {
     ...DEFAULT_VERSES_PARAMS,
     reciter: DEFAULT_RECITER.id,
-    wordTranslationLanguage: "uzbek",
-    translations: 55,
+    wordTranslationLanguage: "en",
+    translations: 101,
     audio: 1,
   };
 

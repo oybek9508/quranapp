@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 
 const SurahDetail = (props) => {
   const state = useSelector((state) => state.theme);
-  // console.log("props", props);
+  console.log("props", props);
   const { chapterData, chapterId } = props;
   const { data, error, isLoading } = useSingleSurah(props.chapterId);
   return (
@@ -31,7 +31,9 @@ const SurahDetail = (props) => {
 
 export const getStaticProps = async ({ params, locale }) => {
   let chapterId = params.chapterId;
-  const chapterData = await getChapterVerses(Number(chapterId), locale);
+  const chapterData = await getChapterVerses(Number(chapterId), locale, {
+    perPage: "all",
+  });
 
   // verse audio, arabic, translation and other stuff should be in verses array
   // check the quran.com [chapterId] page

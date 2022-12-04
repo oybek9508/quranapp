@@ -36,7 +36,8 @@ const Reading = ({ initialData }) => {
                 key={verse?.id}
                 sx={{
                   fontSize: { xs: "24px", sm: "36px" },
-                  fontFamily: "IndoPak",
+                  fontWeight: 600,
+                  fontFamily: "UthmanicHafs",
                 }}
               >
                 {verse?.textUthmani}
