@@ -3,21 +3,22 @@ import React, { useEffect, useState } from "react";
 import ChapterItem from "./ChapterItem";
 import { useQuranChapters } from "/src/api/quran-chapter-api";
 
-const ChapterList = () => {
+const ChapterList = ({ chapters }) => {
   const [searchedChapter, setSearchedChapter] = useState("nas");
-  const [chapters, setChapters] = useState({});
-  const { data, error } = useQuranChapters();
-  useEffect(() => {
-    if (!chapters) return;
-    setChapters(data);
-  }, [chapters, data]);
+  // const [chapters, setChapters] = useState({});
+  // const { data, error } = useQuranChapters();
+  // useEffect(() => {
+  //   if (!chapters) return;
+  //   setChapters(data);
+  // }, [chapters, data]);
+  // console.log("chapters", chapters);
 
-  console.log("data", data);
+  // console.log("data", data);
   console.log("chapters", chapters);
   return (
     <MenuList sx={{ pb: "56px", width: "100%" }}>
       <Grid container justifyContent="center">
-        {data?.chapters.map((chapter) => {
+        {chapters?.map((chapter) => {
           return (
             <Grid
               item

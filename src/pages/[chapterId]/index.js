@@ -9,41 +9,69 @@ import { getChapterVerses } from "src/api/quran-chapter-api";
 import Order from "/src/components/ayah/Order";
 import ReadingPreferenceTab from "src/components/pages/chapterID/ReadingPreferenceTab";
 import { useSelector } from "react-redux";
+import { isValidChapterId } from "src/utils/validator";
+import {
+  ONE_WEEK_REVALIDATION_PERIOD_SECONDS,
+  REVALIDATION_PERIOD_ON_ERROR_SECONDS,
+} from "src/utils/staticPageGeneration";
+import { getAllChaptersData } from "src/utils/chapters";
+import Error from "../_error";
+import DataContext from "src/context/DataContext";
 
 const SurahDetail = (props) => {
   const state = useSelector((state) => state.theme);
-  console.log("props", props);
-  const { chapterData, chapterId } = props;
+  const { chapterData, chapterId, hasError, chaptersData } = props;
+  if (hasError) {
+    return <Error statusCode={500} />;
+  }
+
+  console.log("chaptersData", chaptersData[chapterId]);
+
   const { data, error, isLoading } = useSingleSurah(props.chapterId);
   return (
-    <Grid>
+    <DataContext.Provider value={chaptersData}>
       <Header type="back" singleChapter={data} />
       <Grid sx={{ px: 3, mt: 4 }}>
         <ReadingPreferenceTab
           initialData={chapterData}
           chapterId={chapterId}
-          singleChapter={data}
+          singleChapter={{ ...chaptersData[chapterId], id: chapterId }}
         />
       </Grid>
-    </Grid>
+    </DataContext.Provider>
   );
 };
 
 export const getStaticProps = async ({ params, locale }) => {
   let chapterId = params.chapterId;
-  const chapterData = await getChapterVerses(Number(chapterId), locale, {
-    perPage: "all",
-  });
+  if (!isValidChapterId(chapterId)) {
+    return {
+      notFound: true,
+    };
+  }
 
-  // verse audio, arabic, translation and other stuff should be in verses array
-  // check the quran.com [chapterId] page
+  try {
+    const chaptersData = await getAllChaptersData();
+    const chapterData = await getChapterVerses(Number(chapterId), locale, {
+      perPage: "all",
+    });
 
-  return {
-    props: {
-      chapterId,
-      chapterData,
-    },
-  };
+    return {
+      props: {
+        chapterId,
+        chapterData,
+        chaptersData,
+      },
+      revalidate: ONE_WEEK_REVALIDATION_PERIOD_SECONDS,
+    };
+  } catch (error) {
+    return {
+      props: {
+        hasError: true,
+      },
+      revalidate: REVALIDATION_PERIOD_ON_ERROR_SECONDS,
+    };
+  }
 };
 
 export const getStaticPaths = async () => ({

@@ -1,6 +1,7 @@
 import { Box, CardMedia, MenuItem, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import ChapterIconContainer from "./ChapterIconContainer";
 
 const ChapterItem = ({ chapter }) => {
   const router = useRouter();
@@ -56,7 +57,7 @@ const ChapterItem = ({ chapter }) => {
                 fontWeight: 600,
               }}
             >
-              {chapter.name_simple}
+              {chapter.transliteratedName}
             </Typography>
             <Box
               sx={{
@@ -69,22 +70,30 @@ const ChapterItem = ({ chapter }) => {
                 fontWeight: 500,
               }}
             >
-              <Typography>{chapter.revelation_place}</Typography>
+              <Typography>{chapter.revelationPlace}</Typography>
               <Typography>-</Typography>
-              <Typography>{chapter.verses_count} Verses</Typography>
+              <Typography>{chapter.versesCount} Verses</Typography>
             </Box>
           </Box>
         </Box>
-        <Typography
-          sx={{
-            fontSize: "20px",
-            color: "#863ED5",
-            fontFamily: "Poppins",
-            fontWeight: 700,
-          }}
+        <Box
+          sx={{ display: "flex", flexDirection: "column", alignItems: "end" }}
         >
-          {chapter.name_arabic}
-        </Typography>
+          <ChapterIconContainer
+            chapterId={String(chapter?.id)}
+            hasSurahPrefix={false}
+          />
+          <Typography
+            sx={{
+              fontSize: "16px",
+              color: "#8789A3",
+              fontFamily: "Poppins",
+              fontWeight: 500,
+            }}
+          >
+            {chapter.versesCount} Ayahs
+          </Typography>
+        </Box>
       </Box>
     </MenuItem>
   );

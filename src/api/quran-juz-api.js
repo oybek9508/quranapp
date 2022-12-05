@@ -1,6 +1,7 @@
-import { BASE_URL, HOME_URL, api } from "./api";
+import { BASE_URL, HOME_URL, api, fetcher } from "./api";
 import useSWR from "swr";
 import axios from "axios";
+import { makeJuzUrl } from "./apiPaths";
 
 const useJuzList = () => {
   const fetcher = (url) => api.callApi({ url }).then((res) => res.data);
@@ -8,4 +9,7 @@ const useJuzList = () => {
   return { data, error, isLoading: !data && !error };
 };
 
-export { useJuzList };
+const getJuzVerses = async (id, locale, params) =>
+  fetcher(makeJuzUrl(id, locale, params));
+
+export { getJuzVerses, useJuzList };

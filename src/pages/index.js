@@ -6,15 +6,18 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "/src/components/Layout";
 import MainBanner from "/src/components/banners/MainBanner";
-import QuranListTab from "/src/components/navigation/QuranListTab";
+import ChapterJuzPage from "src/components/home/ChapterJuzPage";
+import { getAllChaptersData } from "src/utils/chapters";
+import DataContext from "src/context/DataContext";
+import Header from "src/components/home/Header";
 
-export default function Home() {
+const Home = ({ chaptersData, chaptersResponse: { chapters } }) => {
   return (
     <Layout>
       <Head>
         <title>main quran page</title>
       </Head>
-      <main>
+      <DataContext.Provider value={chaptersData}>
         <Box sx={{ px: "20px", pt: "20px" }}>
           <Typography
             sx={{ fontFamily: "Poppins", fontSize: "18px", color: "#8789A3" }}
@@ -31,10 +34,32 @@ export default function Home() {
           >
             Oybek Toshmatov
           </Typography>
+          <Header />
           <MainBanner />
-          <QuranListTab />
+          <ChapterJuzPage chapters={chapters} />
         </Box>
-      </main>
+      </DataContext.Provider>
     </Layout>
   );
-}
+};
+
+export const getStaticProps = async ({ params, locale }) => {
+  const chaptersData = await getAllChaptersData(locale);
+
+  return {
+    props: {
+      chaptersData,
+      chaptersResponse: {
+        chapters: Object.keys(chaptersData).map((chapterId) => {
+          const chapterData = chaptersData[chapterId];
+          return {
+            ...chapterData,
+            id: Number(chapterId),
+          };
+        }),
+      },
+    },
+  };
+};
+
+export default Home;

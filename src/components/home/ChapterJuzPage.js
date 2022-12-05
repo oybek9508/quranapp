@@ -7,7 +7,7 @@ import { buttonUnstyledClasses } from "@mui/base/ButtonUnstyled";
 import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
 import ChapterList from "../chapters/ChapterList";
 import JuzList from "../juzs/JuzList";
-import Pages from "../page";
+import Pages from "../by_page";
 
 const blue = {
   50: "#F0F7FF",
@@ -93,7 +93,7 @@ const TabsList = styled(TabsListUnstyled)(
   // };
 );
 
-export default function QuranListTab() {
+export default function ChapterJuzPage({ chapters }) {
   return (
     <TabsUnstyled defaultValue={0}>
       <TabsList>
@@ -102,13 +102,13 @@ export default function QuranListTab() {
         <Tab>Sahifa</Tab>
       </TabsList>
       <TabPanel value={0}>
-        <ChapterList />
+        <ChapterList chapters={chapters} />
       </TabPanel>
       <TabPanel value={1}>
-        <JuzList />
+        <JuzList chapters={chapters} />
       </TabPanel>
       <TabPanel value={2}>
-        <Pages />
+        <Pages chapters={chapters} />
       </TabPanel>
     </TabsUnstyled>
   );
