@@ -1,5 +1,6 @@
 import { Box, Card, CardMedia, Divider, Typography } from "@mui/material";
 import React from "react";
+import ChapterIconContainer from "src/components/chapters/ChapterIconContainer";
 
 const Banner = ({ data, value }) => {
   return (
@@ -15,18 +16,24 @@ const Banner = ({ data, value }) => {
         backgroundPosition: "center",
       }}
     >
-      <Typography
-        sx={{
-          fontSize: "26px",
-          fontFamily: "Poppins",
-          color: "#fff",
-          textAlign: "center",
-        }}
-      >
-        {value === "translation"
-          ? data?.chapter?.name_simple
-          : data?.chapter?.name_arabic}
-      </Typography>
+      {value === "translation" ? (
+        <Typography
+          sx={{
+            fontSize: "26px",
+            fontFamily: "Poppins",
+            color: "#fff",
+            textAlign: "center",
+          }}
+        >
+          {data?.transliteratedName}
+        </Typography>
+      ) : (
+        <ChapterIconContainer
+          isBanner
+          hasSurahPrefix={true}
+          chapterId={String(data.id)}
+        />
+      )}
       <Typography
         sx={{
           fontSize: "16px",
@@ -35,7 +42,7 @@ const Banner = ({ data, value }) => {
           textAlign: "center",
         }}
       >
-        {value === "translation" && data?.chapter?.translated_name.name}
+        {value === "translation" && data?.transliteratedName}
       </Typography>
       <Divider sx={{ bgcolor: "#fff", my: 2 }} />
       <Box>
@@ -50,8 +57,7 @@ const Banner = ({ data, value }) => {
               textAlign: "center",
             }}
           >
-            {data?.chapter?.revelation_place} - {data?.chapter?.verses_count}{" "}
-            verses
+            {data?.revelationPlace} - {data?.versesCount} verses
           </Typography>
         )}
       </Box>

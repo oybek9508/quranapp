@@ -47,3 +47,6 @@ export const makeVersesByPageUrl = (
     `/verses/by_page/${id}`,
     getVersesParams(currentLocale, params, includeTranslationFields)
   );
+
+export const makeJuzUrl = (id, currentLocale, params) =>
+  makeUrl(`/verses/by_juz/${id}`, getVersesParams(currentLocale, params));
