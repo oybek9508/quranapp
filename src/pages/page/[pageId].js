@@ -12,19 +12,23 @@ import {
 import { formatStringNumber } from "src/utils/number";
 import Error from "../_error";
 import DataContext from "src/context/DataContext";
+import ReadingPreferenceTab from "src/components/QuranReader/ReadingPreferenceTab";
 
 const Page = ({ chaptersData, pageData, hasError }) => {
   const router = useRouter();
   const {
     query: { pageId },
   } = router;
+  console.log("pageData", pageData);
 
   if (hasError) {
     return <Error statusCode={500} />;
   }
 
   return (
-    <DataContext.Provider value={chaptersData}>{pageId}</DataContext.Provider>
+    <DataContext.Provider value={chaptersData}>
+      <ReadingPreferenceTab initialData={pageData} id={String(pageId)} />
+    </DataContext.Provider>
   );
 };
 

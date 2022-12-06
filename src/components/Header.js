@@ -56,7 +56,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Header({ type = "menu", singleChapter }) {
   const router = useRouter();
-  console.log({ singleChapter });
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -90,7 +89,7 @@ export default function Header({ type = "menu", singleChapter }) {
             }}
           >
             {router.pathname === "/[chapterId]"
-              ? singleChapter?.chapter.name_simple
+              ? singleChapter?.transliteratedName
               : "Quran App"}
           </Typography>
           <Search>

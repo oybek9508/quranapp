@@ -80,7 +80,7 @@ const ChapterItem = ({ chapter }) => {
           sx={{ display: "flex", flexDirection: "column", alignItems: "end" }}
         >
           <ChapterIconContainer
-            chapterId={String(chapter?.id)}
+            id={String(chapter?.id)}
             hasSurahPrefix={false}
           />
           <Typography

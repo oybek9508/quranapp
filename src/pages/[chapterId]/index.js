@@ -4,10 +4,9 @@ import { useRouter } from "next/router";
 import { BASE_URL } from "/src/api/api";
 import Header from "/src/components/Header";
 import { Grid } from "@mui/material";
-import { useSingleSurah } from "src/api/quran-chapter-api";
 import { getChapterVerses } from "src/api/quran-chapter-api";
 import Order from "/src/components/ayah/Order";
-import ReadingPreferenceTab from "src/components/pages/chapterID/ReadingPreferenceTab";
+import ReadingPreferenceTab from "src/components/QuranReader/ReadingPreferenceTab";
 import { useSelector } from "react-redux";
 import { isValidChapterId } from "src/utils/validator";
 import {
@@ -21,20 +20,23 @@ import DataContext from "src/context/DataContext";
 const SurahDetail = (props) => {
   const state = useSelector((state) => state.theme);
   const { chapterData, chapterId, hasError, chaptersData } = props;
+
   if (hasError) {
     return <Error statusCode={500} />;
   }
 
-  console.log("chaptersData", chaptersData[chapterId]);
+  console.log("chapterData", chapterData);
 
-  const { data, error, isLoading } = useSingleSurah(props.chapterId);
   return (
     <DataContext.Provider value={chaptersData}>
-      <Header type="back" singleChapter={data} />
+      <Header
+        type="back"
+        singleChapter={{ ...chaptersData[chapterId], id: chapterId }}
+      />
       <Grid sx={{ px: 3, mt: 4 }}>
         <ReadingPreferenceTab
           initialData={chapterData}
-          chapterId={chapterId}
+          id={chapterId}
           singleChapter={{ ...chaptersData[chapterId], id: chapterId }}
         />
       </Grid>

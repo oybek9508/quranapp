@@ -31,7 +31,7 @@ const Banner = ({ data, value }) => {
         <ChapterIconContainer
           isBanner
           hasSurahPrefix={true}
-          chapterId={String(data.id)}
+          id={String(data?.id)}
         />
       )}
       <Typography

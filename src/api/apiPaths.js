@@ -50,3 +50,8 @@ export const makeVersesByPageUrl = (
 
 export const makeJuzUrl = (id, currentLocale, params) =>
   makeUrl(`/verses/by_juz/${id}`, getVersesParams(currentLocale, params));
+
+export const makeChapterUrl = (chapterIdOrSlug, language) =>
+  makeUrl(`/chapters/${chapterIdOrSlug}`, { language });
+
+export const makePagesLookupUrl = (params) => makeUrl("/pages/lookup", params);

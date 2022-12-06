@@ -11,7 +11,6 @@ import { useJuzList } from "src/api/quran-juz-api";
 import DataContext from "src/context/DataContext";
 import { getAllJuzMappings, getChapterData } from "src/utils/chapters";
 import ChapterItem from "../chapters/ChapterItem";
-import JuzItem from "./JuzItem";
 
 const JuzList = ({ isDescending }) => {
   const [juzMappings, setJuzMappings] = useState([]);
@@ -37,27 +36,20 @@ const JuzList = ({ isDescending }) => {
 
   return (
     <MenuList sx={{ pb: "56px", width: "100%" }}>
-      <Grid container justifyContent="center">
+      <Grid sx={{ columnCount: { xs: 1, sm: 2, lg: 3 } }}>
         {sortedJuzIds.map((juzEntry) => {
           const [juzId, chapterAndVerseMappings] = juzEntry;
           const chapterIds = Object.keys(chapterAndVerseMappings);
           return (
             <Grid
               key={juzId}
-              item
-              container
-              direction="column"
-              xs={6}
-              sm={4}
-              md={4}
-              lg={3}
-              xl={12 / 5}
               sx={{
                 m: 1,
                 border: "1px solid gray",
                 borderRadius: "5px",
                 p: 1,
-                // width: "object-fit",
+                display: "inline-block",
+                width: "100%",
                 height: "object-fit",
               }}
             >
