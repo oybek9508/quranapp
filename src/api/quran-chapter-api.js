@@ -1,7 +1,5 @@
 import { BASE_URL, HOME_URL, api, fetcher } from "./api";
 import useSWR from "swr";
-import qs from "qs";
-import axios from "axios";
 import { makeChapterUrl, makeVersesUrl } from "./apiPaths";
 
 const useQuranChapters = () => {
