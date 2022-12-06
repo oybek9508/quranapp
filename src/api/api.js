@@ -1,6 +1,7 @@
 import axios from "axios";
 import { camelizeKeys, decamelizeKeys } from "humps";
 import stringify from "../utils/qs-stringify";
+import { QuranFont } from "../constants/QuranReader";
 
 console.log(
   "process.env.NEXT_PUBLIC_QURAN_API_URL",
@@ -34,6 +35,12 @@ export const fetcher = async (input, init) => {
   const json = await res.json();
   return camelizeKeys(json);
 };
+
+export const getDefaultWordFields = (quranFont) => ({
+  wordFields: `verse_key,verse_id,page_number,location,text_uthmani,${quranFont}${
+    quranFont === QuranFont.QPCHafs ? "" : `,${QuranFont.QPCHafs}`
+  }`,
+});
 
 class API {
   callApi({ url }) {
