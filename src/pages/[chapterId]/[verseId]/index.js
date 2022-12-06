@@ -39,9 +39,9 @@ export const getStaticProps = async ({ params, locale }) => {
     return { notFound: true };
   }
   /*
-      Since we already validated the value, if the verseIdOrRange is a number it means we are
-      viewing the verse's page otherwise it's a range page.
-    */
+    Since we already validated the value, if the verseIdOrRange is a number it means we are
+    viewing the verse's page otherwise it's a range page.
+  */
   const isVerse = isValidVerseNumber(verseIdOrRange);
   // const defaultMushafId = getMushafId(
   //   getQuranReaderStylesInitialState(locale).quranFont,
@@ -49,8 +49,8 @@ export const getStaticProps = async ({ params, locale }) => {
   // ).mushaf;
   // common API params between a single verse and range of verses.
   let apiParams = {
-    page: verseIdOrRange,
-    perPage: 1,
+    // ...getDefaultWordFields(getQuranReaderStylesInitialState(locale).quranFont),
+    // mushaf: defaultMushafId,
   };
   const metaData = { numberOfVerses: 1 };
   let [from, to] = [null, null];
@@ -71,13 +71,12 @@ export const getStaticProps = async ({ params, locale }) => {
   try {
     const pagesLookupResponse = await getPagesLookup({
       chapterNumber: Number(chapterIdOrSlug),
-      //   mushaf: defaultMushafId,
+      // mushaf: defaultMushafId,
       from: isVerse ? `${chapterIdOrSlug}:${verseIdOrRange}` : metaData.from,
       to: isVerse ? `${chapterIdOrSlug}:${verseIdOrRange}` : metaData.to,
     });
 
     // if it's range, we need to set the per page as the number of verses of the first page of the range in the actual Mushaf
-
     if (!isVerse) {
       const firstRangeMushafPage = Object.keys(pagesLookupResponse.pages)[0];
       const firstRangeMushafPageLookup =
@@ -89,7 +88,6 @@ export const getStaticProps = async ({ params, locale }) => {
           firstRangeMushafPageLookup.to
         ).length;
       apiParams = {
-        ...apiParams,
         ...{ perPage: firstRangeMushafPageNumberOfVerses },
       };
     }
@@ -111,6 +109,7 @@ export const getStaticProps = async ({ params, locale }) => {
     }
     return {
       props: {
+        apiParams,
         chaptersData,
         chapterResponse: {
           chapter: { ...chapterData, id: chapterIdOrSlug },
@@ -118,7 +117,7 @@ export const getStaticProps = async ({ params, locale }) => {
         versesResponse: {
           ...versesResponse,
           pagesLookup: pagesLookupResponse,
-          //   metaData,
+          metaData,
         },
         isVerse,
       },

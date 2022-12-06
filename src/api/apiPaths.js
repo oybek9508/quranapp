@@ -6,8 +6,8 @@ import { DEFAULT_RECITER } from "src/redux/defaultSettings";
 const DEFAULT_VERSES_PARAMS = {
   words: true,
   translationFields: "resource_name,language_id",
-  perPage: ITEMS_PER_PAGE,
   fields: `${QuranFont.Uthmani},chapter_id,hizb_number,text_imlaei_simple`,
+  perPage: ITEMS_PER_PAGE,
 };
 
 const getVersesParams = (

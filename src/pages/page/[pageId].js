@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getVersesByPage } from "src/api/quran-page-api";
+import { getPagesLookup, getVersesByPage } from "src/api/quran-page-api";
 import { BASE_URL } from "/src/api/api";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -42,11 +42,15 @@ export const getStaticProps = async ({ params, locale }) => {
   }
 
   try {
+    const pagesLookupResponse = await getPagesLookup({
+      pageNumber: Number(pageId),
+    });
     const chaptersData = await getAllChaptersData(locale);
     const pageData = await getVersesByPage(pageId, locale, {
       perPage: "all",
       filterPageWords: true,
     });
+    pageData.pagesLookup = pagesLookupResponse;
     return {
       props: {
         chaptersData,

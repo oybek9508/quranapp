@@ -3,17 +3,21 @@ import { camelizeKeys, decamelizeKeys } from "humps";
 import stringify from "../utils/qs-stringify";
 import { QuranFont } from "../constants/QuranReader";
 
-console.log(
-  "process.env.NEXT_PUBLIC_QURAN_API_URL",
-  process.env.NEXT_PUBLIC_QURAN_API_URL
-);
-
 export const OFFLINE_ERROR = "OFFLINE_ERROR";
 export const ITEMS_PER_PAGE = 10;
 
-export const HOME_URL = process.env.NEXT_PUBLIC_QURAN_API_URL;
-export const API_ROOT_PATH = "/api/v4";
-export const BASE_URL = `${HOME_URL}/api/v4`;
+// export const HOME_URL = process.env.NEXT_PUBLIC_QURAN_API_URL;
+// export const BASE_URL = `${HOME_URL}/api/v4`;
+export const STAGING_API_URL = process.env.NEXT_PUBLIC_QURAN_API_STAGING_URL;
+export const PRODUCTION_API_URL =
+  process.env.NEXT_PUBLIC_QURAN_API_PRODUCTION_URL;
+
+export const API_HOST =
+  process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+    ? PRODUCTION_API_URL
+    : STAGING_API_URL;
+
+export const BASE_URL = `${API_HOST}/api/qdc`;
 
 export const makeUrl = (path, parameters) => {
   if (!parameters) {
