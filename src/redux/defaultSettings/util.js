@@ -5,7 +5,7 @@ export const getStoreInitialState = (locale) => {
   return {
     [SliceName.THEME]: getThemeInitialState(locale),
     //   [SliceName.READING_PREFERENCES]: getReadingPreferencesInitialState(locale),
-    //   [SliceName.QURAN_READER_STYLES]: getQuranReaderStylesInitialState(locale),
+    [SliceName.QURAN_READER_STYLES]: getQuranReaderStylesInitialState(locale),
     //   [SliceName.TRANSLATIONS]: getTranslationsInitialState(locale),
     //   [SliceName.TAFSIRS]: getTafsirsInitialState(locale),
     //   // @ts-ignore
@@ -20,5 +20,9 @@ const DEFAULT_LOCALE = "uz";
 //   importLocaleFile(locale)[key];
 
 export const getThemeInitialState = (locale = DEFAULT_LOCALE) => {
-  return "light";
+  return DefaultSettings[SliceName.THEME];
+};
+
+export const getQuranReaderStylesInitialState = () => {
+  return DefaultSettings[SliceName.QURAN_READER_STYLES];
 };

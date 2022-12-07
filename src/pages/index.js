@@ -10,8 +10,11 @@ import ChapterJuzPage from "src/components/home/ChapterJuzPage";
 import { getAllChaptersData } from "src/utils/chapters";
 import DataContext from "src/context/DataContext";
 import Header from "src/components/home/Header";
+import { useSelector } from "react-redux";
 
 const Home = ({ chaptersData, chaptersResponse: { chapters } }) => {
+  const state = useSelector((state) => state);
+  console.log("state", state);
   return (
     <Layout>
       <Head>
