@@ -31,3 +31,20 @@ export const QuranFontMushaf = {
   [QuranFont.QPCHafs]: Mushaf.KFGQPCHAFS,
   [QuranFont.Tajweed]: Mushaf.Tajweeed,
 };
+
+export const ReadingPreference = {
+  Translation: "translation", // Displays verse by verse with translation
+  Reading: "reading", // Displays the Quran text only similar to a physical Quran page without any translations.
+};
+
+export const QuranReaderDataType = {
+  Chapter: "chapter",
+  Verse: "verse",
+  VerseRange: "range",
+  Tafsir: "tafsir",
+  SelectedTafsir: "selectedTafsir",
+  Hizb: "hizb",
+  Juz: "juz",
+  Rub: "rub",
+  Page: "page",
+};

@@ -4,7 +4,7 @@ import SliceName from "../constants/SliceNames";
 export const getStoreInitialState = (locale) => {
   return {
     [SliceName.THEME]: getThemeInitialState(locale),
-    //   [SliceName.READING_PREFERENCES]: getReadingPreferencesInitialState(locale),
+    [SliceName.READING_PREFERENCES]: getReadingPreferencesInitialState(locale),
     [SliceName.QURAN_READER_STYLES]: getQuranReaderStylesInitialState(locale),
     //   [SliceName.TRANSLATIONS]: getTranslationsInitialState(locale),
     //   [SliceName.TAFSIRS]: getTafsirsInitialState(locale),
@@ -23,6 +23,10 @@ export const getThemeInitialState = (locale = DEFAULT_LOCALE) => {
   return DefaultSettings[SliceName.THEME];
 };
 
-export const getQuranReaderStylesInitialState = () => {
+export const getQuranReaderStylesInitialState = (locale = DEFAULT_LOCALE) => {
   return DefaultSettings[SliceName.QURAN_READER_STYLES];
+};
+
+export const getReadingPreferencesInitialState = (locale = DEFAULT_LOCALE) => {
+  return DefaultSettings[SliceName.READING_PREFERENCES];
 };

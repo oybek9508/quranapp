@@ -1,5 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { QuranFont, MushafLines } from "src/constants/QuranReader";
+import {
+  QuranFont,
+  MushafLines,
+  ReadingPreference,
+} from "src/constants/QuranReader";
 import SliceName from "../constants/SliceNames";
 
 export const DEFAULT_RECITER = {
@@ -31,7 +35,7 @@ const DEFAULT_WBW_TRANSLITERATION = 12;
 const DEFAULT_WBW_LOCALE = "uz";
 
 const READING_PREFERENCES_INITIAL_STATE = {
-  // readingPreference: ReadingPreference.Translation,
+  readingPreference: ReadingPreference.Translation,
   showWordByWordTranslation: false,
   selectedWordByWordTranslation: DEFAULT_WBW_TRANSLATION,
   showWordByWordTransliteration: false,
