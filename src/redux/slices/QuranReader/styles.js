@@ -8,7 +8,6 @@ const quranReaderStylesSlice = createSlice({
   reducers: {},
 });
 
-export const selectQuranReaderStyles = (state) =>
-  state[SliceName.QURAN_READER_STYLES];
+export const selectQuranReaderStyles = (state) => state.quranReaderStyles;
 
 export default quranReaderStylesSlice.reducer;

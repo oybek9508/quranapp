@@ -16,10 +16,11 @@ import {
 import { getAllChaptersData } from "src/utils/chapters";
 import Error from "../_error";
 import DataContext from "src/context/DataContext";
+import { QuranReaderDataType } from "src/constants/QuranReader";
 
 const SurahDetail = (props) => {
   const state = useSelector((state) => state.theme);
-  const { chapterData, chapterId, hasError, chaptersData } = props;
+  const { chapterData, chapterId, hasError, chaptersData, isChapter } = props;
 
   if (hasError) {
     return <Error statusCode={500} />;
@@ -38,6 +39,9 @@ const SurahDetail = (props) => {
           initialData={chapterData}
           id={chapterId}
           singleChapter={{ ...chaptersData[chapterId], id: chapterId }}
+          quranReaderType={
+            isChapter ? QuranReaderDataType.Chapter : QuranReaderDataType.Verse
+          }
         />
       </Grid>
     </DataContext.Provider>
@@ -46,6 +50,7 @@ const SurahDetail = (props) => {
 
 export const getStaticProps = async ({ params, locale }) => {
   let chapterId = params.chapterId;
+  let isChapter = isValidChapterId(chapterId);
   if (!isValidChapterId(chapterId)) {
     return {
       notFound: true,
@@ -63,6 +68,7 @@ export const getStaticProps = async ({ params, locale }) => {
         chapterId,
         chapterData,
         chaptersData,
+        isChapter,
       },
       revalidate: ONE_WEEK_REVALIDATION_PERIOD_SECONDS,
     };

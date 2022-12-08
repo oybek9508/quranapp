@@ -1,4 +1,5 @@
-import { Mushaf } from "src/constants/QuranReader";
+import { Mushaf, QuranFont, QuranFontMushaf } from "src/constants/QuranReader";
+import { toLocalizedNumber } from "./locale";
 
 const DEFAULT_NUMBER_OF_PAGES = 604;
 
@@ -33,7 +34,7 @@ export const getPageIdsByMushaf = (lang, quranFont, mushafLines) =>
   [...Array(getMushafTotalPageNumber(quranFont, mushafLines))].map(
     (n, index) => {
       const page = index + 1;
-      return { value: page, label: toLocalizedNumber(page, lang) };
+      return { value: page, label: page };
     }
   );
 
