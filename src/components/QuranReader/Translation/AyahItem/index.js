@@ -18,37 +18,33 @@ const AyahItem = ({ chapter, value }) => {
         px: 1,
       }}
     >
-      {value === "translation" ? (
-        <Typography>{chapter.verseNumber}</Typography>
-      ) : (
-        <Box
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography>{chapter.verseKey}</Typography>
+        <PlayCircleFilledWhiteOutlinedIcon />
+        <MenuBookOutlinedIcon />
+        <MoreHorizOutlinedIcon />
+      </Box>
+
+      <Grid sx={{ width: "100%", ml: 4 }}>
+        <Typography
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
+            mb: 3,
+            textAlign: "end",
+            fontSize: { xs: "28px", sm: "32px" },
+            fontWeight: "bold",
+            fontFamily: "UthmanicHafs",
+            width: "100%",
           }}
         >
-          <Typography>{chapter.verseKey}</Typography>
-          <PlayCircleFilledWhiteOutlinedIcon />
-          <MenuBookOutlinedIcon />
-          <MoreHorizOutlinedIcon />
-        </Box>
-      )}
-      <Grid sx={{ width: "100%", ml: 4 }}>
-        {value !== "translation" && (
-          <Typography
-            sx={{
-              mt: 1,
-              textAlign: "end",
-              fontSize: { xs: "28px", sm: "32px" },
-              fontWeight: "bold",
-              fontFamily: "UthmanicHafs",
-              width: "100%",
-            }}
-          >
-            {chapter?.textUthmani}
-          </Typography>
-        )}
+          {chapter?.textUthmani}
+        </Typography>
+
         <Typography
           sx={{ textAlign: "start", fontSize: { xs: "16px", sm: "20px" } }}
         >

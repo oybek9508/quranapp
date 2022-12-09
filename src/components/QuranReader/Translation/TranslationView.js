@@ -5,7 +5,7 @@ import TranslationHeader from "./Header";
 import { Grid } from "@mui/material";
 // import { useSingleChapterTranslation } from "src/api/quran-translation";
 
-const Translation = ({ initialData, value }) => {
+const TranslationView = ({ initialData, value }) => {
   return (
     <Grid sx={{ width: "100%" }}>
       <TranslationHeader initialData={initialData} />
@@ -14,4 +14,4 @@ const Translation = ({ initialData, value }) => {
   );
 };
 
-export default Translation;
+export default TranslationView;

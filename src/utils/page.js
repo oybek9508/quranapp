@@ -1,4 +1,9 @@
-import { Mushaf, QuranFont, QuranFontMushaf } from "src/constants/QuranReader";
+import {
+  Mushaf,
+  QuranFont,
+  QuranFontMushaf,
+  QuranReaderDataType,
+} from "src/constants/QuranReader";
 import { toLocalizedNumber } from "./locale";
 
 const DEFAULT_NUMBER_OF_PAGES = 604;
@@ -48,3 +53,46 @@ export const getMushafLinesNumber = (quranFont, mushafLines) => {
   }
   return 16;
 };
+
+export const getPagesLookupParams = (
+  resourceId,
+  quranReaderDataType,
+  mushafId,
+  initialData
+) => {
+  const params = { mushaf: mushafId };
+  const resourceIdNumber = Number(resourceId);
+  switch (quranReaderDataType) {
+    case QuranReaderDataType.Chapter:
+      params.chapterNumber = resourceIdNumber;
+      break;
+    case QuranReaderDataType.Hizb:
+      params.hizbNumber = resourceIdNumber;
+      break;
+    case QuranReaderDataType.Juz:
+      params.juzNumber = resourceIdNumber;
+      break;
+    case QuranReaderDataType.Page:
+      params.pageNumber = resourceIdNumber;
+      break;
+    case QuranReaderDataType.Rub:
+      params.rubElHizbNumber = resourceIdNumber;
+      break;
+    case QuranReaderDataType.Verse:
+      params.chapterNumber = resourceIdNumber;
+      params.from = initialData.verses[0].verseKey;
+      params.to = initialData.verses[0].verseKey;
+      break;
+    case QuranReaderDataType.VerseRange:
+      params.chapterNumber = resourceIdNumber;
+      params.from = initialData.metaData.from;
+      params.to = initialData.metaData.to;
+      break;
+    default:
+      break;
+  }
+  return params;
+};
+
+export const getPageNumberByPageIndex = (pageIndex, pagesVersesRange) =>
+  Number(Object.keys(pagesVersesRange)[0]) + pageIndex;

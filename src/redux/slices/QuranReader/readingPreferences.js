@@ -5,8 +5,14 @@ import { getReadingPreferencesInitialState } from "src/redux/defaultSettings/uti
 const readingPreferences = createSlice({
   name: SliceName.READING_PREFERENCES,
   initialState: getReadingPreferencesInitialState(),
-  reducer: {},
+  reducers: {
+    setReadingPreference: (state, action) => {
+      state.readingPreference = action.payload;
+    },
+  },
 });
+
+export const { setReadingPreference } = readingPreferences.actions;
 
 export const selectReadingPreferences = (state) => {
   return state.readingPreferences;
