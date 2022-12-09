@@ -1,24 +1,34 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "src/redux/store";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import Reading from "./Reading/ReadingView";
-import ReadingAndTranslation from "./Translation/ReadingAndTranslation";
+import ReadingView from "./Reading/ReadingView";
 import Banner from "src/components/banners/chapterId/Banner";
-import Translation from "./Translation/Translation";
+import TranslationView from "./Translation/TranslationView";
+import {
+  selectReadingPreferences,
+  setReadingPreference,
+} from "src/redux/slices/QuranReader/readingPreferences";
+import { ReadingPreference } from "src/constants/QuranReader";
+import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
+import { shallowEqual } from "react-redux";
 
 export default function ReadingPreferenceTab(props) {
+  const dispatch = useDispatch();
   const { singleChapter, id, initialData, quranReaderType } = props;
-  const [value, setValue] = React.useState("reading");
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  console.log({ value });
+  const quranReaderStyles = useSelector(selectQuranReaderStyles, shallowEqual);
+  const { readingPreference } = useSelector(selectReadingPreferences);
+  const isReadingPreference = readingPreference === ReadingPreference.Reading;
+  const handleChange = (event, newValue) =>
+    dispatch({ type: setReadingPreference, payload: newValue });
+
+  const { Translation, Reading } = ReadingPreference;
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
-      <TabContext value={value}>
+      <TabContext value={readingPreference}>
         <Box
           sx={{
             borderBottom: 1,
@@ -28,30 +38,25 @@ export default function ReadingPreferenceTab(props) {
           }}
         >
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="translation" value="translation" />
-            <Tab label="reading" value="reading" />
-            <Tab
-              label="reading and translation"
-              value="reading_and_translation"
-            />
+            <Tab label={Translation} value={Translation} />
+            <Tab label={Reading} value={Reading} />
           </TabList>
         </Box>
-        <Banner data={singleChapter} value={value} />
-        <TabPanel value="translation">
-          <Translation value={value} initialData={initialData} id={id} />
+        <Banner data={singleChapter} value={readingPreference} />
+        <TabPanel value={Translation}>
+          <TranslationView
+            value={readingPreference}
+            initialData={initialData}
+            id={id}
+          />
         </TabPanel>
-        <TabPanel value="reading">
-          <Reading
+        <TabPanel value={Reading}>
+          <ReadingView
             initialData={initialData}
             resourceId={id}
             quranReaderType={quranReaderType}
-          />
-        </TabPanel>
-        <TabPanel value="reading_and_translation">
-          <ReadingAndTranslation
-            value={value}
-            initialData={initialData}
-            id={id}
+            isReadingPreference={isReadingPreference}
+            quranReaderStyles={quranReaderStyles}
           />
         </TabPanel>
       </TabContext>
