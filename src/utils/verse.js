@@ -24,3 +24,6 @@ export const getFirstWordOfSurah = (wordLocation) => {
     isFirstWordOfSurah: locationSplits[1] === "1" && locationSplits[2] === "1",
   };
 };
+
+export const makeWordLocation = (verseKey, wordPosition) =>
+  `${verseKey}:${wordPosition}`;

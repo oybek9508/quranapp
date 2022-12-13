@@ -15,6 +15,9 @@ import { getPagesLookup } from "src/api/quran-page-api";
 import { generateVerseKeysBetweenTwoVerseKeys } from "src/utils/verseKeys";
 import { QuranFont } from "src/constants/QuranReader";
 import axios from "axios";
+import { getMushafId } from "src/utils/api";
+import { getQuranReaderStylesInitialState } from "src/redux/defaultSettings/util";
+import { getDefaultWordFields } from "src/api/api";
 
 const JuzPage = ({
   chaptersData,
@@ -52,16 +55,20 @@ export const getStaticProps = async ({ params, locale }) => {
   const chaptersData = await getAllChaptersData(locale);
   juzId = formatStringNumber(juzId);
 
-  let apiParams = { perPage: 1 };
+  const defaultMushafId = getMushafId(
+    getQuranReaderStylesInitialState(locale).quranFont,
+    getQuranReaderStylesInitialState(locale).mushafLines
+  ).mushaf;
 
-  // const defaultMushafId = getMushafId(
-  //   getQuranReaderStylesInitialState(locale).quranFont,
-  //   getQuranReaderStylesInitialState(locale).mushafLines
-  // ).mushaf;
+  let apiParams = {
+    ...getDefaultWordFields(getQuranReaderStylesInitialState(locale).quranFont),
+    mushaf: defaultMushafId,
+  };
+
   try {
     const pagesLookupResponse = await getPagesLookup({
       juzNumber: Number(juzId),
-      // mushaf: 2,
+      mushaf: defaultMushafId,
     });
     const firstPageOfJuz = Object.keys(pagesLookupResponse.pages)[0];
     const firstPageOfJuzLookup = pagesLookupResponse.pages[firstPageOfJuz];
@@ -70,11 +77,25 @@ export const getStaticProps = async ({ params, locale }) => {
     //   pagesLookupResponse.lookupRange.from,
     //   pagesLookupResponse.lookupRange.to
     // ).length;
-    const juzVersesResponse = await getJuzVerses(juzId, locale, {
-      perPage: "all",
-      from: firstPageOfJuzLookup.from,
-      to: firstPageOfJuzLookup.to,
-    });
+    apiParams = {
+      ...apiParams,
+      ...{
+        perPage: "all",
+        // from: firstPageOfChapterLookup.from,
+        // to: firstPageOfChapterLookup.to,
+      },
+    };
+
+    const juzVersesResponse = await getJuzVerses(
+      juzId,
+      locale,
+      // apiParams
+      {
+        perPage: "all",
+        from: firstPageOfJuzLookup.from,
+        to: firstPageOfJuzLookup.to,
+      }
+    );
     // const metaData = { numberOfVerses };
     // juzVersesResponse.metaData = metaData;
     // juzVersesResponse.pagesLookup = pagesLookupResponse;
