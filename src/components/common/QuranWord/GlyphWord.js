@@ -1,0 +1,52 @@
+import { display } from "@mui/system";
+import React from "react";
+import { shallowEqual, useSelector } from "react-redux";
+import { QuranFont } from "src/constants/QuranReader";
+import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
+
+const getWordText = (
+  qpcUthmaniHafs,
+  textCodeV1,
+  textCodeV2,
+  font,
+  isFontLoaded
+) => {
+  if (!isFontLoaded) {
+    return qpcUthmaniHafs;
+  }
+  return font === QuranFont.MadaniV1 ? textCodeV1 : textCodeV2;
+};
+
+const GlyphWord = ({
+  qpcUthmaniHafs,
+  textCodeV1,
+  textCodeV2,
+  pageNumber,
+  font,
+  isFontLoaded,
+}) => {
+  const quranReaderStyles = useSelector(selectQuranReaderStyles, shallowEqual);
+  const { quranTextFontScale, mushafLines } = quranReaderStyles;
+  return (
+    <span
+      dangerouslySetInnerHTML={{
+        __html: getWordText(
+          qpcUthmaniHafs,
+          textCodeV1,
+          textCodeV2,
+          font,
+          isFontLoaded
+        ),
+      }}
+      data-font={font}
+      {...(isFontLoaded && {
+        // eslint-disable-next-line i18next/no-literal-string
+        style: {
+          fontFamily: `p${pageNumber}-${font.replace("code_", "")}`,
+        },
+      })}
+    />
+  );
+};
+
+export default GlyphWord;
