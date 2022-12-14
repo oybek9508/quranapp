@@ -1,4 +1,5 @@
 import { WifiPasswordOutlined } from "@mui/icons-material";
+import { Grid } from "@mui/material";
 import { useMemo, useRef } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
@@ -15,6 +16,10 @@ const VerseText = ({ words, isReadingMode = false, isFontLoaded = true }) => {
     shallowEqual
   );
 
+  console.log("quranTextFontScale", quranTextFontScale);
+
+  const isBigTextLayout = isReadingMode && quranTextFontScale > 3;
+
   const [firstWord] = words;
   const { lineNumber, pageNumber, location, verseKey, hizbNumber } = firstWord;
 
@@ -26,13 +31,26 @@ const VerseText = ({ words, isReadingMode = false, isFontLoaded = true }) => {
   const firstWordData = getFirstWordOfSurah(location);
 
   return (
-    <>
-      <div>
+    <Grid sx={{ display: "inline", width: "60vh" }}>
+      <Grid
+        alignItems="center"
+        justifyContent={
+          centerAlignPage && isReadingMode ? "center" : "space-between"
+        }
+        flexDirection="row-reverse"
+        sx={{
+          display: isBigTextLayout ? "inline" : "flex",
+          lineHeight: 2,
+          fontSize: "40px",
+          fontFamily: "UthmanicHafs",
+          fontWeight: 600,
+        }}
+      >
         {words?.map((word) => (
           <QuranWord key={word.location} word={word} font={quranFont} />
         ))}
-      </div>
-    </>
+      </Grid>
+    </Grid>
   );
 };
 

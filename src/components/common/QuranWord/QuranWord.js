@@ -12,7 +12,6 @@ const Wrapper = ({ children, shouldWrap, wrapper }) =>
   shouldWrap ? wrapper(children) : children;
 
 const QuranWord = (props) => {
-  console.log("props", props);
   const { word, font, isFontLoaded = true } = props;
 
   const readingPreference = useSelector(selectReadingPreferences);
@@ -32,22 +31,19 @@ const QuranWord = (props) => {
     );
   }
 
-  console.log("wordText", wordText);
   return (
-    <Grid sx={{ bgcolor: "red" }}>
+    <Grid>
       <Wrapper
-        shouldWrap
+        // shouldWrap
         wrapper={(children) =>
           readingPreference === ReadingPreference.Translation ? (
             <div>Translation</div>
           ) : (
-            <ReadingViewWordPopover>
-              {word.verse.textUthmani}
-            </ReadingViewWordPopover>
+            <ReadingViewWordPopover>{word.textUthmani}</ReadingViewWordPopover>
           )
         }
       >
-        {wordText}
+        {word.textUthmani}
       </Wrapper>
     </Grid>
   );
