@@ -1,10 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { Box, Button, CardMedia, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CardMedia,
+  Grid,
+  Paper,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Layout from "/src/components/Layout";
+import Layout from "/src/components/layout/Layout";
 import MainBanner from "/src/components/banners/MainBanner";
 import ChapterJuzPage from "src/components/home/ChapterJuzPage";
 import { getAllChaptersData } from "src/utils/chapters";
@@ -14,35 +22,37 @@ import { useSelector } from "react-redux";
 
 const Home = ({ chaptersData, chaptersResponse: { chapters } }) => {
   const state = useSelector((state) => state);
-  console.log("state", state);
+  // console.log("state", state);
   return (
-    <Layout>
-      <Head>
-        <title>main quran page</title>
-      </Head>
-      <DataContext.Provider value={chaptersData}>
-        <Box sx={{ px: "20px", pt: "20px" }}>
-          <Typography
-            sx={{ fontFamily: "Poppins", fontSize: "18px", color: "#8789A3" }}
-          >
-            Assalomu Alaykum
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "Poppins",
-              fontSize: "18px",
-              fontWeight: 600,
-              color: "#240F4F",
-            }}
-          >
-            Oybek Toshmatov
-          </Typography>
-          <Header />
-          <MainBanner />
-          <ChapterJuzPage chapters={chapters} />
-        </Box>
-      </DataContext.Provider>
-    </Layout>
+    <ThemeProvider>
+      <Layout>
+        <Head>
+          <title>main quran page</title>
+        </Head>
+        <DataContext.Provider value={chaptersData}>
+          <Box sx={{ px: "20px", pt: "20px" }}>
+            <Typography
+              sx={{ fontFamily: "Poppins", fontSize: "18px", color: "#8789A3" }}
+            >
+              Assalomu Alaykum
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "Poppins",
+                fontSize: "18px",
+                fontWeight: 600,
+                color: "#240F4F",
+              }}
+            >
+              Oybek Toshmatov
+            </Typography>
+            <Header />
+            <MainBanner />
+            <ChapterJuzPage chapters={chapters} />
+          </Box>
+        </DataContext.Provider>
+      </Layout>
+    </ThemeProvider>
   );
 };
 

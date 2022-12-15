@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { BASE_URL } from "/src/api/api";
-import Header from "/src/components/Header";
+import Header from "/src/components/layout/Header";
 import { Grid } from "@mui/material";
 import { getChapterVerses } from "src/api/quran-chapter-api";
 import Order from "/src/components/ayah/Order";

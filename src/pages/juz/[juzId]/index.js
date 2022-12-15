@@ -13,18 +13,13 @@ import DataContext from "src/context/DataContext";
 import ReadingPreferenceTab from "src/components/QuranReader/ReadingPreferenceTab";
 import { getPagesLookup } from "src/api/quran-page-api";
 import { generateVerseKeysBetweenTwoVerseKeys } from "src/utils/verseKeys";
-import { QuranFont } from "src/constants/QuranReader";
+import { QuranFont, QuranReaderDataType } from "src/constants/QuranReader";
 import axios from "axios";
 import { getMushafId } from "src/utils/api";
 import { getQuranReaderStylesInitialState } from "src/redux/defaultSettings/util";
 import { getDefaultWordFields } from "src/api/api";
 
-const JuzPage = ({
-  chaptersData,
-  juzVerses,
-  hasError,
-  pagesLookupResponse,
-}) => {
+const JuzPage = ({ chaptersData, juzVerses, hasError }) => {
   const router = useRouter();
   const {
     query: { juzId },
@@ -32,21 +27,23 @@ const JuzPage = ({
   const [juzMappings, setJuzMappings] = useState([]);
 
   console.log("juzVerses", juzVerses);
-  console.log("pagesLookupResponse", pagesLookupResponse);
 
   if (hasError) {
     return <Error statusCode={500} />;
   }
   return (
     <DataContext.Provider value={chaptersData}>
-      <ReadingPreferenceTab initialData={juzVerses} id={String(juzId)} />
+      <ReadingPreferenceTab
+        initialData={juzVerses}
+        id={String(juzId)}
+        quranReaderType={QuranReaderDataType.Juz}
+      />
     </DataContext.Provider>
   );
 };
 
 export const getStaticProps = async ({ params, locale }) => {
   let juzId = String(params.juzId);
-  // we need to validate the chapterId and verseId first to save calling BE since we haven't set the valid paths inside getStaticPaths to avoid pre-rendering them at build time.
   if (!isValidJuzId(juzId)) {
     return {
       notFound: true,
@@ -81,24 +78,12 @@ export const getStaticProps = async ({ params, locale }) => {
       ...apiParams,
       ...{
         perPage: "all",
-        // from: firstPageOfChapterLookup.from,
-        // to: firstPageOfChapterLookup.to,
+        from: firstPageOfJuzLookup.from,
+        to: firstPageOfJuzLookup.to,
       },
     };
 
-    const juzVersesResponse = await getJuzVerses(
-      juzId,
-      locale,
-      // apiParams
-      {
-        perPage: "all",
-        from: firstPageOfJuzLookup.from,
-        to: firstPageOfJuzLookup.to,
-      }
-    );
-    // const metaData = { numberOfVerses };
-    // juzVersesResponse.metaData = metaData;
-    // juzVersesResponse.pagesLookup = pagesLookupResponse;
+    const juzVersesResponse = await getJuzVerses(juzId, locale, apiParams);
     return {
       props: {
         chaptersData,

@@ -15,16 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: black;
-    background: white;
-  }
-}
-
 /* TODO: figure out a way to generate font faces on the fly. We're creating lot of font faces that browsers might not need. */
 
 /*Fonts for rendering different Mushaf scripts*/
@@ -39,15 +29,6 @@ a {
       format("truetype");
   font-display: swap;
 }
-
-/* /assets/fonts/hafs/KFGQPC_Uthmanic_Script_HAFS_Regular.otf */
-
-/* @font-face {
-  font-family: "UthmanicHafs";
-  src: local("KFGQPC HAFS Uthmanic Script"),
-    url("/assets/fonts/hafs/KFGQPC_Uthmanic_Script_HAFS_Regular.otf") format("opentype");
-  font-display: swap;
-} */
 
 /* TODO: we're not rendering text_uthmani anymore, do we need this font face? */
 @font-face {
@@ -72,7 +53,8 @@ a {
 @font-face {
   font-family: "surahnames";
   src: url("/assets/fonts/quran/surah-names/v1/sura_names.woff2"),
-    url("/assets/fonts/quran/quran/surah-names/v1/sura_names.woff") format("woff");
+    url("/assets/fonts/quran/quran/surah-names/v1/sura_names.woff")
+      format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -84,7 +66,8 @@ a {
   src: local("Dhivehi Akuru"),
     url("/assets/fonts/lang/dhivehi/dhivehi/DhivehiAkuru.woff2"),
     url("/assets/fonts/lang/dhivehi/dhivehi/DhivehiAkuru.woff") format("woff"),
-    url("/assets/fonts/lang/dhivehi/dhivehi/DhivehiAkuru.otf") format("opentype");
+    url("/assets/fonts/lang/dhivehi/dhivehi/DhivehiAkuru.otf")
+      format("opentype");
   font-display: swap;
 }
 
@@ -92,15 +75,17 @@ a {
   font-family: "NotoNastaliq";
   src: local("Noto Naskh Arabic"), local("Nafees Regular"),
     url("/assets/fonts/lang/arabic/NotoNaskhArabic-Regular.woff2"),
-    url("/assets/fonts/lang/arabic/NotoNaskhArabic-Regular.ttf") format("truetype");
+    url("/assets/fonts/lang/arabic/NotoNaskhArabic-Regular.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-} 
+}
 
 @font-face {
   font-family: "MehrNastaliq";
-  src: local("Mehr Nastaliq Web"), url("/assets/fonts/lang/urdu/MehrNastaliqWeb.woff2"),
+  src: local("Mehr Nastaliq Web"),
+    url("/assets/fonts/lang/urdu/MehrNastaliqWeb.woff2"),
     url("/assets/fonts/lang/urdu/MehrNastaliqWeb.woff") format("woff"),
     url("/assets/fonts/lang/urdu/MehrNastaliqWeb.ttf") format("truetype");
   font-weight: normal;

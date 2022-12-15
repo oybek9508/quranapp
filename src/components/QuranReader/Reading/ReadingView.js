@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import { BASE_URL } from "/src/api/api";
 import { useSingleSurah } from "/src/api/quran-chapter-api";
-import Header from "/src/components/Header";
+import Header from "/src/components/layout/Header";
 import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
 import { useUthmaniScript, useUthmaniTajweedScript } from "/src/api/quran-api";
 import { useChaperAudioForEachAyah } from "/src/api/quran-audio-api";

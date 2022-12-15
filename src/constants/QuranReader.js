@@ -48,3 +48,5 @@ export const QuranReaderDataType = {
   Rub: "rub",
   Page: "page",
 };
+
+export const FALLBACK_FONT = QuranFont.QPCHafs;

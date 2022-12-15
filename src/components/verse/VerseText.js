@@ -2,8 +2,9 @@ import { WifiPasswordOutlined } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import { useMemo, useRef } from "react";
 import { shallowEqual, useSelector } from "react-redux";
+import { FALLBACK_FONT } from "src/constants/QuranReader";
 import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
-import { isQCFFont } from "src/utils/fontFaceHelper";
+import { getFontClassName, isQCFFont } from "src/utils/fontFaceHelper";
 import { getFirstWordOfSurah } from "src/utils/verse";
 import GlyphWord from "../common/QuranWord/GlyphWord";
 import QuranWord from "../common/QuranWord/QuranWord";
@@ -15,8 +16,6 @@ const VerseText = ({ words, isReadingMode = false, isFontLoaded = true }) => {
     selectQuranReaderStyles,
     shallowEqual
   );
-
-  console.log("quranTextFontScale", quranTextFontScale);
 
   const isBigTextLayout = isReadingMode && quranTextFontScale > 3;
 
@@ -30,20 +29,25 @@ const VerseText = ({ words, isReadingMode = false, isFontLoaded = true }) => {
 
   const firstWordData = getFirstWordOfSurah(location);
 
+  const fontClassName = isFontLoaded
+    ? getFontClassName(quranFont, quranTextFontScale, mushafLines)
+    : getFontClassName(FALLBACK_FONT, quranTextFontScale, mushafLines, true);
+
   return (
-    <Grid sx={{ display: "inline", width: "60vh" }}>
+    <Grid sx={{ display: isBigTextLayout ? "inline" : "block" }}>
       <Grid
         alignItems="center"
         justifyContent={
           centerAlignPage && isReadingMode ? "center" : "space-between"
         }
         flexDirection="row-reverse"
+        flexWrap={isReadingMode && "wrap"}
         sx={{
           display: isBigTextLayout ? "inline" : "flex",
-          lineHeight: 2,
-          fontSize: "40px",
+          lineHeight: "normal",
+          fontSize: "2.5rem",
           fontFamily: "UthmanicHafs",
-          fontWeight: 600,
+          fontWeight: 500,
         }}
       >
         {words?.map((word) => (

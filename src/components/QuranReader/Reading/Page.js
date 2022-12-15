@@ -1,6 +1,9 @@
+import { Grid } from "@mui/material";
 import { useMemo } from "react";
+import constants from "src/styles/theme/constants";
 import groupLinesByVerses from "./groupLinesByVerses";
 import Line from "./Line";
+import PageFooter from "./PageFooter";
 
 const Page = (props) => {
   const { verses, pageNumber, quranReaderStyles, pageIndex } = props;
@@ -9,11 +12,18 @@ const Page = (props) => {
     [verses]
   );
 
-  //   console.log("lines", lines);
   const { quranTextFontScale, quranFont, mushafLines } = quranReaderStyles;
 
   return (
-    <div>
+    <Grid
+      id={`page-${pageNumber}`}
+      sx={{
+        maxWidth: "100%",
+        width: "73.5vh",
+        borderBlockEnd: "1px gray solid",
+        marginBlockStart: constants.readingViewContainerTopMargin,
+      }}
+    >
       {Object.keys(lines).map((key, lineIndex) => (
         <Line
           pageIndex={pageIndex}
@@ -25,7 +35,8 @@ const Page = (props) => {
           quranReaderStyles={quranReaderStyles}
         />
       ))}
-    </div>
+      <PageFooter page={pageNumber} />
+    </Grid>
   );
 };
 
