@@ -4,6 +4,7 @@ import { getReaderViewRequestKey, verseFetcher } from "../api";
 import { useSelector } from "react-redux";
 import useSWRImmutable from "swr/immutable";
 import Page from "./Page";
+import { Grid } from "@mui/material";
 
 const getPageVersesRange = (currentMushafPage, apiPagesVersesRange) => {
   const lookupRecord = { ...apiPagesVersesRange[currentMushafPage] };
@@ -77,7 +78,7 @@ const PageContainer = (props) => {
   }, [pageNumber, setMushafPageToVersesMap, verses]);
 
   return (
-    <div>
+    <Grid container justifyContent="center">
       <Page
         verses={verses}
         key={`page-${pageNumber}`}
@@ -85,7 +86,7 @@ const PageContainer = (props) => {
         quranReaderStyles={quranReaderStyles}
         pageIndex={pageIndex}
       />
-    </div>
+    </Grid>
   );
 };
 

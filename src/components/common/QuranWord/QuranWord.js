@@ -33,7 +33,7 @@ const QuranWord = (props) => {
 
   return (
     <Grid>
-      <Wrapper
+      {/* <Wrapper
         // shouldWrap
         wrapper={(children) =>
           readingPreference === ReadingPreference.Translation ? (
@@ -42,9 +42,9 @@ const QuranWord = (props) => {
             <ReadingViewWordPopover>{word.textUthmani}</ReadingViewWordPopover>
           )
         }
-      >
-        {word.textUthmani}
-      </Wrapper>
+      > */}
+      {word.qpcUthmaniHafs}
+      {/* </Wrapper> */}
     </Grid>
   );
 };

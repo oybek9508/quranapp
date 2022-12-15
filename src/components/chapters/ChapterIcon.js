@@ -6,7 +6,7 @@ const ChapterIcon = ({ id, fontSize, isBanner }) => {
     <Typography
       sx={{
         fontFamily: "surahnames",
-        fontSize: isBanner ? "54px" : "24px",
+        fontSize: "54px",
         color: isBanner && "white",
       }}
     >

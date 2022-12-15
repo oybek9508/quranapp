@@ -11,6 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { ContactPageOutlined } from "@mui/icons-material";
+import ThemeTab from "./ThemeTab";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -92,6 +93,7 @@ export default function Header({ type = "menu", singleChapter }) {
               ? singleChapter?.transliteratedName
               : "Quran App"}
           </Typography>
+          <ThemeTab />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

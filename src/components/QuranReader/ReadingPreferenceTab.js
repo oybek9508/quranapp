@@ -42,7 +42,7 @@ export default function ReadingPreferenceTab(props) {
             <Tab label={Reading} value={Reading} />
           </TabList>
         </Box>
-        <Banner data={singleChapter} value={readingPreference} />
+        {/* <Banner data={singleChapter} value={readingPreference} /> */}
         <TabPanel value={Translation}>
           <TranslationView
             value={readingPreference}

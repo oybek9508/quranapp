@@ -1,9 +1,15 @@
 import React from "react";
+import { getDefaultWordFields } from "src/api/api";
 import {
   getChapterIdBySlug,
   getChapterVerses,
 } from "src/api/quran-chapter-api";
 import { getPagesLookup } from "src/api/quran-page-api";
+import ReadingPreferenceTab from "src/components/QuranReader/ReadingPreferenceTab";
+import { QuranReaderDataType } from "src/constants/QuranReader";
+import DataContext from "src/context/DataContext";
+import { getQuranReaderStylesInitialState } from "src/redux/defaultSettings/util";
+import { getMushafId } from "src/utils/api";
 import { getAllChaptersData, getChapterData } from "src/utils/chapters";
 import {
   ONE_WEEK_REVALIDATION_PERIOD_SECONDS,
@@ -19,7 +25,19 @@ import { generateVerseKeysBetweenTwoVerseKeys } from "src/utils/verseKeys";
 
 const VersePage = (props) => {
   console.log("props", props);
-  return <div>VersePage</div>;
+  const { chaptersData, chapterResponse, versesResponse, isVerse } = props;
+
+  return (
+    <DataContext.Provider value={chaptersData}>
+      <ReadingPreferenceTab
+        initialData={versesResponse}
+        id={chapterResponse.chapter.id}
+        quranReaderType={
+          isVerse ? QuranReaderDataType.Verse : QuranReaderDataType.VerseRange
+        }
+      />
+    </DataContext.Provider>
+  );
 };
 
 export const getStaticProps = async ({ params, locale }) => {
@@ -43,14 +61,14 @@ export const getStaticProps = async ({ params, locale }) => {
     viewing the verse's page otherwise it's a range page.
   */
   const isVerse = isValidVerseNumber(verseIdOrRange);
-  // const defaultMushafId = getMushafId(
-  //   getQuranReaderStylesInitialState(locale).quranFont,
-  //   getQuranReaderStylesInitialState(locale).mushafLines
-  // ).mushaf;
+  const defaultMushafId = getMushafId(
+    getQuranReaderStylesInitialState(locale).quranFont,
+    getQuranReaderStylesInitialState(locale).mushafLines
+  ).mushaf;
   // common API params between a single verse and range of verses.
   let apiParams = {
-    // ...getDefaultWordFields(getQuranReaderStylesInitialState(locale).quranFont),
-    // mushaf: defaultMushafId,
+    ...getDefaultWordFields(getQuranReaderStylesInitialState(locale).quranFont),
+    mushaf: defaultMushafId,
   };
   const metaData = { numberOfVerses: 1 };
   let [from, to] = [null, null];
@@ -71,7 +89,7 @@ export const getStaticProps = async ({ params, locale }) => {
   try {
     const pagesLookupResponse = await getPagesLookup({
       chapterNumber: Number(chapterIdOrSlug),
-      // mushaf: defaultMushafId,
+      mushaf: defaultMushafId,
       from: isVerse ? `${chapterIdOrSlug}:${verseIdOrRange}` : metaData.from,
       to: isVerse ? `${chapterIdOrSlug}:${verseIdOrRange}` : metaData.to,
     });
@@ -88,6 +106,7 @@ export const getStaticProps = async ({ params, locale }) => {
           firstRangeMushafPageLookup.to
         ).length;
       apiParams = {
+        ...apiParams,
         ...{ perPage: firstRangeMushafPageNumberOfVerses },
       };
     }
@@ -109,7 +128,6 @@ export const getStaticProps = async ({ params, locale }) => {
     }
     return {
       props: {
-        apiParams,
         chaptersData,
         chapterResponse: {
           chapter: { ...chapterData, id: chapterIdOrSlug },
