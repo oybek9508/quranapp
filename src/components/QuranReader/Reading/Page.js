@@ -17,11 +17,13 @@ const Page = (props) => {
   return (
     <Grid
       id={`page-${pageNumber}`}
-      sx={{
-        maxWidth: "100%",
-        width: "73.5vh",
-        borderBlockEnd: "1px gray solid",
-        marginBlockStart: constants.readingViewContainerTopMargin,
+      sx={(theme) => {
+        return {
+          maxWidth: "100%",
+          width: "73.5vh",
+          borderBlockEnd: "1px gray solid",
+          marginBlockStart: constants.readingViewContainerTopMargin,
+        };
       }}
     >
       {Object.keys(lines).map((key, lineIndex) => (

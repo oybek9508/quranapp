@@ -12,6 +12,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { ContactPageOutlined } from "@mui/icons-material";
 import ThemeTab from "./ThemeTab";
+import { ThemeTypes } from "src/styles/theme/modes";
+import { amber, deepOrange } from "@mui/material/colors";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,10 +63,13 @@ export default function Header({ type = "menu", singleChapter }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
-        sx={{
-          bgcolor: "#fff",
+        sx={(theme) => ({
+          bgcolor:
+            (theme.mode === ThemeTypes.Light && "#fff") ||
+            (theme.mode === ThemeTypes.Dark && deepOrange[900]) ||
+            (theme.mode === ThemeTypes.Main && "#94C2A5"),
           color: "#000",
-        }}
+        })}
       >
         <Toolbar>
           <IconButton

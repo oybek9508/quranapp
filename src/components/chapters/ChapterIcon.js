@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
 import React from "react";
 
-const ChapterIcon = ({ id, fontSize, isBanner }) => {
+const ChapterIcon = ({ id, fontSize, hasSurahPrefix, isBanner }) => {
   return (
     <Typography
       sx={{
         fontFamily: "surahnames",
-        fontSize: "54px",
+        fontSize: hasSurahPrefix ? "54px" : "24px",
         color: isBanner && "white",
       }}
     >

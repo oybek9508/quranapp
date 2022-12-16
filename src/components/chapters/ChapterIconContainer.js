@@ -17,8 +17,18 @@ const ChapterIconContainer = ({
 }) => {
   return (
     <Grid container alignItems="center" justifyContent="center">
-      <ChapterIcon id={id} isBanner={isBanner} />
-      {hasSurahPrefix && <ChapterIcon id="surah" isBanner={isBanner} />}
+      <ChapterIcon
+        id={id}
+        hasSurahPrefix={hasSurahPrefix}
+        isBanner={isBanner}
+      />
+      {hasSurahPrefix && (
+        <ChapterIcon
+          id="surah"
+          isBanner={isBanner}
+          hasSurahPrefix={hasSurahPrefix}
+        />
+      )}
     </Grid>
   );
 };

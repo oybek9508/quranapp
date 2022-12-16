@@ -20,7 +20,8 @@ import { QuranReaderDataType } from "src/constants/QuranReader";
 import { getPagesLookup } from "src/api/quran-page-api";
 import { generateVerseKeysBetweenTwoVerseKeys } from "src/utils/verseKeys";
 import { formatStringNumber } from "src/utils/number";
-import { getDefaultWordFields, getMushafId } from "src/utils/api";
+import { getDefaultWordFields } from "src/api/api";
+import { getMushafId } from "src/utils/api";
 import { getQuranReaderStylesInitialState } from "src/redux/defaultSettings/util";
 
 const SurahDetail = (props) => {
