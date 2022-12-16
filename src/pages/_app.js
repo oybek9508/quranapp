@@ -12,19 +12,28 @@ import {
 import { selectTheme } from "src/redux/slices/theme";
 import { useMemo } from "react";
 import { getDesignTokens } from "src/styles/theme";
+import { ThemeTypes } from "src/styles/theme/modes";
+import DataContext from "src/context/DataContext";
 
 // const clientSideEmotionCache = createEmotionCache();
 
 function App({ props }) {
   const { Component, pageProps } = props;
+  console.log("pageProps", pageProps);
   const { type } = useSelector(selectTheme, shallowEqual);
-  const theme = useMemo(() => createTheme(getDesignTokens(type)), [type]);
+
+  const theme = useMemo(
+    () => createTheme(getDesignTokens(type), { mode: type }),
+    [type]
+  );
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <DataContext.Provider value={pageProps.chaptersData}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </DataContext.Provider>
   );
 }
 

@@ -7,6 +7,7 @@ import { selectReadingPreferences } from "src/redux/slices/QuranReader/readingPr
 import { isQCFFont } from "src/utils/fontFaceHelper";
 import { makeWordLocation } from "src/utils/verse";
 import GlyphWord from "./GlyphWord";
+import TajweedWord from "./TajweedWordImage";
 
 const Wrapper = ({ children, shouldWrap, wrapper }) =>
   shouldWrap ? wrapper(children) : children;
@@ -44,6 +45,7 @@ const QuranWord = (props) => {
         }
       > */}
       {word.qpcUthmaniHafs}
+      {/* <TajweedWord path={word.text} alt={word.textUthmani} /> */}
       {/* </Wrapper> */}
     </Grid>
   );

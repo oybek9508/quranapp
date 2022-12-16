@@ -6,19 +6,17 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { selectTheme, setTheme } from "src/redux/slices/theme";
-import { ThemeTypes } from "src/styles/theme/types";
+import { ThemeTypes } from "src/styles/theme/modes";
 
 const { Light, Dark, Main } = ThemeTypes;
 
 export default function ThemeTab() {
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme, shallowEqual);
-  console.log("theme", theme);
 
   const handleChange = (event, newValue) => {
     dispatch(setTheme(newValue));
   };
-  console.log("theme.type", theme.type);
 
   return (
     <Box>

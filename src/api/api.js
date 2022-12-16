@@ -12,10 +12,12 @@ export const STAGING_API_URL = process.env.NEXT_PUBLIC_QURAN_API_STAGING_URL;
 export const PRODUCTION_API_URL =
   process.env.NEXT_PUBLIC_QURAN_API_PRODUCTION_URL;
 
-export const API_HOST =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
-    ? PRODUCTION_API_URL
-    : STAGING_API_URL;
+// export const API_HOST =
+//   process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+//     ? PRODUCTION_API_URL
+//     : STAGING_API_URL;
+
+export const API_HOST = PRODUCTION_API_URL;
 
 export const BASE_URL = `${API_HOST}/api/qdc`;
 

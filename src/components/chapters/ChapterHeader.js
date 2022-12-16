@@ -21,7 +21,11 @@ const ChapterHeader = ({
     <div>
       <div>
         <div>
-          <ChapterIconContainer id={chapterId} size={ChapterIconsSize.Mega} />
+          <ChapterIconContainer
+            id={chapterId}
+            size={ChapterIconsSize.Mega}
+            hasSurahPrefix={true}
+          />
         </div>
       </div>
       <div>
