@@ -23,13 +23,14 @@ const TajweedWord = ({ path, alt }) => {
   //   const { quranTextFontScale } = useSelector(selectQuranReaderStyles);
   return (
     <span>
-      <Image
+      {/* <Image
         src={`${makeCDNUrl(`images/${path}`)}`}
         alt={alt}
         component="img"
-        width={16}
+        width=""
         height={16}
-      />
+      /> */}
+      <img src={`${makeCDNUrl(`images/${path}`)}`} alt={alt} />
     </span>
   );
 };

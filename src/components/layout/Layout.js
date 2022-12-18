@@ -2,10 +2,10 @@ import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, type, singleChapter }) => {
   return (
     <div>
-      <Header />
+      <Header type={type} singleChapter={singleChapter} />
       {children}
       {/* <Footer /> */}
     </div>

@@ -25,33 +25,31 @@ const Home = ({ chaptersData, chaptersResponse: { chapters } }) => {
   // console.log("state", state);
   return (
     <ThemeProvider>
-      <Layout>
-        <Head>
-          <title>main quran page</title>
-        </Head>
-        <DataContext.Provider value={chaptersData}>
-          <Box sx={{ px: "20px", pt: "20px" }}>
-            <Typography
-              sx={{ fontFamily: "Poppins", fontSize: "18px", color: "#8789A3" }}
-            >
-              Assalomu Alaykum
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily: "Poppins",
-                fontSize: "18px",
-                fontWeight: 600,
-                color: "#240F4F",
-              }}
-            >
-              Oybek Toshmatov
-            </Typography>
-            <Header />
-            <MainBanner />
-            <ChapterJuzPage chapters={chapters} />
-          </Box>
-        </DataContext.Provider>
-      </Layout>
+      <Head>
+        <title>main quran page</title>
+      </Head>
+      <DataContext.Provider value={chaptersData}>
+        <Box sx={{ px: "20px", pt: "20px" }}>
+          <Typography
+            sx={{ fontFamily: "Poppins", fontSize: "18px", color: "#8789A3" }}
+          >
+            Assalomu Alaykum
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontSize: "18px",
+              fontWeight: 600,
+              color: "#240F4F",
+            }}
+          >
+            Oybek Toshmatov
+          </Typography>
+          <Header />
+          <MainBanner />
+          <ChapterJuzPage chapters={chapters} />
+        </Box>
+      </DataContext.Provider>
     </ThemeProvider>
   );
 };

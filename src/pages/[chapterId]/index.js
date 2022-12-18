@@ -44,10 +44,6 @@ const SurahDetail = (props) => {
 
   return (
     <DataContext.Provider value={chaptersData}>
-      <Header
-        type="back"
-        singleChapter={{ ...chaptersData[chapterId], id: chapterId }}
-      />
       <Grid sx={{ px: 3, mt: 4 }}>
         <ReadingPreferenceTab
           initialData={chapterData}
@@ -62,7 +58,7 @@ const SurahDetail = (props) => {
   );
 };
 
-export const getStaticProps = async ({ params, locale }) => {
+export const getStaticProps = async ({ params, locale = "en" }) => {
   let chapterIdOrVerseKeyOrSlug = String(params.chapterId);
   let isChapter = isValidChapterId(chapterIdOrVerseKeyOrSlug);
   const chaptersData = await getAllChaptersData();
@@ -81,7 +77,9 @@ export const getStaticProps = async ({ params, locale }) => {
   ).mushaf;
 
   let apiParams = {
-    ...getDefaultWordFields(getQuranReaderStylesInitialState(locale).quranFont),
+    ...getDefaultWordFields(
+      getQuranReaderStylesInitialState((locale = "en")).quranFont
+    ),
     mushaf: defaultMushafId,
   };
   let numberOfVerses = 1;

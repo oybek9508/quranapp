@@ -50,7 +50,7 @@ const ReadingView = (props) => {
 
   const itemContentRenderer = (pageIndex) => (
     <PageContainer
-      // isUsingDefaultFont={isUsingDefaultFont}
+      isUsingDefaultFont={true}
       pagesVersesRange={pagesVersesRange}
       quranReaderStyles={quranReaderStyles}
       // reciterId={reciterId}

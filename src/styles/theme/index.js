@@ -26,8 +26,9 @@ export const getDesignTokens = (mode) => {
       ...(mode === ThemeTypes.Main && {
         background: {
           default: "#f4faee",
-          paper: amber[600],
+          // paper: amber[600],
         },
+
         primary: {
           main: "#005F33",
         },
@@ -48,16 +49,16 @@ export const getDesignTokens = (mode) => {
         }),
       },
     },
-    overrides: {
-      MuiCssBaseline: {
-        "@global": {
-          body: {
-            backgroundImage:
-              "url(https://www.transparenttextures.com/patterns/textured-paper.png)",
-          },
-        },
-      },
-    },
+    // overrides: {
+    //   MuiCssBaseline: {
+    //     "@global": {
+    //       body: {
+    //         backgroundImage:
+    //           "url(https://www.transparenttextures.com/patterns/textured-paper.png)",
+    //       },
+    //     },
+    //   },
+    // },
   };
 };
 
