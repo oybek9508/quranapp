@@ -14,12 +14,14 @@ import { useMemo } from "react";
 import { getDesignTokens } from "src/styles/theme";
 import { ThemeTypes } from "src/styles/theme/modes";
 import DataContext from "src/context/DataContext";
+import Layout from "src/components/layout/Layout";
 
 // const clientSideEmotionCache = createEmotionCache();
 
 function App({ props }) {
   const { Component, pageProps } = props;
   console.log("pageProps", pageProps);
+  const { chaptersData, chapterId } = pageProps;
   const { type } = useSelector(selectTheme, shallowEqual);
 
   const theme = useMemo(
@@ -30,8 +32,16 @@ function App({ props }) {
   return (
     <DataContext.Provider value={pageProps.chaptersData}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <Layout
+          type="back"
+          singleChapter={{
+            ...chaptersData[chapterId],
+            id: chapterId,
+          }}
+        >
+          <CssBaseline />
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </DataContext.Provider>
   );

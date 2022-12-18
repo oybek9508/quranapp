@@ -14,6 +14,10 @@ import { ContactPageOutlined } from "@mui/icons-material";
 import ThemeTab from "./ThemeTab";
 import { ThemeTypes } from "src/styles/theme/modes";
 import { amber, deepOrange } from "@mui/material/colors";
+import SettingsIcon from "@mui/icons-material/Settings";
+import SettingsDrawer from "../navbar/SettingsDrawer";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { selectNavbar, setToggleDrawer } from "src/redux/slices/navbar";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,6 +62,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header({ type = "menu", singleChapter }) {
+  const dispatch = useDispatch();
+  const { open } = useSelector(selectNavbar, shallowEqual);
   const router = useRouter();
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -98,7 +104,8 @@ export default function Header({ type = "menu", singleChapter }) {
               ? singleChapter?.transliteratedName
               : "Quran App"}
           </Typography>
-          <ThemeTab />
+          <SettingsDrawer />
+          <SettingsIcon onClick={() => dispatch(setToggleDrawer(!open))} />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

@@ -47,7 +47,7 @@ const READING_PREFERENCES_INITIAL_STATE = {
 };
 
 const THEME_INITIAL_STATE = {
-  type: "light",
+  type: "main",
 };
 
 const AUDIO_INITIAL_STATE = {

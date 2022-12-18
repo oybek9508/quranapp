@@ -2,7 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import ReadingViewWordPopover from "src/components/QuranReader/Reading/ReadingViewWordPopover";
-import { ReadingPreference } from "src/constants/QuranReader";
+import { QuranFont, ReadingPreference } from "src/constants/QuranReader";
 import { selectReadingPreferences } from "src/redux/slices/QuranReader/readingPreferences";
 import { isQCFFont } from "src/utils/fontFaceHelper";
 import { makeWordLocation } from "src/utils/verse";
@@ -44,8 +44,10 @@ const QuranWord = (props) => {
           )
         }
       > */}
-      {word.qpcUthmaniHafs}
-      {/* <TajweedWord path={word.text} alt={word.textUthmani} /> */}
+      {font === QuranFont.MadaniV1 && word.qpcUthmaniHafs}
+      {font === QuranFont.Tajweed && (
+        <TajweedWord path={word.text} alt={word.textUthmani} />
+      )}
       {/* </Wrapper> */}
     </Grid>
   );

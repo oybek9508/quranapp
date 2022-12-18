@@ -26,11 +26,11 @@ const PageContainer = (props) => {
     quranReaderStyles,
     // reciterId,
     // lang,
-    // wordByWordLocale,
+    wordByWordLocale = false,
     pageIndex,
     setMushafPageToVersesMap,
     initialData,
-    // isUsingDefaultFont,
+    isUsingDefaultFont,
   } = props;
 
   const pageNumber = useMemo(
@@ -45,27 +45,27 @@ const PageContainer = (props) => {
     [initialData.verses, pageIndex, pageNumber]
   );
 
-  const shouldUseInitialData = pageIndex === 0;
-  //   &&
-  //   isUsingDefaultFont &&
-  //   isUsingDefaultReciter &&
-  //   isUsingDefaultWordByWordLocale;
+  // const shouldUseInitialData = pageIndex === 0 && false && true && true;
 
   const { data: verses, isValidating } = useSWRImmutable(
     getReaderViewRequestKey({
       pageNumber,
       pageVersesRange: getPageVersesRange(pageNumber, pagesVersesRange),
-      quranReaderStyles,
-      //   reciter: reciterId,
+      quranReaderStyles: { ...quranReaderStyles, quranFont: "tajweed" },
+      reciter: 7,
       locale: "en",
-      //   wordByWordLocale,
+      wordByWordLocale,
     }),
-    verseFetcher,
-    {
-      fallbackData: shouldUseInitialData ? initialVerses : null,
-      revalidateOnMount: !shouldUseInitialData,
-    }
+    verseFetcher
+    // {
+    //   fallbackData: shouldUseInitialData ? initialVerses : null,
+    //   revalidateOnMount: !shouldUseInitialData,
+    // }
   );
+
+  console.log("verses", verses);
+  // console.log("shouldUseInitialData", shouldUseInitialData);
+  console.log("quranReaderStyles", quranReaderStyles);
 
   useEffect(() => {
     if (verses) {
@@ -76,6 +76,10 @@ const PageContainer = (props) => {
       }));
     }
   }, [pageNumber, setMushafPageToVersesMap, verses]);
+
+  if (!verses || isValidating) {
+    return <div>Error</div>;
+  }
 
   return (
     <Grid container justifyContent="center">
