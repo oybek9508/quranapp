@@ -11,12 +11,15 @@ import { ThemeTypes } from "./modes";
 export const getDesignTokens = (mode) => {
   return {
     palette: {
-      primary: {
-        ...amber,
-        ...(mode === ThemeTypes.Dark && {
-          main: amber[300],
-        }),
-      },
+      ...(mode === ThemeTypes.Light && {
+        background: {
+          default: grey[100],
+          // paper: "#fff",
+        },
+        primary: {
+          main: grey[900],
+        },
+      }),
       ...(mode === ThemeTypes.Dark && {
         background: {
           default: "#1b3a4b",
@@ -28,8 +31,8 @@ export const getDesignTokens = (mode) => {
       }),
       ...(mode === ThemeTypes.Main && {
         background: {
-          default: "#f4faee",
-          // paper: amber[600],
+          deafult: "#f4faee",
+          paper: "#94C2A5",
         },
 
         primary: {
@@ -51,11 +54,6 @@ export const getDesignTokens = (mode) => {
           secondary: grey[900],
         }),
       },
-    },
-    typography: {
-      ...(mode === ThemeTypes.Dark && {
-        v6: {},
-      }),
     },
   };
 };

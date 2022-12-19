@@ -1,4 +1,4 @@
-import { Grid, MenuItem, MenuList, Typography } from "@mui/material";
+import { Grid, MenuItem, MenuList, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { ALL_QURAN_PAGES } from "src/constants";
 import { useRouter } from "next/router";
@@ -7,6 +7,7 @@ import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
 import { getPageIdsByMushaf } from "src/utils/page";
 
 const Pages = () => {
+  const theme = useTheme();
   const { quranFont, mushafLines } = useSelector(selectQuranReaderStyles);
   const router = useRouter();
   const pageIds = getPageIdsByMushaf("", quranFont, mushafLines);
@@ -25,7 +26,7 @@ const Pages = () => {
             xl={2}
             key={idx}
             sx={{
-              border: "1px solid olive",
+              border: `1px solid ${theme.palette.text.secondary}`,
               borderRadius: "5px",
               m: 1,
             }}

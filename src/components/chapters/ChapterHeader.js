@@ -1,7 +1,11 @@
-import { Grid } from "@mui/material";
+import { Grid, useTheme } from "@mui/material";
 import Image from "next/image";
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { QuranFont } from "src/constants/QuranReader";
+import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
+import { selectTheme } from "src/redux/slices/theme";
+import { ThemeTypes } from "src/styles/theme/modes";
 import Bismillah from "../common/Bismillah";
 // import Bismillah from "../common/Bismillah";
 import ChapterIconContainer, { ChapterIconsSize } from "./ChapterIconContainer";
@@ -17,16 +21,26 @@ const ChapterHeader = ({
 }) => {
   const dispatch = useDispatch();
   const headerRef = useRef(null);
+  const theme = useTheme();
+  const { type } = useSelector(selectTheme, shallowEqual);
+  const { quranFont } = useSelector(selectQuranReaderStyles, shallowEqual);
   return (
     <div>
       <div>
-        <div>
+        <Grid
+          sx={{
+            color:
+              type === ThemeTypes.Dark &&
+              quranFont === QuranFont.Tajweed &&
+              theme.palette.text.secondary,
+          }}
+        >
           <ChapterIconContainer
             id={chapterId}
             size={ChapterIconsSize.Mega}
             hasSurahPrefix={true}
           />
-        </div>
+        </Grid>
       </div>
       <div>
         {!CHAPTERS_WITHOUT_BISMILLAH.includes(chapterId) && (
