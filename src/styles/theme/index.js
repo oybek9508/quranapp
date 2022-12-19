@@ -19,8 +19,11 @@ export const getDesignTokens = (mode) => {
       },
       ...(mode === ThemeTypes.Dark && {
         background: {
-          default: "#D7DBD6",
-          paper: deepOrange[600],
+          default: "#1b3a4b",
+          paper: "#065a60",
+        },
+        primary: {
+          main: "#fff",
         },
       }),
       ...(mode === ThemeTypes.Main && {
@@ -40,7 +43,7 @@ export const getDesignTokens = (mode) => {
           secondary: grey[800],
         }),
         ...(mode === ThemeTypes.Dark && {
-          primary: grey[900],
+          primary: "#fff",
           secondary: grey[500],
         }),
         ...(mode === ThemeTypes.Main && {
@@ -49,16 +52,11 @@ export const getDesignTokens = (mode) => {
         }),
       },
     },
-    // overrides: {
-    //   MuiCssBaseline: {
-    //     "@global": {
-    //       body: {
-    //         backgroundImage:
-    //           "url(https://www.transparenttextures.com/patterns/textured-paper.png)",
-    //       },
-    //     },
-    //   },
-    // },
+    typography: {
+      ...(mode === ThemeTypes.Dark && {
+        v6: {},
+      }),
+    },
   };
 };
 

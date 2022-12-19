@@ -30,23 +30,16 @@ const Home = ({ chaptersData, chaptersResponse: { chapters } }) => {
       </Head>
       <DataContext.Provider value={chaptersData}>
         <Box sx={{ px: "20px", pt: "20px" }}>
-          <Typography
-            sx={{ fontFamily: "Poppins", fontSize: "18px", color: "#8789A3" }}
-          >
-            Assalomu Alaykum
-          </Typography>
+          <Typography sx={{ fontSize: "18px" }}>Assalomu Alaykum</Typography>
           <Typography
             sx={{
-              fontFamily: "Poppins",
               fontSize: "18px",
-              fontWeight: 600,
-              color: "#240F4F",
             }}
           >
             Oybek Toshmatov
           </Typography>
           <Header />
-          <MainBanner />
+          {/* <MainBanner /> */}
           <ChapterJuzPage chapters={chapters} />
         </Box>
       </DataContext.Provider>

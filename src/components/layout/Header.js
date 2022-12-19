@@ -11,7 +11,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { ContactPageOutlined } from "@mui/icons-material";
-import ThemeTab from "./ThemeTab";
 import { ThemeTypes } from "src/styles/theme/modes";
 import { amber, deepOrange } from "@mui/material/colors";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -68,11 +67,11 @@ export default function Header({ type = "menu", singleChapter }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="static"
+        position="fixed"
         sx={(theme) => ({
           bgcolor:
             (theme.mode === ThemeTypes.Light && "#fff") ||
-            (theme.mode === ThemeTypes.Dark && deepOrange[900]) ||
+            (theme.mode === ThemeTypes.Dark && "#065a60") ||
             (theme.mode === ThemeTypes.Main && "#94C2A5"),
           color: "#000",
         })}
@@ -86,14 +85,18 @@ export default function Header({ type = "menu", singleChapter }) {
             sx={{ mr: 2 }}
           >
             {type === "back" && (
-              <KeyboardBackspaceIcon onClick={() => router.back()} />
+              <KeyboardBackspaceIcon
+                color="primary"
+                onClick={() => router.back()}
+              />
             )}
-            {type === "menu" && <MenuIcon />}
+            {type === "menu" && <MenuIcon color="primary" />}
           </IconButton>
           <Typography
             variant="h6"
             noWrap
             component="div"
+            color="primary"
             sx={{
               flexGrow: 1,
               display: { xs: "none", sm: "block" },
@@ -105,12 +108,16 @@ export default function Header({ type = "menu", singleChapter }) {
               : "Quran App"}
           </Typography>
           <SettingsDrawer />
-          <SettingsIcon onClick={() => dispatch(setToggleDrawer(!open))} />
+          <SettingsIcon
+            color="primary"
+            onClick={() => dispatch(setToggleDrawer(!open))}
+          />
           <Search>
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon color="primary" />
             </SearchIconWrapper>
             <StyledInputBase
+              color="primary"
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
