@@ -38,7 +38,10 @@ const GlyphWord = ({
           isFontLoaded
         ),
       }}
-      style={{ fontFamily: !isFontLoaded && "UthmanicHafs !important" }}
+      style={{
+        fontFamily: !isFontLoaded && "UthmanicHafs !important",
+        fontSize: "2.5rem",
+      }}
       data-font={font}
       {...(isFontLoaded && {
         // eslint-disable-next-line i18next/no-literal-string

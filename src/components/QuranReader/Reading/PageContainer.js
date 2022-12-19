@@ -51,7 +51,7 @@ const PageContainer = (props) => {
     getReaderViewRequestKey({
       pageNumber,
       pageVersesRange: getPageVersesRange(pageNumber, pagesVersesRange),
-      quranReaderStyles: { ...quranReaderStyles, quranFont: "tajweed" },
+      quranReaderStyles,
       reciter: 7,
       locale: "en",
       wordByWordLocale,

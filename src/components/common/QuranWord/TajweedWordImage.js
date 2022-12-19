@@ -1,8 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import React from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
+import { selectTheme } from "src/redux/slices/theme";
 import { makeCDNUrl } from "src/utils/cdn";
+import { ThemeTypes } from "src/styles/theme/modes";
+
+const { Dark, Light, Main } = ThemeTypes;
+
+const darkMode = "hue-rotate(274deg) saturate(500%) invert(76%) contrast(100%)";
+const lightMode = "contrast(100%) hue-rotate(50deg)";
 
 // import { makeCDNUrl } from "src/utils/cdn";
 
@@ -20,16 +27,13 @@ import { makeCDNUrl } from "src/utils/cdn";
 // };
 
 const TajweedWord = ({ path, alt }) => {
-  //   const { quranTextFontScale } = useSelector(selectQuranReaderStyles);
+  const { type } = useSelector(selectTheme, shallowEqual);
   return (
-    <span>
-      {/* <Image
-        src={`${makeCDNUrl(`images/${path}`)}`}
-        alt={alt}
-        component="img"
-        width=""
-        height={16}
-      /> */}
+    <span
+      style={{
+        filter: (type === Dark && darkMode) || (type === Light && lightMode),
+      }}
+    >
       <img src={`${makeCDNUrl(`images/${path}`)}`} alt={alt} />
     </span>
   );

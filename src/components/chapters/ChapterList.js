@@ -18,12 +18,12 @@ const ChapterList = ({ chapters }) => {
               md={4}
               lg={3}
               key={chapter.id}
-              sx={{
+              sx={(theme) => ({
                 cursor: "pointer",
                 borderRadius: 2,
-                border: "1px solid rgba(187, 196, 206, 0.35)",
+                border: `1px solid ${theme.palette.text.secondary}`,
                 m: 1,
-              }}
+              })}
             >
               <ChapterItem chapter={chapter} />
             </Grid>

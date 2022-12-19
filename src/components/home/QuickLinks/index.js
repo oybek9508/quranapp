@@ -1,4 +1,4 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, useTheme } from "@mui/material";
 import React from "react";
 import { useRouter } from "next/router";
 
@@ -34,11 +34,21 @@ const QUICK_LINKS = [
 ];
 
 const QuickLinks = () => {
+  const theme = useTheme();
   const router = useRouter();
   return (
     <Grid>
       {QUICK_LINKS.map((qLinks) => (
         <Button
+          sx={{
+            bgcolor: theme.palette.background.paper,
+            mx: 1,
+            px: 4,
+            "&:hover": {
+              bgcolor: theme.palette.background.paper,
+              opacity: 0.8,
+            },
+          }}
           key={qLinks.key}
           onClick={() => {
             router.push(`/${qLinks.slug}`);

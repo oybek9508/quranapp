@@ -1,18 +1,21 @@
-import { Divider } from "@mui/material";
+import { Divider, Grid } from "@mui/material";
 import React from "react";
 import Title from "./Title";
+import Raw from "./Raw";
+import Label from "./Label";
 
 const Section = ({ children }) => {
   return (
-    <div>
-      {children}
+    <Grid>
+      <Grid p={2}>{children}</Grid>
       <div>
         <Divider />
       </div>
-    </div>
+    </Grid>
   );
 };
 
 Section.Title = Title;
-
+Section.Raw = Raw;
+Section.Label = Label;
 export default Section;

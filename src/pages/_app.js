@@ -29,6 +29,8 @@ function App({ props }) {
     [type]
   );
 
+  console.log("theme", theme);
+
   return (
     <DataContext.Provider value={pageProps.chaptersData}>
       <ThemeProvider theme={theme}>

@@ -8,6 +8,7 @@ import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
 import ChapterList from "../chapters/ChapterList";
 import JuzList from "../juzs/JuzList";
 import Pages from "../by_page";
+import { Grid } from "@mui/material";
 
 const blue = {
   50: "#F0F7FF",
@@ -35,13 +36,15 @@ const grey = {
   900: "#24292f",
 };
 
-const Tab = styled(TabUnstyled)`
+const Tab = styled(TabUnstyled)(
+  ({ theme }) =>
+    `
   font-family: IBM Plex Sans, sans-serif;
-  color: #8789a3;
+  color: ${theme.palette.text.secondary};
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: bold;
-  background-color: transparent;
+  background-color:  transparent; 
   width: 100%;
   padding: 12px;
   margin: 6px 6px;
@@ -50,26 +53,29 @@ const Tab = styled(TabUnstyled)`
   display: flex;
   justify-content: center;
 
-  &:hover {
-    background-color: ${grey[100]};
-  }
+  // &:hover {
+  //   background-color: ${theme.palette.background.default};
+  //   opacity: 0.2
+  // }
 
   &:focus {
-    color: #fff;
-    border-bottom: 2px solid #672cbc;
+    color: ${theme.palette.text.primary};
+    // border-bottom: 2px solid #672cbc;
   }
 
   &.${tabUnstyledClasses.selected} {
-    background-color: #fff;
-    color: #672cbc;
-    border-bottom: 2px solid #672cbc;
+    background-color: ${theme.palette.background.default};
+     color: ${theme.palette.text.primary};
+     opacity: 0.6
+    // border-bottom: 2px solid #672cbc
   }
 
   &.${buttonUnstyledClasses.disabled} {
     opacity: 0.5;
     cursor: not-allowed;
   }
-`;
+`
+);
 
 export const TabPanel = styled(TabPanelUnstyled)`
   width: 100%;
@@ -80,9 +86,10 @@ export const TabPanel = styled(TabPanelUnstyled)`
 const TabsList = styled(TabsListUnstyled)(
   ({ theme }) => `
   min-width: 300px;
-  // background-color: ${blue[500]};
+  // background-color: transparent;
   border-radius: 12px;
   margin-bottom: 16px;
+  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,11 +103,17 @@ const TabsList = styled(TabsListUnstyled)(
 export default function ChapterJuzPage({ chapters }) {
   return (
     <TabsUnstyled defaultValue={0}>
-      <TabsList>
-        <Tab>Surah</Tab>
-        <Tab>Pora</Tab>
-        <Tab>Sahifa</Tab>
-      </TabsList>
+      <Grid
+        sx={(theme) => {
+          return { bgcolor: theme.palette.background.paper };
+        }}
+      >
+        <TabsList color="primary">
+          <Tab>Sura</Tab>
+          <Tab>Pora</Tab>
+          <Tab>Sahifa</Tab>
+        </TabsList>
+      </Grid>
       <TabPanel value={0}>
         <ChapterList chapters={chapters} />
       </TabPanel>

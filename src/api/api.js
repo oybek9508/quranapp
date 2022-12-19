@@ -43,7 +43,7 @@ export const fetcher = async (input, init) => {
 };
 
 export const getDefaultWordFields = (quranFont) => ({
-  wordFields: `verse_key,verse_id,page_number,location,text_uthmani,${quranFont}${
+  wordFields: `verse_key,verse_id,page_number,location,text_indopak,text_uthmani,${quranFont}${
     quranFont === QuranFont.QPCHafs ? "" : `,${QuranFont.QPCHafs}`
   }`,
 });

@@ -5,27 +5,35 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 export default function BasicTabs(props) {
-  const { value, handleChange } = props;
-  // const [value, setValue] = React.useState("tajweed");
+  const { value, lists, handleChange } = props;
 
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
   console.log("value", value);
+  console.log("lists", lists);
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box
+      sx={(theme) => ({
+        width: "100%",
+        bgcolor: theme.palette.background.default,
+      })}
+    >
+      <Box>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="usmani" value="usmani" />
-          <Tab label="indopak" value="indopak" />
-          <Tab label="tajweed" value="tajweed" />
+          {lists.map((list) => (
+            <Tab key={list.label} label={list.label} value={list.value} />
+          ))}
         </Tabs>
       </Box>
     </Box>
   );
+}
+
+{
+  /* <Tab label="usmani" value="usmani" />
+<Tab label="indopak" value="indopak" />
+<Tab label="tajweed" value="tajweed" /> */
 }
