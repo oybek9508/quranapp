@@ -69,10 +69,7 @@ export default function Header({ type = "menu", singleChapter }) {
       <AppBar
         position="fixed"
         sx={(theme) => ({
-          bgcolor:
-            (theme.mode === ThemeTypes.Light && "#fff") ||
-            (theme.mode === ThemeTypes.Dark && "#065a60") ||
-            (theme.mode === ThemeTypes.Main && "#94C2A5"),
+          bgcolor: theme.palette.background.paper,
           color: "#000",
         })}
       >

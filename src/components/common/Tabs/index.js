@@ -13,7 +13,6 @@ export default function BasicTabs(props) {
   return (
     <Box
       sx={(theme) => ({
-        width: "100%",
         bgcolor: theme.palette.background.default,
       })}
     >
@@ -22,9 +21,21 @@ export default function BasicTabs(props) {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
         >
           {lists.map((list) => (
-            <Tab key={list.label} label={list.label} value={list.value} />
+            <Tab
+              key={list.label}
+              label={list.label}
+              value={list.value}
+              sx={{
+                flex: 1,
+              }}
+            />
           ))}
         </Tabs>
       </Box>
