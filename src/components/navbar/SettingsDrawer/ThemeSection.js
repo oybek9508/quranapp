@@ -5,9 +5,9 @@ import { selectTheme, setTheme } from "src/redux/slices/theme";
 import { ThemeTypes } from "src/styles/theme/modes";
 import Section from "./Section";
 
-const { Light, Dark, Main } = ThemeTypes;
+const { Light, Dark, Main, Blue } = ThemeTypes;
 
-const themes = [Light, Dark, Main].map((theme) => ({
+const themes = [Light, Dark, Main, Blue].map((theme) => ({
   value: theme,
   label: theme,
 }));

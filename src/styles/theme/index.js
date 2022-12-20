@@ -29,14 +29,24 @@ export const getDesignTokens = (mode) => {
           main: "#fff",
         },
       }),
+      ...(mode === ThemeTypes.Blue && {
+        background: {
+          default: "#283663",
+          paper: "#152451",
+        },
+        primary: {
+          main: "#fff",
+        },
+      }),
       ...(mode === ThemeTypes.Main && {
         background: {
-          deafult: "#f4faee",
-          paper: "#94C2A5",
+          paper: "#E6DFD8",
+          default: "#EFE2CD",
         },
-
         primary: {
-          main: "#005F33",
+          main: grey[800],
+          dark: "",
+          light: "",
         },
       }),
 
@@ -49,9 +59,14 @@ export const getDesignTokens = (mode) => {
           primary: "#fff",
           secondary: grey[500],
         }),
+        ...(mode === ThemeTypes.Blue && {
+          primary: "#ABAFD7",
+
+          secondary: grey[500],
+        }),
         ...(mode === ThemeTypes.Main && {
-          primary: "#000",
-          secondary: grey[900],
+          primary: grey[900],
+          secondary: grey[600],
         }),
       },
     },

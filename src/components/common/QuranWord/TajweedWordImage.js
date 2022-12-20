@@ -6,7 +6,7 @@ import { selectTheme } from "src/redux/slices/theme";
 import { makeCDNUrl } from "src/utils/cdn";
 import { ThemeTypes } from "src/styles/theme/modes";
 
-const { Dark, Light, Main } = ThemeTypes;
+const { Dark, Light, Main, Blue } = ThemeTypes;
 
 const darkMode = "hue-rotate(274deg) saturate(500%) invert(76%) contrast(100%)";
 const lightMode = "contrast(100%) hue-rotate(50deg)";
@@ -31,7 +31,9 @@ const TajweedWord = ({ path, alt }) => {
   return (
     <span
       style={{
-        filter: (type === Dark && darkMode) || (type === Light && lightMode),
+        filter:
+          ((type === Dark || type === Blue) && darkMode) ||
+          (type === Light && lightMode),
       }}
     >
       <img src={`${makeCDNUrl(`images/${path}`)}`} alt={alt} />

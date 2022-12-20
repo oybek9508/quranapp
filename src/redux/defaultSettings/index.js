@@ -51,6 +51,7 @@ const THEME_INITIAL_STATE = {
 };
 
 const AUDIO_INITIAL_STATE = {
+  isVisible: false,
   enableAutoScrolling: true,
   isDownloadingAudio: false,
   showTooltipWhenPlayingAudio: false,

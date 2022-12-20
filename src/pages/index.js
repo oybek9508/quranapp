@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 
 const Home = ({ chaptersData, chaptersResponse: { chapters } }) => {
   const state = useSelector((state) => state);
-  // console.log("state", state);
+  console.log("state", state);
   return (
     <ThemeProvider>
       <Head>
