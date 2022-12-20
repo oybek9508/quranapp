@@ -9,7 +9,7 @@ export const getStoreInitialState = (locale) => {
     //   [SliceName.TRANSLATIONS]: getTranslationsInitialState(locale),
     //   [SliceName.TAFSIRS]: getTafsirsInitialState(locale),
     //   // @ts-ignore
-    //   [SliceName.AUDIO_PLAYER_STATE]: getAudioPlayerStateInitialState(locale),
+    [SliceName.AUDIO_PLAYER_STATE]: getAudioPlayerStateInitialState(locale),
     //   [SliceName.DEFAULT_SETTINGS]: { isUsingDefaultSettings: true },
   };
 };
@@ -29,4 +29,8 @@ export const getQuranReaderStylesInitialState = (locale = DEFAULT_LOCALE) => {
 
 export const getReadingPreferencesInitialState = (locale = DEFAULT_LOCALE) => {
   return DefaultSettings[SliceName.READING_PREFERENCES];
+};
+
+export const getAudioPlayerStateInitialState = () => {
+  return DefaultSettings[SliceName.AUDIO_PLAYER_STATE];
 };

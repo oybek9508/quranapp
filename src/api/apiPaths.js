@@ -55,3 +55,9 @@ export const makeChapterUrl = (chapterIdOrSlug, language) =>
   makeUrl(`/chapters/${chapterIdOrSlug}`, { language });
 
 export const makePagesLookupUrl = (params) => makeUrl("/pages/lookup", params);
+
+export const makeChapterAudioDataUrl = (reciterId, chapter, segments) =>
+  makeUrl(`/audio/reciters/${reciterId}/audio_files`, { chapter, segments });
+
+export const makeAudioTimestampsUrl = (reciterId, verseKey) =>
+  makeUrl(`/audio/reciters/${reciterId}/timestamp?verse_key=${verseKey}`);

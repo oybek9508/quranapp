@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 import { styled, alpha } from "@mui/material/styles";
+import { useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -61,6 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header({ type = "menu", singleChapter }) {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const { open } = useSelector(selectNavbar, shallowEqual);
   const router = useRouter();
@@ -114,7 +116,7 @@ export default function Header({ type = "menu", singleChapter }) {
               <SearchIcon color="primary" />
             </SearchIconWrapper>
             <StyledInputBase
-              color="primary"
+              sx={{ color: theme.palette.primary.main }}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />

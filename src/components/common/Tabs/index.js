@@ -3,8 +3,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { useTheme } from "@mui/material";
 
 export default function BasicTabs(props) {
+  const theme = useTheme();
   const { value, lists, handleChange } = props;
 
   console.log("value", value);
@@ -18,6 +20,7 @@ export default function BasicTabs(props) {
     >
       <Box>
         <Tabs
+          indicatorColor={""}
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
@@ -25,6 +28,8 @@ export default function BasicTabs(props) {
             width: "100%",
             display: "flex",
             justifyContent: "space-between",
+            bgcolor: theme.palette.background.default,
+            p: 1,
           }}
         >
           {lists.map((list) => (
@@ -34,6 +39,13 @@ export default function BasicTabs(props) {
               value={list.value}
               sx={{
                 flex: 1,
+
+                // "&:hover": { backgroundColor: "blue" },
+                // "&:focus": { backgroundColor: "yellow" },
+                // "&:active": { bgcolor: theme.palette.background.paper },
+                "&.MuiTab-root.Mui-selected": {
+                  bgcolor: theme.palette.background.paper,
+                },
               }}
             />
           ))}

@@ -47,7 +47,9 @@ export default function ReadingPreferenceTab(props) {
           <TranslationView
             value={readingPreference}
             initialData={initialData}
-            id={id}
+            resourceId={id}
+            quranReaderType={quranReaderType}
+            quranReaderStyles={quranReaderStyles}
           />
         </TabPanel>
         <TabPanel value={Reading}>
@@ -55,8 +57,8 @@ export default function ReadingPreferenceTab(props) {
             initialData={initialData}
             resourceId={id}
             quranReaderType={quranReaderType}
-            isReadingPreference={isReadingPreference}
             quranReaderStyles={quranReaderStyles}
+            isReadingPreference={isReadingPreference}
           />
         </TabPanel>
       </TabContext>

@@ -15,7 +15,7 @@ const AlQuran = () => {
       <AlQuranSVG
         width={250}
         height={140}
-        fill={type === ThemeTypes.Dark && "#fff"}
+        fill={(type === ThemeTypes.Dark || type === ThemeTypes.Blue) && "#fff"}
       />
     </Grid>
   );
