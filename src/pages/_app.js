@@ -15,6 +15,10 @@ import { getDesignTokens } from "src/styles/theme";
 import { ThemeTypes } from "src/styles/theme/modes";
 import DataContext from "src/context/DataContext";
 import Layout from "src/components/layout/Layout";
+import {
+  AudioPlayerMachineContext,
+  AudioPlayerMachineProvider,
+} from "src/xstate/AudioPlayerMachineContext";
 
 // const clientSideEmotionCache = createEmotionCache();
 
@@ -33,18 +37,20 @@ function App({ props }) {
 
   return (
     <DataContext.Provider value={pageProps.chaptersData}>
-      <ThemeProvider theme={theme}>
-        <Layout
-          type="back"
-          singleChapter={{
-            ...chaptersData[chapterId],
-            id: chapterId,
-          }}
-        >
-          <CssBaseline />
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <AudioPlayerMachineProvider>
+        <ThemeProvider theme={theme}>
+          <Layout
+            type="back"
+            singleChapter={{
+              ...chaptersData[chapterId],
+              id: chapterId,
+            }}
+          >
+            <CssBaseline />
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </AudioPlayerMachineProvider>
     </DataContext.Provider>
   );
 }
