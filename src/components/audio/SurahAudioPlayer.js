@@ -37,9 +37,6 @@ const getAudioPlayerDownloadProgress = (audioPlayer) => {
 const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
   const audioPlayerRef = useRef();
   const audioService = useContext(AudioPlayerMachineContext);
-  console.log("audioService", audioService);
-  const [currentChapterAudio, setCurrentChapterAudio] = useState(null);
-  const [trackIndex, setTrackIndex] = useState(0);
 
   useEffect(() => {
     window.audioPlayerEl = audioPlayerRef.current;
@@ -49,32 +46,13 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
     });
   }, [audioService]);
 
-  // useEffect(() => {
-  //   const handleChapterAudio = async () => {
-  //     // const audioData = await getChapterAudioData(7, Number(chapterId));
-  //     const audioData = await axios.get(
-  //       `https://api.quran.com/api/v4/recitations/${Number(
-  //         7
-  //       )}/by_chapter/${Number(chapterId)}`
-  //     );
-  //     setCurrentChapterAudio(audioData?.data?.audio_files);
-  //   };
-  //   handleChapterAudio();
-  // }, [chapterId]);
-
-  // console.log("currentChapterAudio", currentChapterAudio);
-  // console.log(
-  //   "audioUrlFull",
-  //   `${QURANCDN_AUDIO_BASE_URL}${currentChapterAudio[trackIndex]?.url}`
-  // );
-
   const onCanPlay = () => {
     audioService.send({ type: "CAN_PLAY" });
   };
 
   const onTimeUpdate = (e) => {
     const isLoading = audioService.state.hasTag("loading");
-
+    console.log("e =================>>>>>>>>>", e);
     const audioPlayer = e.target;
     const currentTimestamp = audioPlayer.currentTime;
     const downloadProgress = getAudioPlayerDownloadProgress(audioPlayer);
@@ -143,21 +121,10 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
     });
   };
 
-  const onLoadStart = (event) => {
-    logEvent("load_audio_file", { audioUrl: event.target.src });
-  };
+  // const onLoadStart = (event) => {
+  //   logEvent("load_audio_file", { audioUrl: event.target.src });
+  // };
 
-  const handleClickPrevious = () => {
-    setTrackIndex((currentTrack) =>
-      currentTrack === 0 ? currentChapterAudio.length - 1 : currentTrack - 1
-    );
-  };
-
-  const handleClickNext = () => {
-    setTrackIndex((currentTrack) =>
-      currentTrack < currentChapterAudio.length - 1 ? currentTrack + 1 : null
-    );
-  };
   return (
     <Paper
       sx={(theme) => ({
@@ -170,22 +137,21 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
         zIndex: 1,
       })}
     >
-      <AudioPlayer
+      {/* <AudioPlayer
         ref={audioPlayerRef}
         id="audio-player"
         style={{ backgroundColor: "inherit" }}
-        // style={{ borderRadius: "1rem" }}
         autoPlay
-        // layout="horizontal"
-        // src={`${QURANCDN_AUDIO_BASE_URL}${currentChapterAudio[trackIndex]?.url}`}
-        // onPlay={(e) => console.log("onPlay")}
+        layout="horizontal"
+        src={`${QURANCDN_AUDIO_BASE_URL}${currentChapterAudio[trackIndex]?.url}`}
+        onPlay={(e) => console.log("onPlay")}
+        header={`Now playing: ${chapterId}`}
+        footer="All music from: www.bensound.com"
+        onEnded={handleClickNext}
         showSkipControls={true}
         showJumpControls={true}
-        // header={`Now playing: ${chapterId}`}
-        // footer="All music from: www.bensound.com"
         onClickPrevious={handleClickPrevious}
         onClickNext={handleClickNext}
-        // onEnded={handleClickNext}
         preload="auto"
         onCanPlay={onCanPlay}
         onTimeUpdate={onTimeUpdate}
@@ -197,9 +163,8 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
         onPause={onPause}
         onProgress={onProgress}
         onLoadStart={onLoadStart}
-        // other props here
-      />
-      {/* <audio
+      /> */}
+      <audio
         // style={{ display: "none" }}
         id="audio-player"
         ref={audioPlayerRef}
@@ -214,8 +179,8 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
         onPlay={onPlay}
         onPause={onPause}
         onProgress={onProgress}
-        onLoadStart={onLoadStart}
-      /> */}
+        // onLoadStart={onLoadStart}
+      />
     </Paper>
   );
 });

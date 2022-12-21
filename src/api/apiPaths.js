@@ -61,3 +61,12 @@ export const makeChapterAudioDataUrl = (reciterId, chapter, segments) =>
 
 export const makeAudioTimestampsUrl = (reciterId, verseKey) =>
   makeUrl(`/audio/reciters/${reciterId}/timestamp?verse_key=${verseKey}`);
+
+export const makeAvailableRecitersUrl = (locale, fields) =>
+  makeUrl("/audio/reciters", { locale, fields });
+
+export const makeReciterUrl = (reciterId, locale) =>
+  makeUrl(`/audio/reciters/${reciterId}`, {
+    locale,
+    fields: ["profile_picture", "cover_image", "bio"],
+  });

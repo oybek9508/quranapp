@@ -926,9 +926,10 @@ export const audioPlayerMachine =
             event?.data?.verseTimings?.length,
         }),
         setAudioPlayerSource: (context) => {
-          const { audioData } = context;
-          context.audioPlayer.src =
-            "https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/1.mp3";
+          const {
+            audioData: { audioUrl },
+          } = context;
+          context.audioPlayer.src = audioUrl;
         },
         setAudioPlayerCurrentTime: (context) => {
           const {

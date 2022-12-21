@@ -1,6 +1,11 @@
 import { api, BASE_URL, fetcher } from "./api";
 import useSWR from "swr";
-import { makeChapterAudioDataUrl } from "./apiPaths";
+import {
+  makeAudioTimestampsUrl,
+  makeAvailableRecitersUrl,
+  makeChapterAudioDataUrl,
+  makeReciterUrl,
+} from "./apiPaths";
 
 export const useChaperAudioForEachAyah = (recitation_id, chapter_number) => {
   const fetcher = (url) => api.callApi({ url }).then((res) => res.data);
@@ -22,6 +27,23 @@ export const getChapterAudioData = async (
   const res = await fetcher(
     makeChapterAudioDataUrl(reciterId, chapter, segments)
   );
+  if (res.error) {
+    throw new Error(res.error);
+  }
+  if (res.status === 500) {
+    throw new Error("server error: fail to get audio file");
+  }
+  const { audioFiles: audioData } = res;
+  console.log("audioData", audioData);
+  const [firstAudio] = audioData;
+  if (!firstAudio) {
+    throw new Error("No audio file found");
+  }
+
+  return {
+    ...firstAudio,
+    reciterId,
+  };
 };
 
 export const getAvailableReciters = async (locale, fields) =>
