@@ -49,6 +49,8 @@ const ChapterHeader = ({
   //   selectIsPlayingCurrentChapter(state, chapterId)
   // );
 
+  console.log("audioService", audioService);
+
   const handleVisible = () => {
     setIsVisible(true);
     setIsPlayingState(!isPlayingState);
