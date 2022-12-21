@@ -1,32 +1,161 @@
 /* eslint-disable react/display-name */
 import { Paper } from "@mui/material";
-import { useState, useEffect, forwardRef } from "react";
+import axios from "axios";
+import { useState, useEffect, forwardRef, useRef, useContext } from "react";
+import { useSelector } from "@xstate/react";
+import dynamic from "next/dynamic";
+import { milliSecondsToSeconds } from "src/utils/datetime";
 import AudioPlayer from "react-h5-audio-player";
+import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
 import "react-h5-audio-player/lib/styles.css";
 import { getChapterAudioData } from "src/api/quran-audio-api";
+import { QURANCDN_AUDIO_BASE_URL } from "src/utils/audio";
+
+const AUDIO_DURATION_TOLERANCE = 2; // 2s ,
+
+const getAudioPlayerDownloadProgress = (audioPlayer) => {
+  // TODO: Technically this is not accurate, but it's close enough for now.
+  /**
+   * There can be actually multiple time ranges. For example
+   * ------------------------------------------------------
+   * |=============|                    |===========|     |
+   * ------------------------------------------------------
+   * 0             5                    15          19    21
+   *
+   * But here, we're only taking the latest timestamp
+   *
+   * Reference: https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/buffering_seeking_time_ranges
+   */
+  if (audioPlayer.buffered && audioPlayer.buffered.length) {
+    const lastIndex = audioPlayer.buffered.length - 1;
+    const timestamp = audioPlayer.buffered.end(lastIndex);
+    return timestamp;
+  }
+  return 0;
+};
 
 const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
-  const [trackIndex, setTrackIndex] = useState(0);
+  const audioPlayerRef = useRef();
+  const audioService = useContext(AudioPlayerMachineContext);
+  console.log("audioService", audioService);
   const [currentChapterAudio, setCurrentChapterAudio] = useState(null);
-  useEffect(() => {
-    const handleChapterPlay = async () => {
-      const audioData = await getChapterAudioData(7, Number(chapterId));
-      setCurrentChapterAudio(audioData);
-    };
-    handleChapterPlay();
-  }, [chapterId]);
+  const [trackIndex, setTrackIndex] = useState(0);
 
-  console.log("currentChapterAudio", currentChapterAudio);
+  useEffect(() => {
+    window.audioPlayerEl = audioPlayerRef.current;
+    audioService.send({
+      type: "SET_AUDIO_REF",
+      audioPlayerRef: audioPlayerRef.current,
+    });
+  }, [audioService]);
+
+  // useEffect(() => {
+  //   const handleChapterAudio = async () => {
+  //     // const audioData = await getChapterAudioData(7, Number(chapterId));
+  //     const audioData = await axios.get(
+  //       `https://api.quran.com/api/v4/recitations/${Number(
+  //         7
+  //       )}/by_chapter/${Number(chapterId)}`
+  //     );
+  //     setCurrentChapterAudio(audioData?.data?.audio_files);
+  //   };
+  //   handleChapterAudio();
+  // }, [chapterId]);
+
+  // console.log("currentChapterAudio", currentChapterAudio);
+  // console.log(
+  //   "audioUrlFull",
+  //   `${QURANCDN_AUDIO_BASE_URL}${currentChapterAudio[trackIndex]?.url}`
+  // );
+
+  const onCanPlay = () => {
+    audioService.send({ type: "CAN_PLAY" });
+  };
+
+  const onTimeUpdate = (e) => {
+    const isLoading = audioService.state.hasTag("loading");
+
+    const audioPlayer = e.target;
+    const currentTimestamp = audioPlayer.currentTime;
+    const downloadProgress = getAudioPlayerDownloadProgress(audioPlayer);
+    const isWaiting =
+      currentTimestamp > downloadProgress - AUDIO_DURATION_TOLERANCE;
+
+    const audioDataDuration =
+      audioService.getSnapshot().context?.audioData?.duration;
+    if (audioDataDuration) {
+      const isAlmostEnded =
+        currentTimestamp >
+        milliSecondsToSeconds(audioDataDuration) - AUDIO_DURATION_TOLERANCE;
+
+      /**
+       * simulate onWaiting event on safari.
+       * If the audio is not in loading state already. And `currentTime` is nearby last timestamp of `buffered`
+       * trigger WAITING event.
+       */
+
+      if (!isLoading && isWaiting && !isAlmostEnded) {
+        audioService.send({ type: "WAITING" });
+      } else if (isLoading && !isWaiting) {
+        audioService.send({ type: "CAN_PLAY" });
+      }
+    }
+
+    audioService.send({ type: "UPDATE_TIMING" });
+  };
+
+  const onError = () => {
+    audioService.send({
+      type: "FAIL",
+    });
+  };
+
+  const onEnded = () => {
+    audioService.send({
+      type: "END",
+    });
+  };
+
+  const onSeeking = () => {
+    audioService.send({
+      type: "SEEKING",
+    });
+  };
+
+  const onSeeked = () => {
+    audioService.send({
+      type: "SEEKED",
+    });
+  };
+
+  const onPlay = () => {
+    audioService.send({ type: "PLAY" });
+  };
+
+  const onPause = () => {
+    audioService.send({ type: "PAUSE" });
+  };
+
+  const onProgress = (e) => {
+    audioService.send({
+      type: "PROGRESS",
+      timestamp: getAudioPlayerDownloadProgress(e.target),
+    });
+  };
+
+  const onLoadStart = (event) => {
+    logEvent("load_audio_file", { audioUrl: event.target.src });
+  };
 
   const handleClickPrevious = () => {
     setTrackIndex((currentTrack) =>
-      currentTrack === 0 ? musicTracks.length - 1 : currentTrack - 1
+      currentTrack === 0 ? currentChapterAudio.length - 1 : currentTrack - 1
     );
   };
 
   const handleClickNext = () => {
     setTrackIndex((currentTrack) =>
-      currentTrack < musicTracks.length - 1 ? currentTrack + 1 : 0
+      currentTrack < currentChapterAudio.length - 1 ? currentTrack + 1 : null
     );
   };
   return (
@@ -38,25 +167,55 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
         right: 0,
         boxShadow: theme.shadows[24],
         bgcolor: theme.palette.background.paper,
+        zIndex: 1,
       })}
     >
       <AudioPlayer
-        ref={ref}
+        ref={audioPlayerRef}
+        id="audio-player"
         style={{ backgroundColor: "inherit" }}
         // style={{ borderRadius: "1rem" }}
         autoPlay
         // layout="horizontal"
-        src="https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/1.mp3"
-        onPlay={(e) => console.log("onPlay")}
+        // src={`${QURANCDN_AUDIO_BASE_URL}${currentChapterAudio[trackIndex]?.url}`}
+        // onPlay={(e) => console.log("onPlay")}
         showSkipControls={true}
-        showJumpControls={false}
+        showJumpControls={true}
         // header={`Now playing: ${chapterId}`}
         // footer="All music from: www.bensound.com"
         onClickPrevious={handleClickPrevious}
         onClickNext={handleClickNext}
-        onEnded={handleClickNext}
+        // onEnded={handleClickNext}
+        preload="auto"
+        onCanPlay={onCanPlay}
+        onTimeUpdate={onTimeUpdate}
+        onEnded={onEnded}
+        onSeeking={onSeeking}
+        onSeeked={onSeeked}
+        onError={onError}
+        onPlay={onPlay}
+        onPause={onPause}
+        onProgress={onProgress}
+        onLoadStart={onLoadStart}
         // other props here
       />
+      {/* <audio
+        // style={{ display: "none" }}
+        id="audio-player"
+        ref={audioPlayerRef}
+        autoPlay
+        preload="auto"
+        onCanPlay={onCanPlay}
+        onTimeUpdate={onTimeUpdate}
+        onEnded={onEnded}
+        onSeeking={onSeeking}
+        onSeeked={onSeeked}
+        onError={onError}
+        onPlay={onPlay}
+        onPause={onPause}
+        onProgress={onProgress}
+        onLoadStart={onLoadStart}
+      /> */}
     </Paper>
   );
 });

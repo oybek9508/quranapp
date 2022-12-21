@@ -24,5 +24,11 @@ export const getChapterAudioData = async (
   );
 };
 
+export const getAvailableReciters = async (locale, fields) =>
+  fetcher(makeAvailableRecitersUrl(locale, fields));
+
+export const getReciterData = async (reciterId, locale) =>
+  fetcher(makeReciterUrl(reciterId, locale));
+
 export const getVerseTimestamps = async (reciterId, verseKey) =>
   fetcher(makeAudioTimestampsUrl(reciterId, verseKey));
