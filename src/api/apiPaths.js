@@ -70,3 +70,5 @@ export const makeReciterUrl = (reciterId, locale) =>
     locale,
     fields: ["profile_picture", "cover_image", "bio"],
   });
+
+export const makeChapterInfoUrl = (id) => makeUrl(`/chapters/${id}/info`);

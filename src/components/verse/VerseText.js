@@ -1,8 +1,12 @@
 import { WifiPasswordOutlined } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, useTheme } from "@mui/material";
 import { useMemo, useRef } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { FALLBACK_FONT } from "src/constants/QuranReader";
+import {
+  selectReadingViewSelectedVerseKey,
+  selectReadingViewHoveredVerseKey,
+} from "src/redux/slices/QuranReader/readingViewVerse";
 import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
 import { getFontClassName, isQCFFont } from "src/utils/fontFaceHelper";
 import { getFirstWordOfSurah } from "src/utils/verse";
@@ -10,8 +14,24 @@ import GlyphWord from "../common/QuranWord/GlyphWord";
 import QuranWord from "../common/QuranWord/QuranWord";
 import isCenterAlignedPage from "./pageUtils";
 
-const VerseText = ({ words, isReadingMode = false, isFontLoaded = true }) => {
+const VerseText = ({
+  words,
+  isReadingMode = false,
+  isFontLoaded = true,
+  isHighlighted,
+}) => {
+  const theme = useTheme();
   const textRef = useRef(null);
+  const hoveredVerseKey = useSelector(
+    selectReadingViewHoveredVerseKey,
+    shallowEqual
+  );
+
+  const selectedVerseKey = useSelector(
+    selectReadingViewSelectedVerseKey,
+    shallowEqual
+  );
+
   const { quranFont, quranTextFontScale, mushafLines } = useSelector(
     selectQuranReaderStyles,
     shallowEqual
@@ -34,7 +54,12 @@ const VerseText = ({ words, isReadingMode = false, isFontLoaded = true }) => {
     : getFontClassName(FALLBACK_FONT, quranTextFontScale, mushafLines, true);
 
   return (
-    <Grid sx={{ display: isBigTextLayout ? "inline" : "block" }}>
+    <Grid
+      sx={{
+        display: isBigTextLayout ? "inline" : "block",
+        bgcolor: isHighlighted && theme.palette.background.paper,
+      }}
+    >
       <Grid
         alignItems="center"
         justifyContent={
@@ -51,7 +76,13 @@ const VerseText = ({ words, isReadingMode = false, isFontLoaded = true }) => {
         }}
       >
         {words?.map((word) => (
-          <QuranWord key={word.location} word={word} font={quranFont} />
+          <QuranWord
+            key={word.location}
+            word={word}
+            font={quranFont}
+            isHighlighted={word.verseKey === selectedVerseKey}
+            shouldShowSecondaryHighlight={word.verseKey === hoveredVerseKey}
+          />
         ))}
       </Grid>
     </Grid>

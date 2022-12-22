@@ -52,7 +52,6 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
 
   const onTimeUpdate = (e) => {
     const isLoading = audioService.state.hasTag("loading");
-    console.log("e =================>>>>>>>>>", e);
     const audioPlayer = e.target;
     const currentTimestamp = audioPlayer.currentTime;
     const downloadProgress = getAudioPlayerDownloadProgress(audioPlayer);

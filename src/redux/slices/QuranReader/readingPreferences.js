@@ -9,13 +9,20 @@ const readingPreferences = createSlice({
     setReadingPreference: (state, action) => {
       state.readingPreference = action.payload;
     },
+    setWordClickFunctionality: (state, action) => {
+      state.wordClickFunctionality = action.payload;
+    },
   },
 });
 
-export const { setReadingPreference } = readingPreferences.actions;
+export const { setReadingPreference, setWordClickFunctionality } =
+  readingPreferences.actions;
 
 export const selectReadingPreferences = (state) => {
   return state.readingPreferences;
 };
+
+export const selectWordClickFunctionality = (state) =>
+  state.readingPreferences.wordClickFunctionality;
 
 export default readingPreferences.reducer;

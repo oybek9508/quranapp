@@ -3,6 +3,7 @@ import {
   QuranFont,
   MushafLines,
   ReadingPreference,
+  WordClickFunctionality,
 } from "src/constants/QuranReader";
 import SliceName from "../constants/SliceNames";
 
@@ -43,7 +44,7 @@ const READING_PREFERENCES_INITIAL_STATE = {
   selectedWordByWordLocale: DEFAULT_WBW_LOCALE,
   isUsingDefaultWordByWordLocale: true,
   // showTooltipFor: [WordByWordType.Translation],
-  // wordClickFunctionality: WordClickFunctionality.PlayAudio,
+  wordClickFunctionality: WordClickFunctionality.PlayAudio,
 };
 
 const THEME_INITIAL_STATE = {

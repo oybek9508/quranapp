@@ -1,4 +1,10 @@
-import { Grid, useTheme, Box, Typography } from "@mui/material";
+import {
+  Grid,
+  useTheme,
+  Box,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import Image from "next/image";
 import React, { useRef, useState, forwardRef, useContext } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -10,15 +16,20 @@ import { ThemeTypes } from "src/styles/theme/modes";
 import SurahAudioPlayer from "../audio/SurahAudioPlayer";
 import Bismillah from "../common/Bismillah";
 // import Bismillah from "../common/Bismillah";
-import { selectIsPlayingCurrentChapter } from "src/xstate/actors/audioPlayer/selectors";
+import {
+  selectIsLoadingCurrentChapter,
+  selectIsPlayingCurrentChapter,
+} from "src/xstate/actors/audioPlayer/selectors";
 import ChapterIconContainer, { ChapterIconsSize } from "./ChapterIconContainer";
 import PlayCircleFilledOutlinedIcon from "@mui/icons-material/PlayCircleFilledOutlined";
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
+import ReportIcon from "@mui/icons-material/Report";
 import {
   selectAudioState,
   // setIsVisible,
 } from "src/redux/slices/AudioPlayer/state";
 import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
+import Spinner from "../common/Spinner";
 
 const CHAPTERS_WITHOUT_BISMILLAH = ["1", "9"];
 
@@ -41,15 +52,13 @@ const ChapterHeader = ({
 
   const audioService = useContext(AudioPlayerMachineContext);
 
-  // const isLoadingCurrentChapter = xStateSelector(audioService, (state) =>
-  //   selectIsLoadingCurrentChapter(state, chapterId)
-  // );
+  const isLoadingCurrentChapter = xStateSelector(audioService, (state) =>
+    selectIsLoadingCurrentChapter(state, chapterId)
+  );
 
-  // const isPlayingCurrentChapter = xStateSelector(audioService, (state) =>
-  //   selectIsPlayingCurrentChapter(state, chapterId)
-  // );
-
-  console.log("audioService", audioService);
+  const isPlayingCurrentChapter = xStateSelector(audioService, (state) =>
+    selectIsPlayingCurrentChapter(state, chapterId)
+  );
 
   const handleVisible = () => {
     setIsVisible(true);
@@ -57,7 +66,6 @@ const ChapterHeader = ({
   };
 
   const play = () => {
-    // logButtonClick("chapter_header_play_audio");
     audioService.send({
       type: "PLAY_SURAH",
       surah: chapterId,
@@ -66,27 +74,14 @@ const ChapterHeader = ({
   };
 
   const pause = () => {
-    // logButtonClick("chapter_header_pause_audio");
     audioService.send({
       type: "TOGGLE",
     });
   };
 
-  const playPause = () => {
-    let isPlaying = isPlayingState;
-    console.log("isPlaying", isPlaying);
-    if (isPlaying) {
-      audioRef?.current?.audio?.current?.pause();
-    } else {
-      audioRef?.current?.audio?.current?.play();
-    }
-    setIsPlayingState(!isPlaying);
-  };
-
-  // console.log("audioRef", audioRef.current.audio.current);
   return (
-    <div>
-      <div>
+    <Grid>
+      <Grid>
         <Grid
           sx={{
             color:
@@ -101,7 +96,7 @@ const ChapterHeader = ({
             hasSurahPrefix={true}
           />
         </Grid>
-      </div>
+      </Grid>
       <div>
         {!CHAPTERS_WITHOUT_BISMILLAH.includes(chapterId) && (
           <Grid container justifyContent="center" mt={2} mb={5}>
@@ -114,23 +109,28 @@ const ChapterHeader = ({
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "end",
+          justifyContent: "space-between",
+          mb: 4,
         }}
         onClick={handleVisible}
       >
-        <PlayCircleFilledOutlinedIcon
-          sx={{ mr: 1, display: isPlayingState && "none" }}
-          onClick={play}
-        />
-
-        <PauseCircleIcon
-          sx={{ mr: 1, display: !isPlayingState && "none" }}
-          onClick={pause}
-        />
-
-        <Typography sx={{ textAlign: "end" }}>Play Audio</Typography>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <ReportIcon sx={{ mr: 1 }} /> <Typography>Surah Info</Typography>
+        </Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {isLoadingCurrentChapter ? (
+            <CircularProgress
+              style={{ width: "20px", height: "20px", marginRight: "8px" }}
+            />
+          ) : isPlayingCurrentChapter ? (
+            <PauseCircleIcon sx={{ mr: 1 }} onClick={pause} />
+          ) : (
+            <PlayCircleFilledOutlinedIcon sx={{ mr: 1 }} onClick={play} />
+          )}
+          <Typography sx={{ textAlign: "end" }}>Play Audio</Typography>
+        </Box>
       </Box>
-    </div>
+    </Grid>
   );
 };
 
