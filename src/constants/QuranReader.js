@@ -50,3 +50,8 @@ export const QuranReaderDataType = {
 };
 
 export const FALLBACK_FONT = QuranFont.QPCHafs;
+
+export const WordClickFunctionality = {
+  PlayAudio: "play-audio",
+  NoAudio: "no-audio",
+};

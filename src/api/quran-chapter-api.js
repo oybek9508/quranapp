@@ -1,6 +1,6 @@
 import { BASE_URL, HOME_URL, api, fetcher } from "./api";
 import useSWR from "swr";
-import { makeChapterUrl, makeVersesUrl } from "./apiPaths";
+import { makeChapterInfoUrl, makeChapterUrl, makeVersesUrl } from "./apiPaths";
 
 const useQuranChapters = () => {
   const fetcher = (url) => api.callApi({ url }).then((res) => res.data);
@@ -28,5 +28,7 @@ export const getChapterIdBySlug = async (slug, locale) => {
     return false;
   }
 };
+
+export const getChapterInfo = async (id) => fetcher(makeChapterInfoUrl(id));
 
 export { getChapterVerses, useSingleSurah, useQuranChapters };

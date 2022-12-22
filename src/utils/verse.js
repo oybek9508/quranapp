@@ -28,5 +28,8 @@ export const getFirstWordOfSurah = (wordLocation) => {
 export const makeWordLocation = (verseKey, wordPosition) =>
   `${verseKey}:${wordPosition}`;
 
+export const getChapterNumberFromKey = (verseKey) =>
+  Number(verseKey.split(COLON_SPLITTER)[0]);
+
 export const getVerseNumberFromKey = (verseKey) =>
   Number(verseKey.split(COLON_SPLITTER)[1]);
