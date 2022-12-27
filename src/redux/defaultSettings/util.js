@@ -6,7 +6,7 @@ export const getStoreInitialState = (locale) => {
     [SliceName.THEME]: getThemeInitialState(locale),
     [SliceName.READING_PREFERENCES]: getReadingPreferencesInitialState(locale),
     [SliceName.QURAN_READER_STYLES]: getQuranReaderStylesInitialState(locale),
-    //   [SliceName.TRANSLATIONS]: getTranslationsInitialState(locale),
+    [SliceName.TRANSLATIONS]: getTranslationsInitialState(locale),
     //   [SliceName.TAFSIRS]: getTafsirsInitialState(locale),
     //   // @ts-ignore
     [SliceName.AUDIO_PLAYER_STATE]: getAudioPlayerStateInitialState(locale),
@@ -33,4 +33,8 @@ export const getReadingPreferencesInitialState = (locale = DEFAULT_LOCALE) => {
 
 export const getAudioPlayerStateInitialState = () => {
   return DefaultSettings[SliceName.AUDIO_PLAYER_STATE];
+};
+
+export const getTranslationsInitialState = () => {
+  return DefaultSettings[SliceName.TRANSLATIONS];
 };

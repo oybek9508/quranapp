@@ -25,4 +25,7 @@ export const selectReadingPreferences = (state) => {
 export const selectWordClickFunctionality = (state) =>
   state.readingPreferences.wordClickFunctionality;
 
+export const selectIsUsingDefaultWordByWordLocale = (state) =>
+  state.readingPreferences.isUsingDefaultWordByWordLocale;
+
 export default readingPreferences.reducer;

@@ -69,39 +69,7 @@ const ReadingView = (props) => {
         useWindowScroll
         increaseViewportBy={INCREASE_VIEWPORT_BY_PIXELS}
         initialItemCount={1}
-        itemContent={
-          itemContentRenderer
-          // () => (
-          // <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-          //   <span style={{ wordBreak: "break-all" }}>
-          //     {initialData?.verses?.map((verse, idx) => (
-          //       <Typography
-          //         variant="span"
-          //         key={verse?.id}
-          //         onClick={() => {
-          //           console.log("audioData?.audio_files?[idx]");
-          //         }}
-          //       >
-          //         <Typography
-          //           variant="span"
-          //           key={verse?.id}
-          //           sx={{
-          //             fontSize: { xs: "24px", sm: "36px" },
-          //             fontWeight: 600,
-          //             fontFamily: "UthmanicHafs",
-          //           }}
-          //         >
-          //           {verse?.textUthmani}
-          //         </Typography>
-          //         <span>
-          //           <Order number={verse?.verseNumber} />
-          //         </span>
-          //       </Typography>
-          //     ))
-          //     </span>
-          //   </Box>
-          // )
-        }
+        itemContent={itemContentRenderer}
       />
     </Grid>
   );

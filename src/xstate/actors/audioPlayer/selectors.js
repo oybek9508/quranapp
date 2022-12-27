@@ -1,3 +1,8 @@
+import { DEFAULT_RECITER } from "src/redux/defaultSettings";
+
+export const selectIsUsingDefaultReciter = (state) =>
+  state.context.reciterId === DEFAULT_RECITER.id;
+
 export const selectIsVerseBeingPlayed = (state, verseKey) => {
   const { surah, ayahNumber } = state.context;
   return (

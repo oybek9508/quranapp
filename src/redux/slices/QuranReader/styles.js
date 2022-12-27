@@ -14,5 +14,7 @@ const quranReaderStylesSlice = createSlice({
 
 export const { setQuranFont } = quranReaderStylesSlice.actions;
 export const selectQuranReaderStyles = (state) => state.quranReaderStyles;
+export const selectIsUsingDefaultFont = (state) =>
+  !!state.quranReaderStyles.isUsingDefaultFont;
 
 export default quranReaderStylesSlice.reducer;
