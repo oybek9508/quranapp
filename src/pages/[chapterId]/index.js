@@ -121,6 +121,9 @@ export const getStaticProps = async ({ params, locale = "en" }) => {
       locale,
       apiParams
     );
+
+    const metaData = { numberOfVerses };
+    chapterData.metaData = metaData;
     chapterData.pagesLookup = pagesLookupResponse;
 
     return {

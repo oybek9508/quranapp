@@ -30,6 +30,7 @@ import {
 } from "src/redux/slices/AudioPlayer/state";
 import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
 import Spinner from "../common/Spinner";
+import { useRouter } from "next/router";
 
 const CHAPTERS_WITHOUT_BISMILLAH = ["1", "9"];
 
@@ -41,6 +42,7 @@ const ChapterHeader = ({
   isTranslationSelected,
 }) => {
   const theme = useTheme();
+  const router = useRouter();
   const audioRef = useRef(null);
   const headerRef = useRef(null);
   const dispatch = useDispatch();
@@ -114,7 +116,19 @@ const ChapterHeader = ({
         }}
         onClick={handleVisible}
       >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            cursor: "pointer",
+            p: 1,
+            "&:hover": {
+              bgcolor: theme.palette.background.paper,
+              borderRadius: "5px",
+            },
+          }}
+          onClick={() => router.push(`/surah/${chapterId}/info`)}
+        >
           <ReportIcon sx={{ mr: 1 }} /> <Typography>Surah Info</Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>

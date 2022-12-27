@@ -75,52 +75,46 @@ export default function Header({ type = "menu", singleChapter }) {
           color: "#000",
         })}
       >
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            {type === "back" && (
-              <KeyboardBackspaceIcon
-                color="primary"
-                onClick={() => router.back()}
-              />
-            )}
-            {type === "menu" && <MenuIcon color="primary" />}
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            color="primary"
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", sm: "block" },
-              cursor: "pointer",
-            }}
-          >
-            {router.pathname === "/[chapterId]"
-              ? singleChapter?.transliteratedName
-              : "Quran App"}
-          </Typography>
-          <SettingsDrawer />
-          <SettingsIcon
-            color="primary"
-            onClick={() => dispatch(setToggleDrawer(!open))}
-          />
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon color="primary" />
-            </SearchIconWrapper>
-            <StyledInputBase
-              sx={{ color: theme.palette.primary.main }}
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+            >
+              {<MenuIcon color="primary" />}
+            </IconButton>
+            <Box
+              onClick={() => router.push("/")}
+              sx={{
+                display: { xs: "none", sm: "block" },
+                cursor: "pointer",
+              }}
+            >
+              <Typography variant="h6" noWrap component="div" color="primary">
+                Quran App
+              </Typography>
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <SettingsDrawer />
+            <SettingsIcon
+              color="primary"
+              onClick={() => dispatch(setToggleDrawer(!open))}
             />
-          </Search>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon color="primary" />
+              </SearchIconWrapper>
+              <StyledInputBase
+                sx={{ color: theme.palette.primary.main }}
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
