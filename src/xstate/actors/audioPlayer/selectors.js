@@ -1,4 +1,5 @@
 import { DEFAULT_RECITER } from "src/redux/defaultSettings";
+import { makeVerseKey } from "src/utils/verse";
 
 export const selectIsUsingDefaultReciter = (state) =>
   state.context.reciterId === DEFAULT_RECITER.id;

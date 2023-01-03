@@ -33,3 +33,8 @@ export const getChapterNumberFromKey = (verseKey) =>
 
 export const getVerseNumberFromKey = (verseKey) =>
   Number(verseKey.split(COLON_SPLITTER)[1]);
+
+export const makeVerseKey = (chapterNumber, from, to) => {
+  if (to && from !== to) return `${chapterNumber}:${from}-${to}`;
+  return `${chapterNumber}:${from}`;
+};

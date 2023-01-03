@@ -2,7 +2,7 @@ import { WifiPasswordOutlined } from "@mui/icons-material";
 import { Grid, useTheme } from "@mui/material";
 import { useMemo, useRef } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { FALLBACK_FONT } from "src/constants/QuranReader";
+import { FALLBACK_FONT, QuranFont } from "src/constants/QuranReader";
 import {
   selectReadingViewSelectedVerseKey,
   selectReadingViewHoveredVerseKey,
@@ -37,8 +37,6 @@ const VerseText = ({
     shallowEqual
   );
 
-  const isBigTextLayout = isReadingMode && quranTextFontScale > 3;
-
   const [firstWord] = words;
   const { lineNumber, pageNumber, location, verseKey, hizbNumber } = firstWord;
 
@@ -48,7 +46,8 @@ const VerseText = ({
   );
 
   const firstWordData = getFirstWordOfSurah(location);
-
+  const isTajweedFont = quranFont === QuranFont.Tajweed;
+  const isBigTextLayout = isReadingMode && quranTextFontScale > 3;
   const fontClassName = isFontLoaded
     ? getFontClassName(quranFont, quranTextFontScale, mushafLines)
     : getFontClassName(FALLBACK_FONT, quranTextFontScale, mushafLines, true);
@@ -61,12 +60,17 @@ const VerseText = ({
       }}
     >
       <Grid
+        translate="no"
         alignItems="center"
         justifyContent={
-          centerAlignPage && isReadingMode ? "center" : "space-between"
+          centerAlignPage && isReadingMode
+            ? "center"
+            : isReadingMode
+            ? "space-between"
+            : "space-end"
         }
         flexDirection="row-reverse"
-        flexWrap={isReadingMode && "wrap"}
+        flexWrap={"wrap"}
         sx={{
           display: isBigTextLayout ? "inline" : "flex",
           lineHeight: "normal",

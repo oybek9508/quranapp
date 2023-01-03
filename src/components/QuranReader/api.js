@@ -7,7 +7,7 @@ export const getReaderViewRequestKey = ({
   pageNumber,
   locale,
   quranReaderStyles,
-  //   reciter,
+  reciter,
   wordByWordLocale,
   pageVersesRange,
 }) => {
@@ -20,9 +20,9 @@ export const getReaderViewRequestKey = ({
         quranReaderStyles.quranFont,
         quranReaderStyles.mushafLines
       ),
-      //   reciter,
+      reciter,
       perPage: "all",
-      //   wordTranslationLanguage: wordByWordLocale,
+      wordTranslationLanguage: wordByWordLocale,
       filterPageWords: true,
       ...(pageVersesRange && { ...pageVersesRange }), // add the from and to verse range of the current page
     },
@@ -120,11 +120,11 @@ export const getTranslationViewRequestKey = ({
   }
 
   return makeVersesUrl(id, locale, {
-    // wordTranslationLanguage: wordByWordLocale,
+    wordTranslationLanguage: wordByWordLocale,
     reciter,
     page,
     perPage: isVerseData ? 1 : initialData.pagination.perPage, // the idea is that when it's a verse view, we want to fetch only 1 verse starting from the verse's number and we can do that by passing per_page option to the API.
-    // translations: selectedTranslations.join(","),
+    translations: selectedTranslations.join(","),
     ...getDefaultWordFields(quranReaderStyles.quranFont),
     ...getMushafId(quranReaderStyles.quranFont, quranReaderStyles.mushafLines),
   });

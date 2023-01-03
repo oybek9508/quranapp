@@ -13,4 +13,7 @@ export const {} = translations.actions;
 export const selectIsUsingDefaultTranslations = (state) =>
   state.translations.isUsingDefaultTranslations;
 
+export const selectSelectedTranslations = (state) =>
+  state.translations.selectedTranslations;
+
 export default translations.reducer;

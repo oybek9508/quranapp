@@ -80,7 +80,6 @@ const QuranWord = (props) => {
     );
   }
 
-  console.log("isHighlighted", isHighlighted);
   const onClick = useCallback(() => {
     if (wordClickFunctionality === WordClickFunctionality.PlayAudio) {
       const currentState = audioService.getSnapshot();
@@ -109,18 +108,20 @@ const QuranWord = (props) => {
   }, [audioService, word, wordClickFunctionality]);
 
   const shouldHandleWordClicking =
-    readingPreference === ReadingPreferenceTab.Translation &&
+    readingPreference.readingPreference === ReadingPreference.Translation &&
     word.charTypeName !== CharType.End;
 
-  // const handleAudioPlayForSingleWord = (word) => {
-  //   playWordAudio(word);
-  // };
+  const handleAudioPlayForSingleWord = (word) => {
+    playWordAudio(word);
+  };
 
   return (
     <Grid
       tabIndex={0}
       role="button"
-      // onClick={() => handleAudioPlayForSingleWord(word)}
+      {...(shouldHandleWordClicking && {
+        onClick: () => handleAudioPlayForSingleWord(word),
+      })}
       {...(shouldHandleWordClicking && { onClick, onKeyPress: onClick })}
       sx={{
         "&:focus": {
@@ -132,10 +133,11 @@ const QuranWord = (props) => {
       }}
     >
       <Wrapper
-        shouldWrap
+        // shouldWrap
         wrapper={(children) =>
-          readingPreference === ReadingPreference.Translation ? (
-            <div>Translation</div>
+          readingPreference.readingPreference ===
+          ReadingPreference.Translation ? (
+            <div>{children}</div>
           ) : (
             <ReadingViewWordPopover word={word}>
               {children}

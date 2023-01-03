@@ -23,14 +23,15 @@ import { selectIsUsingDefaultReciter } from "src/xstate/actors/audioPlayer/selec
 import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
 import { areArraysEqual } from "src/utils/array";
 import { QuranReaderDataType } from "src/constants/QuranReader";
+import { Grid } from "@mui/material";
 
 const TranslationPage = ({
   pageNumber,
   quranReaderType,
   quranReaderStyles,
   setApiPageToVersesMap,
-  // selectedTranslations,
-  // wordByWordLocale,
+  selectedTranslations,
+  wordByWordLocale = false,
   // reciterId,
   initialData,
   resourceId,
@@ -74,18 +75,18 @@ const TranslationPage = ({
       pageNumber,
       initialData,
       quranReaderStyles,
-      //   selectedTranslations,
+      selectedTranslations,
       isVerseData: quranReaderType === QuranReaderDataType.Verse,
       id: resourceId,
       reciter: 7,
-      //   locale: lang,
-      //   wordByWordLocale,
+      locale: "en",
+      wordByWordLocale,
     }),
-    verseFetcher,
-    {
-      fallbackData: shouldUseInitialData ? initialData.verses : null,
-      revalidateOnMount: !shouldUseInitialData,
-    }
+    verseFetcher
+    // {
+    //   fallbackData: shouldUseInitialData ? initialData.verses : null,
+    //   revalidateOnMount: !shouldUseInitialData,
+    // }
   );
 
   const mushafId = getMushafId(
@@ -104,8 +105,14 @@ const TranslationPage = ({
   }, [pageNumber, setApiPageToVersesMap, verses]);
 
   return (
-    <div>
-      {verses.map((verse, index) => {
+    <Grid
+      sx={{
+        maxWidth: "100%",
+        marginInlineStart: "auto",
+        marginInlineEnd: "auto",
+      }}
+    >
+      {verses?.map((verse, index) => {
         const currentVerseIndex =
           pageNumber === 1
             ? index
@@ -130,7 +137,7 @@ const TranslationPage = ({
           </div>
         );
       })}
-    </div>
+    </Grid>
   );
 };
 

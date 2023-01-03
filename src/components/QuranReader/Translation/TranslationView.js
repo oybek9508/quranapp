@@ -7,22 +7,23 @@ import AyahItem from "./AyahItem";
 import TranslationHeader from "./Header";
 import { Grid } from "@mui/material";
 import TranslationPage from "./TranslationPage";
+import useGetQueryParamOrReduxValue from "src/hooks/useGetQueryParamOrReduxValue";
+import QueryParam from "src/constants/QuranParam";
 // import { useSingleChapterTranslation } from "src/api/quran-translation";
 
 const INCREASE_VIEWPORT_BY_PIXELS = 1000;
 
 const TranslationView = ({
   initialData,
-  value,
   resourceId,
   quranReaderType,
   quranReaderStyles,
+  wordByWordLocale = false,
 }) => {
   const [apiPageToVersesMap, setApiPageToVersesMap] = useState({
     1: initialData.verses,
   });
 
-  console.log("initialData", initialData);
   const virtuosoRef = useRef(null);
 
   const numberOfPages = useMemo(
@@ -34,10 +35,10 @@ const TranslationView = ({
     [initialData.metaData.numberOfVerses, initialData.pagination.perPage]
   );
 
-  // const {
-  //   value: selectedTranslations,
-  //   isQueryParamDifferent: translationsQueryParamDifferent,
-  // } = useGetQueryParamOrReduxValue(QueryParam.Translations);
+  const {
+    value: selectedTranslations,
+    // isQueryParamDifferent: translationsQueryParamDifferent,
+  } = useGetQueryParamOrReduxValue(QueryParam.Translations);
 
   const verses = useMemo(
     () => Object.values(apiPageToVersesMap).flat(),
@@ -51,8 +52,8 @@ const TranslationView = ({
         quranReaderType={quranReaderType}
         quranReaderStyles={quranReaderStyles}
         setApiPageToVersesMap={setApiPageToVersesMap}
-        // selectedTranslations={selectedTranslations}
-        // wordByWordLocale={wordByWordLocale}
+        selectedTranslations={selectedTranslations}
+        wordByWordLocale={wordByWordLocale}
         // reciterId={reciterId}
         initialData={initialData}
         resourceId={resourceId}
@@ -67,7 +68,7 @@ const TranslationView = ({
       <Grid>
         <Virtuoso
           ref={virtuosoRef}
-          // useWindowScroll
+          useWindowScroll
           totalCount={numberOfPages}
           increaseViewportBy={INCREASE_VIEWPORT_BY_PIXELS}
           initialItemCount={1} // needed for SSR.
