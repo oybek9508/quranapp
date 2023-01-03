@@ -2,6 +2,10 @@ import { makeUrl, ITEMS_PER_PAGE } from "./api";
 import { QuranFont } from "src/constants/QuranReader";
 
 import { DEFAULT_RECITER } from "src/redux/defaultSettings";
+import {
+  getReadingPreferencesInitialState,
+  getTranslationsInitialState,
+} from "src/redux/defaultSettings/util";
 
 const DEFAULT_VERSES_PARAMS = {
   words: true,
@@ -17,10 +21,13 @@ const getVersesParams = (
 ) => {
   const defaultParams = {
     ...DEFAULT_VERSES_PARAMS,
+    translations:
+      getTranslationsInitialState(currentLocale).selectedTranslations.join(
+        ", "
+      ),
     reciter: DEFAULT_RECITER.id,
-    wordTranslationLanguage: "en",
-    translations: 101,
-    audio: 1,
+    wordTranslationLanguage:
+      getReadingPreferencesInitialState(currentLocale).selectedWordByWordLocale,
   };
 
   if (!includeTranslationFields) {
@@ -72,3 +79,6 @@ export const makeReciterUrl = (reciterId, locale) =>
   });
 
 export const makeChapterInfoUrl = (id) => makeUrl(`/chapters/${id}/info`);
+
+export const makeFootnoteUrl = (footnoteId) =>
+  makeUrl(`/foot_notes/${footnoteId}`);

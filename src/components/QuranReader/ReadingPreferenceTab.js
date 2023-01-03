@@ -12,13 +12,23 @@ import {
   selectReadingPreferences,
   setReadingPreference,
 } from "src/redux/slices/QuranReader/readingPreferences";
-import { ReadingPreference } from "src/constants/QuranReader";
+import {
+  QuranReaderDataType,
+  ReadingPreference,
+} from "src/constants/QuranReader";
 import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
 import { shallowEqual } from "react-redux";
 
 export default function ReadingPreferenceTab(props) {
   const dispatch = useDispatch();
-  const { singleChapter, id, initialData, quranReaderType } = props;
+  const {
+    singleChapter,
+    id,
+    initialData,
+    quranReaderType = QuranReaderDataType.Chapter,
+  } = props;
+
+  console.log("id", id);
   const quranReaderStyles = useSelector(selectQuranReaderStyles, shallowEqual);
   const { readingPreference } = useSelector(selectReadingPreferences);
   const isReadingPreference = readingPreference === ReadingPreference.Reading;
@@ -45,7 +55,6 @@ export default function ReadingPreferenceTab(props) {
         {/* <Banner data={singleChapter} value={readingPreference} /> */}
         <TabPanel value={Translation}>
           <TranslationView
-            value={readingPreference}
             initialData={initialData}
             resourceId={id}
             quranReaderType={quranReaderType}

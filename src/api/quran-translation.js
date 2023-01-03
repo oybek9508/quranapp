@@ -1,8 +1,9 @@
 import axios from "axios";
 import { api, BASE_URL } from "./api";
 import useSWR from "swr";
+import { makeFootnoteUrl } from "./apiPaths";
 
-const useSingleChapterTranslation = ({
+export const useSingleChapterTranslation = ({
   chapter_number,
   lang,
   //   fields,
@@ -24,4 +25,4 @@ const useSingleChapterTranslation = ({
   return { data, error, isLoading: !data && !error };
 };
 
-export { useSingleChapterTranslation };
+export const getFootnote = (footnoteId) => fetcher(makeFootnoteUrl(footnoteId));

@@ -77,9 +77,9 @@ const PageContainer = (props) => {
     }
   }, [pageNumber, setMushafPageToVersesMap, verses]);
 
-  if (!verses || isValidating) {
-    return <div>Error</div>;
-  }
+  // if (!verses || isValidating) {
+  //   return <div>Error</div>;
+  // }
 
   return (
     <Grid container justifyContent="center">
