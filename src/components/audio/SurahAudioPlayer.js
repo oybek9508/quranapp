@@ -1,15 +1,16 @@
 /* eslint-disable react/display-name */
-import { Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect, forwardRef, useRef, useContext } from "react";
 import { useSelector } from "@xstate/react";
 import dynamic from "next/dynamic";
 import { milliSecondsToSeconds } from "src/utils/datetime";
-import AudioPlayer from "react-h5-audio-player";
+// import AudioPlayer from "react-h5-audio-player";
 import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
 import "react-h5-audio-player/lib/styles.css";
 import { getChapterAudioData } from "src/api/quran-audio-api";
 import { QURANCDN_AUDIO_BASE_URL } from "src/utils/audio";
+import AudioPlayerBody from "./AudioPlayerBody";
 
 const AUDIO_DURATION_TOLERANCE = 2; // 2s ,
 
@@ -34,7 +35,7 @@ const getAudioPlayerDownloadProgress = (audioPlayer) => {
   return 0;
 };
 
-const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
+const AudioPlayer = forwardRef(({ chapterId }, ref) => {
   const audioPlayerRef = useRef();
   const audioService = useContext(AudioPlayerMachineContext);
 
@@ -45,6 +46,12 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
       audioPlayerRef: audioPlayerRef.current,
     });
   }, [audioService]);
+
+  const isVisible = useSelector(audioService, (state) =>
+    state.matches("VISIBLE")
+  );
+
+  console.log("isVisible", isVisible);
 
   const onCanPlay = () => {
     audioService.send({ type: "CAN_PLAY" });
@@ -134,6 +141,7 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
         boxShadow: theme.shadows[24],
         bgcolor: theme.palette.background.paper,
         zIndex: 1,
+        height: "100px",
       })}
     >
       {/* <AudioPlayer
@@ -164,7 +172,7 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
         onLoadStart={onLoadStart}
       /> */}
       <audio
-        // style={{ display: "none" }}
+        style={{ display: "none" }}
         id="audio-player"
         ref={audioPlayerRef}
         autoPlay
@@ -180,8 +188,9 @@ const SurahAudioPlayer = forwardRef(({ chapterId }, ref) => {
         onProgress={onProgress}
         // onLoadStart={onLoadStart}
       />
+      {isVisible && <AudioPlayerBody />}
     </Paper>
   );
 });
 
-export default SurahAudioPlayer;
+export default AudioPlayer;

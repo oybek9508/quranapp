@@ -1,18 +1,21 @@
-// import { getLangFullLocale, LANG_LOCALE_MAP } from './locale';
+import { getLangFullLocale, LANG_LOCALE_MAP } from "./locale";
 
 // // Converts seconds to (hours), minutes, and seconds
-// export const secondsFormatter = (seconds, locale) => {
-//   if (!seconds || Number.isNaN(seconds)) {
-//     return '';
-//   }
-//   return new Date(seconds * 1000).toLocaleTimeString(getLangFullLocale(locale), {
-//     timeZone: 'Etc/UTC',
-//     hour12: false,
-//     minute: '2-digit',
-//     second: '2-digit',
-//     ...(seconds >= 3600 && { hour: '2-digit' }), // only include hours if the duration is more than 60 minutes
-//   });
-// };
+export const secondsFormatter = (seconds, locale) => {
+  if (!seconds || Number.isNaN(seconds)) {
+    return "";
+  }
+  return new Date(seconds * 1000).toLocaleTimeString(
+    getLangFullLocale(locale),
+    {
+      timeZone: "Etc/UTC",
+      hour12: false,
+      minute: "2-digit",
+      second: "2-digit",
+      ...(seconds >= 3600 && { hour: "2-digit" }), // only include hours if the duration is more than 60 minutes
+    }
+  );
+};
 
 /**
  * Convert milliseconds to seconds.

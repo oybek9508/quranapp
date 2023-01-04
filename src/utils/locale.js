@@ -17,6 +17,8 @@ export const LANG_LOCALE_MAP = {
   ms: "ms-MY",
 };
 
+export const getLangFullLocale = (locale) => LANG_LOCALE_MAP[locale];
+
 let numberFormatter = null;
 let currentLanguageLocale = null;
 const getFormattedNumber = (formatter, value, showLeadingZero) => {
