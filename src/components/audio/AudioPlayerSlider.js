@@ -7,8 +7,9 @@ import { useRouter } from "next/router";
 // import useDirection from '@/hooks/useDirection';
 import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
 import { secondsFormatter } from "src/utils/datetime";
-import Slider, { SliderVariant } from "../common/Slider";
-import { Grid } from "@mui/material";
+import TrackSlider, { SliderVariant } from "../common/Slider";
+import { Grid, Typography } from "@mui/material";
+import NonLinearSlider from "../common/Slider/Slider";
 
 const AudioPlayerSlider = () => {
   const router = useRouter();
@@ -23,22 +24,31 @@ const AudioPlayerSlider = () => {
   );
   const duration = useSelector(audioService, (state) => state.context.duration);
   return (
-    <Grid container justifyContent="space-between">
-      <span style={{ display: "inline-block" }}>
-        {secondsFormatter(elapsed, "en")}
-      </span>
-      <Grid
-        sx={{
+    <Grid
+      container
+      justifyContent="space-between"
+      sx={{
+        color: "black",
+        minHeight: "30px",
+        fontSize: "16px",
+        marginBlock: "14px -22px",
+      }}
+    >
+      <Typography type="span" style={{ display: "inline-block" }}>
+        {secondsFormatter(elapsed, locale)}
+      </Typography>
+      <div
+        style={{
           display: "inline-block",
           position: "fixed",
-          left: "50%",
-          transform: "translate(50%, 0)",
+          left: 0,
+          transform: "translate(0, 0)",
           m: 0,
           width: "100%",
           height: "100px",
         }}
       >
-        <Slider
+        <TrackSlider
           showThumbs={false}
           variant="red"
           label="audio-player"
@@ -50,21 +60,19 @@ const AudioPlayerSlider = () => {
           direction="ltr"
           withBackground
         />
-        `{" "}
-      </Grid>
-      `
-      <Grid
-        sx={{
+      </div>
+      <div
+        style={{
           display: "inline-block",
           position: "fixed",
-          left: "50%",
-          transform: "translate(50%, 0)",
+          left: 0,
+          transform: "translate(0, 0)",
           m: 0,
           width: "100%",
           height: "100px",
         }}
       >
-        <Slider
+        <TrackSlider
           label="audio-player"
           value={[elapsed]}
           onValueChange={([newTimestamp]) => {
@@ -73,8 +81,10 @@ const AudioPlayerSlider = () => {
           max={duration}
           direction="ltr"
         />
-      </Grid>
-      <span>{secondsFormatter(duration, "en")}</span>
+      </div>
+      <span style={{ display: "inline-block" }}>
+        {secondsFormatter(duration, locale)}
+      </span>
     </Grid>
   );
 };

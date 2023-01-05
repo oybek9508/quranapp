@@ -8,6 +8,8 @@ import { selectIsLoading } from "src/xstate/actors/audioPlayer/selectors";
 import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
 import Spinner from "src/components/common/Spinner";
 import { withStopPropagation } from "src/utils/event";
+import CircularProgress from "src/components/common/CircularProgress";
+import { Button } from "@mui/material";
 
 const PlayPauseButton = () => {
   const audioService = useContext(AudioPlayerMachineContext);
@@ -15,26 +17,30 @@ const PlayPauseButton = () => {
   const isPlaying = useSelector(audioService, (state) =>
     state.matches("VISIBLE.AUDIO_PLAYER_INITIATED.PLAYING")
   );
-  const isLoading = useSelector(audioService, selectIsLoading);
+  //   const isLoading = useSelector(audioService, selectIsLoading);
 
-  if (isLoading) {
-    return <Spinner size={SpinnerSize.Large} />;
-  }
+  //   if (isLoading) {
+  //     return <CircularProgress />;
+  //   }
   if (isPlaying) {
     return (
-      <PauseCircleIcon
+      <Button
         onClick={withStopPropagation(() => {
           audioService.send("TOGGLE");
         })}
-      />
+      >
+        <PauseCircleIcon />
+      </Button>
     );
   }
   return (
-    <PlayCircleFilledOutlinedIcon
+    <Button
       onClick={withStopPropagation(() => {
         audioService.send("TOGGLE");
       })}
-    />
+    >
+      <PlayCircleFilledOutlinedIcon />
+    </Button>
   );
 };
 

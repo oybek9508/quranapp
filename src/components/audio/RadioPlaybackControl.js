@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import { useActor } from "@xstate/react";
 import PlayPauseButton from "./Button/PlayPauseButton";
 
@@ -7,13 +8,18 @@ const RadioPlaybackControl = ({ radioActor }) => {
   //   const [radioService] = useActor(radioActor);
   //   const stationInfo = useCurrentStationInfo(radioService.context);
   return (
-    <div>
+    <Grid
+      container
+      justifyContent="space-between"
+      alignItems="center"
+      sx={{ height: "100%", maxWidth: "100%" }}
+    >
       <div>
         {/* <div>{stationInfo.title}</div>
         <div>{stationInfo.description}</div> */}
       </div>
       <PlayPauseButton />
-    </div>
+    </Grid>
   );
 };
 

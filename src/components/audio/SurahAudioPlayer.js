@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { Box, Paper } from "@mui/material";
+import { Box, CircularProgress, Paper } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect, forwardRef, useRef, useContext } from "react";
 import { useSelector } from "@xstate/react";
@@ -10,7 +10,16 @@ import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext"
 import "react-h5-audio-player/lib/styles.css";
 import { getChapterAudioData } from "src/api/quran-audio-api";
 import { QURANCDN_AUDIO_BASE_URL } from "src/utils/audio";
-import AudioPlayerBody from "./AudioPlayerBody";
+// import AudioPlayerBody from "./AudioPlayerBody";
+
+const AudioPlayerBody = dynamic(() => import("./AudioPlayerBody"), {
+  ssr: false,
+  loading: () => (
+    <div>
+      <CircularProgress sx={{ width: "20px", height: "20px" }} />
+    </div>
+  ),
+});
 
 const AUDIO_DURATION_TOLERANCE = 2; // 2s ,
 
@@ -132,45 +141,21 @@ const AudioPlayer = forwardRef(({ chapterId }, ref) => {
   // };
 
   return (
-    <Paper
+    <Box
       sx={(theme) => ({
         position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
+        opacity: 1,
+        width: "100%",
+        insetBlockEnd: 0,
+        textAlign: "center",
+        willChange: "transform",
+        display: !isVisible && "none",
         boxShadow: theme.shadows[24],
         bgcolor: theme.palette.background.paper,
         zIndex: 1,
-        height: "100px",
+        // height: "60px",
       })}
     >
-      {/* <AudioPlayer
-        ref={audioPlayerRef}
-        id="audio-player"
-        style={{ backgroundColor: "inherit" }}
-        autoPlay
-        layout="horizontal"
-        src={`${QURANCDN_AUDIO_BASE_URL}${currentChapterAudio[trackIndex]?.url}`}
-        onPlay={(e) => console.log("onPlay")}
-        header={`Now playing: ${chapterId}`}
-        footer="All music from: www.bensound.com"
-        onEnded={handleClickNext}
-        showSkipControls={true}
-        showJumpControls={true}
-        onClickPrevious={handleClickPrevious}
-        onClickNext={handleClickNext}
-        preload="auto"
-        onCanPlay={onCanPlay}
-        onTimeUpdate={onTimeUpdate}
-        onEnded={onEnded}
-        onSeeking={onSeeking}
-        onSeeked={onSeeked}
-        onError={onError}
-        onPlay={onPlay}
-        onPause={onPause}
-        onProgress={onProgress}
-        onLoadStart={onLoadStart}
-      /> */}
       <audio
         style={{ display: "none" }}
         id="audio-player"
@@ -189,7 +174,7 @@ const AudioPlayer = forwardRef(({ chapterId }, ref) => {
         // onLoadStart={onLoadStart}
       />
       {isVisible && <AudioPlayerBody />}
-    </Paper>
+    </Box>
   );
 });
 

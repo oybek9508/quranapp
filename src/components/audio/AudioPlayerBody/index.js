@@ -19,13 +19,13 @@ const AudioPlayerBody = () => {
 
   return (
     <>
-      <Grid container>
+      <Grid container alignItems="center" px={2}>
         <AudioKeyBoardListeners
           togglePlaying={() => audioService.send("TOGGLE")}
           isAudioPlayerHidden={false}
         />
         {!isRadioMode && (
-          <Grid sx={{ width: "100%" }}>
+          <Grid container alignItems="center" sx={{ width: "100%" }}>
             <AudioPlayerSlider />
           </Grid>
         )}

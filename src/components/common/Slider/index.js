@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 
 import * as SliderPrimitive from "@radix-ui/react-slider";
+import { Box, useTheme } from "@mui/material";
 
 export const Orientation = {
   Horizontal: "horizontal",
@@ -17,7 +18,7 @@ export const SliderVariant = {
   Secondary: "secondary",
 };
 
-const Slider = ({
+const TrackSlider = ({
   label,
   name,
   onValueChange,
@@ -31,60 +32,68 @@ const Slider = ({
   defaultValue,
   value,
   showThumbs = true,
-  variant = "SliderVariant.Primary",
+  variant = SliderVariant.Primary,
   withBackground = false,
 }) => {
+  const theme = useTheme();
   const values = value || defaultValue;
 
   return (
-    <SliderPrimitive.Slider
-      min={min}
-      max={max}
-      step={step}
-      minStepsBetweenThumbs={minStepsBetweenThumbs}
-      dir={direction}
-      orientation={orientation}
-      disabled={disabled}
-      aria-label={label}
-      {...(defaultValue && { defaultValue })}
-      {...(value && { value })}
-      {...(onValueChange && { onValueChange })}
-      {...(name && { name })}
-      style={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        useSelect: "none",
-        touchAction: "none",
-      }}
-    >
-      <SliderPrimitive.Track
-        // className={classNames(
-        //   styles.track,
-        //   withBackground && styles.trackBackground
-        // )}
-        style={{ position: "relative", flexGrow: 1, backgroundColor: "red" }}
+    <Box sx={{ width: "100%", marginTop: "-14px" }}>
+      <SliderPrimitive.Root
+        min={min}
+        max={max}
+        step={step}
+        minStepsBetweenThumbs={minStepsBetweenThumbs}
+        dir={direction}
+        orientation={orientation}
+        disabled={disabled}
+        aria-label={label}
+        {...(defaultValue && { defaultValue })}
+        {...(value && { value })}
+        {...(onValueChange && { onValueChange })}
+        {...(name && { name })}
+        style={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          useSelect: "none",
+          touchAction: "none",
+          //   backgroundColor: "red",
+        }}
       >
-        <SliderPrimitive.Range
+        <SliderPrimitive.Track
           style={{
-            position: "absolute",
-            height: "100%",
-            backgroundColor: "red",
+            position: "relative",
+            flexGrow: 1,
+            height: "3px",
+            opacity: 0.3,
+            backgroundColor: withBackground && theme.palette.grey[600],
           }}
-          //   className={classNames(styles.range, {
-          //     [styles.primary]: variant === SliderVariant.Primary,
-          //     [styles.secondary]: variant === SliderVariant.Secondary,
-          //   })}
-        />
-      </SliderPrimitive.Track>
-      {showThumbs &&
-        values.map((...[, index]) => (
-          <SliderPrimitive.Thumb
-            key={index}
-            style={{ display: "block", all: "unset" }}
+        >
+          <SliderPrimitive.Range
+            style={{
+              position: "absolute",
+              height: "100%",
+              backgroundColor: theme.palette.grey[600],
+            }}
           />
-        ))}
-    </SliderPrimitive.Slider>
+        </SliderPrimitive.Track>
+        {showThumbs &&
+          values.map((...[, index]) => (
+            <SliderPrimitive.Thumb
+              key={index}
+              style={{
+                display: "block",
+                width: "13px",
+                height: "13px",
+                backgroundColor: theme.palette.text.primary,
+                borderRadius: "50%",
+              }}
+            />
+          ))}
+      </SliderPrimitive.Root>
+    </Box>
   );
 };
-export default memo(Slider);
+export default memo(TrackSlider);
