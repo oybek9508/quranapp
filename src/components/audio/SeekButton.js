@@ -42,9 +42,9 @@ const SeekButton = ({ type, isLoading }) => {
   return (
     <Button onClick={onSeek}>
       {type === SeekButtonType.PrevAyah ? (
-        <FastRewindIcon />
+        <FastRewindIcon sx={{ fontSize: "2.0rem" }} />
       ) : (
-        <FastForwardIcon />
+        <FastForwardIcon sx={{ fontSize: "2.0rem" }} />
       )}
     </Button>
   );

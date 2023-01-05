@@ -31,7 +31,7 @@ const AudioPlayerSlider = () => {
         color: "black",
         minHeight: "30px",
         fontSize: "16px",
-        marginBlock: "14px -22px",
+        marginBlock: "14px -38px",
       }}
     >
       <Typography type="span" style={{ display: "inline-block" }}>

@@ -29,7 +29,7 @@ const PlayPauseButton = () => {
           audioService.send("TOGGLE");
         })}
       >
-        <PauseCircleIcon />
+        <PauseCircleIcon sx={{ fontSize: "2.0rem" }} />
       </Button>
     );
   }
@@ -39,7 +39,7 @@ const PlayPauseButton = () => {
         audioService.send("TOGGLE");
       })}
     >
-      <PlayCircleFilledOutlinedIcon />
+      <PlayCircleFilledOutlinedIcon sx={{ fontSize: "2.0rem" }} />
     </Button>
   );
 };
