@@ -19,6 +19,7 @@ import {
   AudioPlayerMachineContext,
   AudioPlayerMachineProvider,
 } from "src/xstate/AudioPlayerMachineContext";
+import AudioPlayer from "src/components/audio/SurahAudioPlayer";
 
 // const clientSideEmotionCache = createEmotionCache();
 
@@ -48,6 +49,7 @@ function App({ props }) {
           >
             <CssBaseline />
             <Component {...pageProps} />
+            <AudioPlayer />
           </Layout>
         </ThemeProvider>
       </AudioPlayerMachineProvider>

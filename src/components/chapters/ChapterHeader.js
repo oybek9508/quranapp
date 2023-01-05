@@ -13,7 +13,6 @@ import { QuranFont } from "src/constants/QuranReader";
 import { selectQuranReaderStyles } from "src/redux/slices/QuranReader/styles";
 import { selectTheme } from "src/redux/slices/theme";
 import { ThemeTypes } from "src/styles/theme/modes";
-import SurahAudioPlayer from "../audio/SurahAudioPlayer";
 import Bismillah from "../common/Bismillah";
 // import Bismillah from "../common/Bismillah";
 import {
@@ -31,6 +30,7 @@ import {
 import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
 import Spinner from "../common/Spinner";
 import { useRouter } from "next/router";
+import PlayChapterAudioButton from "../QuranReader/PlayChapterAudioButton";
 
 const CHAPTERS_WITHOUT_BISMILLAH = ["1", "9"];
 
@@ -47,39 +47,8 @@ const ChapterHeader = ({
   const headerRef = useRef(null);
   const dispatch = useDispatch();
   const [isPlayingState, setIsPlayingState] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const { type } = useSelector(selectTheme, shallowEqual);
   const { quranFont } = useSelector(selectQuranReaderStyles, shallowEqual);
-  const audioState = useSelector(selectAudioState, shallowEqual);
-
-  const audioService = useContext(AudioPlayerMachineContext);
-
-  const isLoadingCurrentChapter = xStateSelector(audioService, (state) =>
-    selectIsLoadingCurrentChapter(state, chapterId)
-  );
-
-  const isPlayingCurrentChapter = xStateSelector(audioService, (state) =>
-    selectIsPlayingCurrentChapter(state, chapterId)
-  );
-
-  const handleVisible = () => {
-    setIsVisible(true);
-    setIsPlayingState(!isPlayingState);
-  };
-
-  const play = () => {
-    audioService.send({
-      type: "PLAY_SURAH",
-      surah: chapterId,
-      reciterId: 7,
-    });
-  };
-
-  const pause = () => {
-    audioService.send({
-      type: "TOGGLE",
-    });
-  };
 
   return (
     <Grid>
@@ -106,7 +75,6 @@ const ChapterHeader = ({
           </Grid>
         )}
       </div>
-      {isVisible && <SurahAudioPlayer chapterId={chapterId} ref={audioRef} />}
       <Box
         sx={{
           display: "flex",
@@ -114,7 +82,6 @@ const ChapterHeader = ({
           justifyContent: "space-between",
           mb: 4,
         }}
-        onClick={handleVisible}
       >
         <Box
           sx={{
@@ -131,18 +98,7 @@ const ChapterHeader = ({
         >
           <ReportIcon sx={{ mr: 1 }} /> <Typography>Surah Info</Typography>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          {isLoadingCurrentChapter ? (
-            <CircularProgress
-              style={{ width: "20px", height: "20px", marginRight: "8px" }}
-            />
-          ) : isPlayingCurrentChapter ? (
-            <PauseCircleIcon sx={{ mr: 1 }} onClick={pause} />
-          ) : (
-            <PlayCircleFilledOutlinedIcon sx={{ mr: 1 }} onClick={play} />
-          )}
-          <Typography sx={{ textAlign: "end" }}>Play Audio</Typography>
-        </Box>
+        <PlayChapterAudioButton chapterId={Number(chapterId)} />
       </Box>
     </Grid>
   );

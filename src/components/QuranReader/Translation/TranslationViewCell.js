@@ -31,7 +31,6 @@ const TranslationViewCell = (props) => {
     return makeVerseKey(surah, ayahNumber) === verse.verseKey;
   });
 
-  console.log("verse", verse);
   return (
     <Grid sx={{ bgcolor: isHighlighted && "yellow" }}>
       <Grid

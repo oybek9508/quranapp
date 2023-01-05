@@ -48,19 +48,13 @@ const PlayVerseAudioButton = ({
 
   if (isVerseLoading) {
     return (
-      <Button>
-        <CircularProgress
-          style={{ width: "20px", height: "20px", marginRight: "8px" }}
-        />
-      </Button>
+      <CircularProgress
+        style={{ width: "20px", height: "20px", marginRight: "8px" }}
+      />
     );
   }
 
-  return (
-    // <Button onClick={onPlayClicked} disableRipple sx={{ mx: 0 }}>
-    <PlayCircleFilledOutlinedIcon onClick={onPlayClicked} />
-    // </Button>
-  );
+  return <PlayCircleFilledOutlinedIcon onClick={onPlayClicked} />;
 };
 
 export default PlayVerseAudioButton;
