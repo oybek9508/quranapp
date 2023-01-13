@@ -41,6 +41,7 @@
     "eslint-config-next": "13.0.2",
     "formik": "^2.2.9",
     "fs": "0.0.1-security",
+    "fuse.js": "^6.6.2",
     "humps": "^2.0.1",
     "jotai": "^1.9.1",
     "jsencrypt": "^3.3.1",

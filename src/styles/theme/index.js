@@ -13,7 +13,7 @@ export const getDesignTokens = (mode) => {
     palette: {
       ...(mode === ThemeTypes.Light && {
         background: {
-          default: grey[100],
+          default: "#fff",
           // paper: "#fff",
         },
         primary: {

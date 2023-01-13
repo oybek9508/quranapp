@@ -82,3 +82,20 @@ export const makeChapterInfoUrl = (id) => makeUrl(`/chapters/${id}/info`);
 
 export const makeFootnoteUrl = (footnoteId) =>
   makeUrl(`/foot_notes/${footnoteId}`);
+
+export const makeJuzVersesUrl = (id, currentLocale, params) =>
+  makeUrl(`/verses/by_juz/${id}`, getVersesParams(currentLocale, params));
+
+export const makeHizbVersesUrl = (id, currentLocale, params) =>
+  makeUrl(`/verses/by_hizb/${id}`, getVersesParams(currentLocale, params));
+
+export const makePageVersesUrl = (
+  id,
+  currentLocale,
+  params,
+  includeTranslationFields = true
+) =>
+  makeUrl(
+    `/verses/by_page/${id}`,
+    getVersesParams(currentLocale, params, includeTranslationFields)
+  );

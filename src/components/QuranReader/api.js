@@ -1,5 +1,11 @@
 import { fetcher, getDefaultWordFields } from "src/api/api";
-import { makeVersesByPageUrl, makeVersesUrl } from "src/api/apiPaths";
+import {
+  makeHizbVersesUrl,
+  makeJuzVersesUrl,
+  makePageVersesUrl,
+  makeVersesByPageUrl,
+  makeVersesUrl,
+} from "src/api/apiPaths";
 import { QuranReaderDataType } from "src/constants/QuranReader";
 import { getMushafId } from "src/utils/api";
 

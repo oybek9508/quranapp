@@ -69,11 +69,13 @@ export const getStaticProps = async ({ params, locale }) => {
     });
     const firstPageOfJuz = Object.keys(pagesLookupResponse.pages)[0];
     const firstPageOfJuzLookup = pagesLookupResponse.pages[firstPageOfJuz];
-    // const numberOfVerses = generateVerseKeysBetweenTwoVerseKeys(
-    //   chaptersData,
-    //   pagesLookupResponse.lookupRange.from,
-    //   pagesLookupResponse.lookupRange.to
-    // ).length;
+
+    const numberOfVerses = generateVerseKeysBetweenTwoVerseKeys(
+      chaptersData,
+      pagesLookupResponse.lookupRange.from,
+      pagesLookupResponse.lookupRange.to
+    ).length;
+
     apiParams = {
       ...apiParams,
       ...{
@@ -84,12 +86,14 @@ export const getStaticProps = async ({ params, locale }) => {
     };
 
     const juzVersesResponse = await getJuzVerses(juzId, locale, apiParams);
+    const metaData = { numberOfVerses };
     return {
       props: {
         chaptersData,
         juzVerses: {
           ...juzVersesResponse,
           pagesLookup: pagesLookupResponse,
+          metaData,
         },
       },
       revalidate: ONE_WEEK_REVALIDATION_PERIOD_SECONDS, // verses will be generated at runtime if not found in the cache, then cached for subsequent requests for 7 days.

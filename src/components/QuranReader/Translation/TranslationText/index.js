@@ -21,7 +21,6 @@ const Index = (props) => {
 
   const hideFootnote = () => setShowFootnote(false);
 
-  console.log("text", text);
   return (
     <Grid>
       <div

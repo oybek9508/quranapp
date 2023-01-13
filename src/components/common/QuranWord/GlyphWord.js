@@ -42,9 +42,9 @@ const GlyphWord = ({
         fontFamily: !isFontLoaded && "UthmanicHafs !important",
         fontSize: "2.5rem",
       }}
+      data-font-scale={quranTextFontScale}
       data-font={font}
       {...(isFontLoaded && {
-        // eslint-disable-next-line i18next/no-literal-string
         style: {
           fontFamily: `p${pageNumber}-${font.replace("code_", "")}`,
         },

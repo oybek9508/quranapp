@@ -37,14 +37,14 @@ function App({ props }) {
   console.log("theme", theme);
 
   return (
-    <DataContext.Provider value={pageProps.chaptersData}>
+    <DataContext.Provider value={pageProps?.chaptersData}>
       <AudioPlayerMachineProvider>
         <ThemeProvider theme={theme}>
           <Layout
             type="back"
             singleChapter={{
-              ...chaptersData[chapterId],
-              id: chapterId,
+              ...pageProps?.chaptersData[pageProps?.chapterId],
+              id: pageProps?.chapterId,
             }}
           >
             <CssBaseline />

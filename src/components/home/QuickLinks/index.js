@@ -12,7 +12,7 @@ const QUICK_LINKS = [
     key: "yaseen",
   },
   {
-    slug: "ayatul-kursi",
+    slug: "2/255",
     key: "ayat-ul-kursi",
   },
   {

@@ -1,13 +1,23 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { selectNavbar } from "src/redux/slices/navbar";
-import { setToggleDrawer } from "src/redux/slices/navbar";
-import { Divider, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Grid,
+  Toolbar,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import BasicTabs from "src/components/common/Tabs";
-import QuranFontSection from "./QuranFontSection";
-import ThemeSection from "./ThemeSection";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import {
+  selectNavbar,
+  setIsSearchDrawerOpen,
+  setToggleDrawer,
+} from "src/redux/slices/navbar";
+import DataContext from "src/context/DataContext";
+import SurahList from "./SurahList";
+import SearchTypeTabs from "./SearchTypeTabs";
 
 const Header = ({ toggleDrawer }) => {
   return (
@@ -18,9 +28,13 @@ const Header = ({ toggleDrawer }) => {
   );
 };
 
-export default function SettingsDrawer() {
+const SearchDrawer = () => {
   const dispatch = useDispatch();
-  const { open } = useSelector(selectNavbar, shallowEqual);
+  const theme = useTheme();
+  const chaptersData = useContext(DataContext);
+
+  console.log("chaptersData", chaptersData);
+  const { isSearchDrawerOpen } = useSelector(selectNavbar, shallowEqual);
 
   const toggleDrawer = () => (event) => {
     if (
@@ -30,33 +44,37 @@ export default function SettingsDrawer() {
     ) {
       return;
     }
-    dispatch(setToggleDrawer(!open));
+    dispatch(setIsSearchDrawerOpen(!isSearchDrawerOpen));
   };
 
   return (
     <Grid>
       <React.Fragment>
         <SwipeableDrawer
-          anchor="right"
-          open={open}
-          position="relative"
+          anchor="left"
+          open={isSearchDrawerOpen}
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
           transitionDuration={500}
+          sx={{ zIndex: theme.zIndex.appBar - 200 }}
           PaperProps={{
             sx: {
               width: "30%",
-              zIndex: 999999,
+              //   overflow: "hidden",
             },
           }}
           BackdropProps={{ invisible: true }}
         >
+          <Toolbar />
+          <Toolbar />
+          {/* <Box sx={{ height: "40px" }} /> */}
           <Header toggleDrawer={toggleDrawer} />
           <Divider />
-          <ThemeSection />
-          <QuranFontSection />
+          <SearchTypeTabs />
         </SwipeableDrawer>
       </React.Fragment>
     </Grid>
   );
-}
+};
+
+export default SearchDrawer;
