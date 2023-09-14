@@ -71,13 +71,13 @@ const SurahList = () => {
   console.log("router :>> ", router);
 
   return (
-    <Grid container direction="column" sx={{ flex: 1, height: "100%", pr: 2 }}>
+    <Grid container direction="column" sx={{ flex: 1, height: "100%" }}>
       <form onSubmit={handleSurahInputSubmit}>
         <input
           style={{
             boxSizing: "border-box",
             border: "none",
-            width: "100%",
+            // width: "100%",
             height: "40px",
             paddingLeft: "16px",
             paddingRight: "16px",

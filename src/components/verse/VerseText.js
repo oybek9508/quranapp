@@ -81,7 +81,9 @@ const VerseText = ({
           lineHeight: "normal",
           fontSize: "0.5rem",
           fontFamily: "UthmanicHafs",
-          fontWeight: 600,
+          fontSmooth: "auto",
+          letterSpacing: "initial",
+          // fontWeight: 600,
         }}
       >
         {words?.map((word) => (

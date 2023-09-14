@@ -59,7 +59,7 @@ const SearchDrawer = () => {
           sx={{ zIndex: theme.zIndex.appBar - 200 }}
           PaperProps={{
             sx: {
-              width: "30%",
+              width: "450px",
               //   overflow: "hidden",
             },
           }}

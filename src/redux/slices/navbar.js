@@ -1,6 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import SliceNames from "../constants/SliceNames";
 
+export const SettingsView = {
+  Body: "body",
+  Translation: "translation",
+  Reciter: "reciter",
+  Tafsir: "tafsir",
+  RepeatSettings: "repeatSettings",
+};
+
 const navbarSlice = createSlice({
   name: "navbar",
   initialState: {
@@ -14,12 +22,16 @@ const navbarSlice = createSlice({
     setIsSearchDrawerOpen: (state, action) => {
       state.isSearchDrawerOpen = action.payload;
     },
+    setSettingsView: (state, action) => {
+      state.settingsView = action.payload;
+    },
   },
 });
 
 export const toggleDrawer = () => (dispatch, event) => {};
 
-export const { setToggleDrawer, setIsSearchDrawerOpen } = navbarSlice.actions;
+export const { setToggleDrawer, setIsSearchDrawerOpen, setSettingsView } =
+  navbarSlice.actions;
 
 export const selectNavbar = (state) => state.navbar;
 
