@@ -46,14 +46,19 @@ const VerseText = ({
   );
 
   const firstWordData = getFirstWordOfSurah(location);
+  const { chapterId } = firstWordData;
   const isTajweedFont = quranFont === QuranFont.Tajweed;
   const isBigTextLayout = isReadingMode && quranTextFontScale > 3;
+
   const fontClassName = isFontLoaded
     ? getFontClassName(quranFont, quranTextFontScale, mushafLines)
     : getFontClassName(FALLBACK_FONT, quranTextFontScale, mushafLines, true);
 
   return (
     <Grid
+      data-page={pageNumber}
+      data-chapter-id={chapterId}
+      data-hizb={hizbNumber}
       sx={{
         display: isBigTextLayout ? "inline" : "block",
         bgcolor: isHighlighted && theme.palette.background.paper,
@@ -74,9 +79,11 @@ const VerseText = ({
         sx={{
           display: isBigTextLayout ? "inline" : "flex",
           lineHeight: "normal",
-          fontSize: "2.5rem",
+          fontSize: "0.5rem",
           fontFamily: "UthmanicHafs",
-          fontWeight: 500,
+          fontSmooth: "auto",
+          letterSpacing: "initial",
+          // fontWeight: 600,
         }}
       >
         {words?.map((word) => (

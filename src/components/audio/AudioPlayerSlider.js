@@ -8,11 +8,12 @@ import { useRouter } from "next/router";
 import { AudioPlayerMachineContext } from "src/xstate/AudioPlayerMachineContext";
 import { secondsFormatter } from "src/utils/datetime";
 import TrackSlider, { SliderVariant } from "../common/Slider";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, useTheme } from "@mui/material";
 import NonLinearSlider from "../common/Slider/Slider";
 
 const AudioPlayerSlider = () => {
   const router = useRouter();
+  const theme = useTheme();
   const { locale } = router;
   //   const direction = useDirection();
 
@@ -34,7 +35,10 @@ const AudioPlayerSlider = () => {
         marginBlock: "14px -38px",
       }}
     >
-      <Typography type="span" style={{ display: "inline-block" }}>
+      <Typography
+        type="span"
+        sx={{ display: "inline-block", color: theme.palette.text.primary }}
+      >
         {secondsFormatter(elapsed, locale)}
       </Typography>
       <div
@@ -82,9 +86,12 @@ const AudioPlayerSlider = () => {
           direction="ltr"
         />
       </div>
-      <span style={{ display: "inline-block" }}>
+      <Typography
+        type="span"
+        style={{ display: "inline-block", color: theme.palette.text.primary }}
+      >
         {secondsFormatter(duration, locale)}
-      </span>
+      </Typography>
     </Grid>
   );
 };

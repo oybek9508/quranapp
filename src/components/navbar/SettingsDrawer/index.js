@@ -8,6 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import BasicTabs from "src/components/common/Tabs";
 import QuranFontSection from "./QuranFontSection";
 import ThemeSection from "./ThemeSection";
+import AudioSection from "./AudioSection";
 
 const Header = ({ toggleDrawer }) => {
   return (
@@ -39,11 +40,14 @@ export default function SettingsDrawer() {
         <SwipeableDrawer
           anchor="right"
           open={open}
+          position="relative"
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
+          transitionDuration={500}
           PaperProps={{
             sx: {
               width: "30%",
+              zIndex: 999999,
             },
           }}
           BackdropProps={{ invisible: true }}
@@ -52,6 +56,7 @@ export default function SettingsDrawer() {
           <Divider />
           <ThemeSection />
           <QuranFontSection />
+          <AudioSection />
         </SwipeableDrawer>
       </React.Fragment>
     </Grid>

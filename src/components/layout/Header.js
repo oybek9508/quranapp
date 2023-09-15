@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 import { styled, alpha } from "@mui/material/styles";
-import { useTheme } from "@mui/material";
+import { Button, ButtonBase, Grid, useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,7 +17,16 @@ import { amber, deepOrange } from "@mui/material/colors";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SettingsDrawer from "../navbar/SettingsDrawer";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { selectNavbar, setToggleDrawer } from "src/redux/slices/navbar";
+import {
+  selectNavbar,
+  setIsSearchDrawerOpen,
+  setToggleDrawer,
+} from "src/redux/slices/navbar";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useState } from "react";
+import SearchDrawer from "../navbar/SearchDrawer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,9 +71,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header({ type = "menu", singleChapter }) {
+  console.log("singleChapter", singleChapter);
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { open } = useSelector(selectNavbar, shallowEqual);
+  const { open, isSearchDrawerOpen } = useSelector(selectNavbar, shallowEqual);
   const router = useRouter();
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -73,6 +83,7 @@ export default function Header({ type = "menu", singleChapter }) {
         sx={(theme) => ({
           bgcolor: theme.palette.background.paper,
           color: "#000",
+          // zIndex: theme.zIndex.drawer + 1,
         })}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -116,6 +127,25 @@ export default function Header({ type = "menu", singleChapter }) {
             </Search>
           </Box>
         </Toolbar>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
+          }}
+        >
+          <Button>{singleChapter?.transliteratedName}</Button>
+          <Button
+            onClick={() => dispatch(setIsSearchDrawerOpen(!isSearchDrawerOpen))}
+          >
+            {isSearchDrawerOpen ? (
+              <KeyboardArrowDownIcon />
+            ) : (
+              <KeyboardArrowUpIcon />
+            )}
+          </Button>
+          <SearchDrawer />
+        </Box>
       </AppBar>
     </Box>
   );

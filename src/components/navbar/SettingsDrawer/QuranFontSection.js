@@ -13,7 +13,6 @@ import Section from "./Section";
 const QuranFontSection = () => {
   const dispatch = useDispatch();
   const quranReaderStyles = useSelector(selectQuranReaderStyles, shallowEqual);
-  console.log("quranReaderStyles", quranReaderStyles);
 
   const { quranFont, quranTextFontScale, mushafLines } = quranReaderStyles;
 

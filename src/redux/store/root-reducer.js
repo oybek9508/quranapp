@@ -6,6 +6,7 @@ import navbarSlice from "../slices/navbar";
 import audioSlice from "../slices/AudioPlayer/state";
 import readingViewVerse from "../slices/QuranReader/readingViewVerse";
 import translations from "../slices/QuranReader/translations";
+import readingTracker from "../slices/QuranReader/readingTracker";
 
 export const rootReducer = combineReducers({
   theme: themeSlice,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   audioSlice,
   readingViewVerse,
   translations,
+  readingTracker,
 });
