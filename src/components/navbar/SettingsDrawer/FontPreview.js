@@ -19,7 +19,6 @@ const FontPreview = (props) => {
 	const { quranFont } = quranReaderStyles;
 	const isTajweed = quranFont === QuranFont.Tajweed;
 	const { data: sampleVerse } = useSWR(SWR_SAMPLE_VERSE_KEY, () => getSampleVerse());
-	console.log("sampleVerse", sampleVerse);
 
 	let verse;
 	if (isTajweed) {

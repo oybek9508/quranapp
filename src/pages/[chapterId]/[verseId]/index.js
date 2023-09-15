@@ -15,7 +15,6 @@ import { getToAndFromFromRange, isValidVerseId, isValidVerseNumber, isValidVerse
 import { generateVerseKeysBetweenTwoVerseKeys } from "src/utils/verseKeys";
 
 const VersePage = (props) => {
-	console.log("props", props);
 	const { chaptersData, chapterResponse, versesResponse, isVerse } = props;
 
 	return (

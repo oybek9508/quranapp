@@ -14,7 +14,6 @@ import "../styles/globals.css";
 
 function App({ props }) {
 	const { Component, pageProps } = props;
-	console.log("pageProps", pageProps);
 	const { chaptersData, chapterId } = pageProps;
 	const { type } = useSelector(selectTheme, shallowEqual);
 
@@ -27,7 +26,7 @@ function App({ props }) {
 					<Layout
 						type="back"
 						singleChapter={{
-							...pageProps?.chaptersData[pageProps?.chapterId],
+							...(pageProps?.chaptersData[pageProps?.chapterId] ?? {}),
 							id: pageProps?.chapterId,
 						}}
 					>
