@@ -13,7 +13,7 @@ import TranslationView from "./Translation/TranslationView";
 
 export default function ReadingPreferenceTab(props) {
 	const dispatch = useDispatch();
-	const { singleChapter, id, initialData, quranReaderType = QuranReaderDataType.Chapter } = props;
+	const { id, initialData, quranReaderType = QuranReaderDataType.Chapter } = props;
 
 	const quranReaderStyles = useSelector(selectQuranReaderStyles, shallowEqual);
 	const { readingPreference } = useSelector(selectReadingPreferences);
@@ -37,7 +37,6 @@ export default function ReadingPreferenceTab(props) {
 						<Tab label={Reading} value={Reading} />
 					</TabList>
 				</Box>
-				{/* <Banner data={singleChapter} value={readingPreference} /> */}
 				<TabPanel value={Translation}>
 					<TranslationView
 						initialData={initialData}

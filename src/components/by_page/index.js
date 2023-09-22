@@ -27,7 +27,13 @@ const Pages = () => {
 							borderRadius: "5px",
 							m: 1,
 						}}
-						onClick={() => router.push(`/page/${idx + 1}`)}
+						onClick={() =>
+							// router.push(`/page/${idx + 1}`)
+							{
+								router.push("/");
+								console.log(`page ${idx + 1}`);
+							}
+						}
 					>
 						<MenuItem sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
 							<Typography>{idx + 1}-Sahifa</Typography>

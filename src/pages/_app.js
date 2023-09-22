@@ -14,8 +14,10 @@ import "../styles/globals.css";
 
 function App({ props }) {
 	const { Component, pageProps } = props;
-	const { chaptersData, chapterId } = pageProps;
+
 	const { type } = useSelector(selectTheme, shallowEqual);
+
+	console.log("pageProps", pageProps);
 
 	const theme = useMemo(() => createTheme(getDesignTokens(type), { mode: type }), [type]);
 
@@ -25,10 +27,12 @@ function App({ props }) {
 				<ThemeProvider theme={theme}>
 					<Layout
 						type="back"
-						singleChapter={{
-							...(pageProps?.chaptersData[pageProps?.chapterId] ?? {}),
-							id: pageProps?.chapterId,
-						}}
+						singleChapter={
+							{
+								// ...pageProps?.chaptersData[pageProps?.chapterId],
+								// id: pageProps?.chapterId,
+							}
+						}
 					>
 						<CssBaseline />
 						<Component {...pageProps} />

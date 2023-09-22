@@ -34,7 +34,7 @@ const SurahDetail = (props) => {
 				<ReadingPreferenceTab
 					initialData={chapterData}
 					id={chapterResponse.chapter.id}
-					singleChapter={{ ...chaptersData[chapterId], id: chapterId }}
+					// singleChapter={{ ...chaptersData[chapterId], id: chapterId }}
 					quranReaderType={isChapter ? QuranReaderDataType.Chapter : QuranReaderDataType.Verse}
 				/>
 			</Grid>
